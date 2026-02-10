@@ -1,0 +1,5 @@
+At the end of each module, we’ll share a list of additional resources for you to explore. These resources will enable you to dive deeper into the concepts that resonate with your work or your career aspirations. You are not required to review these resources.
+
+Brownlee, Jason. “Logistic Regression for Machine Learning.” Machine Learning Mastery. Last updated December 6, 2023. https://machinelearningmastery.com/logistic-regression-for-machine-learning/ Links to an external site..
+“Logistic Regression in Machine Learning.” Last modified June 20, 2024. https://www.geeksforgeeks.org/understanding-logistic-regression/ Links to an external site..
+Scikit-Learn. “LogisticRegression.” Accessed July 12, 2024. https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html Links to an external site.

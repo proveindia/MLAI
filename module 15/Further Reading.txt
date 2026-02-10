@@ -1,0 +1,7 @@
+Module 15: Additional Resources, Further Reading, Bibliography, and More to Explore
+At the end of each module, we’ll share a list of additional resources for you to explore. These resources will enable you to dive deeper into the concepts that resonate with your work or your career aspirations. You are not required to review these resources.
+
+GeeksforGeeks. “Gradient Descent Algorithm in Machine Learning.” Last modified January 24, 2024. https://www.geeksforgeeks.org/gradient-descent-algorithm-and-its-variants/ Links to an external site..
+IBM. “What Is Gradient Descent?”. Accessed July 20, 2024. https://www.ibm.com/topics/gradient-descent Links to an external site..
+Scikit-Learn. “Stochastic Gradient Descent.” Accessed July 20, 2024. https://scikit-learn.org/stable/modules/sgd.html Links to an external site..
+GeeksforGeeks. “Bias-Variance Trade Off—Machine Learning.” Last modified June 5, 2023. https://www.geeksforgeeks.org/ml-bias-variance-trade-off/ Links to an external site..

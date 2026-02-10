@@ -1,0 +1,10 @@
+https://github.com/fakemonk1/decision-tree-implementation-from-scratch
+
+
+
+Module 14: Additional Resources, Further Reading, Bibliography, and More to Explore
+At the end of each module, we’ll share a list of additional resources for you to explore. These resources will enable you to dive deeper into the concepts that resonate with your work or your career aspirations. You are not required to review these resources.
+
+Navlani, Avinash. Decision Tree Classification in Python Tutorial. Datacamp. Last modified June 2024. https://www.datacamp.com/tutorial/decision-tree-classification-python Links to an external site..
+Scikit-Learn. “DecisionTreeClassifier.” Accessed July 16, 2024. https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html Links to an external site..
+Scikit-Learn. “Export_graphviz.” Accessed July 16, 2024. https://scikit-learn.org/stable/modules/generated/sklearn.tree.export_graphviz.html

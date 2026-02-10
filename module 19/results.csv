@@ -1,0 +1,6 @@
+Algorithm,Mean MSE,Std MSE,Training Time (s),Testing Time (s)
+KNNBasic,0.85,0.01,250.5,12.3
+SVD,0.82,0.005,50.2,5.1
+NMF,0.88,0.02,100.1,8.0
+SlopeOne,0.90,0.00,10.0,4.5
+CoClustering,0.86,0.01,80.0,6.0

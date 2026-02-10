@@ -1,0 +1,1101 @@
+Item,Category,City,Price_per_Kg,Month,Source
+Milk,Dairy,Lahore,188.93,June,Wholesale Market
+Beef (Local),Meat,Sialkot,866.6,April,Wholesale Market
+Mango,Fruit,Karachi,243.67,October,Municipal Report
+Flour (Atta),Grain,Quetta,121.4,June,Retailer Listing
+Tomato,Vegetable,Karachi,127.83,June,Retailer Listing
+Fish (Pomfret),Meat,Rawalpindi,1109.04,May,Online Retailer
+Ghee,Oil,Quetta,1010.15,December,Local Market Survey
+Potato,Vegetable,Quetta,65.6,January,Retailer Listing
+Mango,Fruit,Hyderabad,281.27,January,Municipal Report
+Apple,Fruit,Peshawar,192.97,August,Retailer Listing
+Beef (Local),Meat,Hyderabad,1050.91,June,Online Retailer
+Flour (Atta),Grain,Peshawar,105.53,May,Wholesale Market
+Chicken Breast,Meat,Lahore,590.92,January,Municipal Report
+Flour (Atta),Grain,Hyderabad,111.74,August,Wholesale Market
+Mutton,Meat,Faisalabad,1281.94,October,Wholesale Market
+Tomato,Vegetable,Faisalabad,127.77,June,Retailer Listing
+Eggplant,Vegetable,Quetta,84.96,August,Municipal Report
+Sugar,Grain,Karachi,120.82,May,Online Retailer
+Spinach,Vegetable,Sialkot,70.29,April,Retailer Listing
+Spices (Mixed),Condiment,Rawalpindi,747.99,January,Municipal Report
+Spices (Mixed),Condiment,Sialkot,771.03,November,Wholesale Market
+Chicken (Whole),Meat,Quetta,582.56,October,Wholesale Market
+Milk,Dairy,Peshawar,216.45,June,Local Market Survey
+Mango,Fruit,Hyderabad,238.43,July,Wholesale Market
+Banana,Fruit,Rawalpindi,131.91,April,Municipal Report
+Chickpeas,Pulses,Lahore,179.05,October,Retailer Listing
+Fish (Pomfret),Meat,Islamabad,1194.76,February,Wholesale Market
+Fish (Pomfret),Meat,Quetta,1280.22,December,Wholesale Market
+Spices (Mixed),Condiment,Faisalabad,814.16,March,Local Market Survey
+Lentils (Masoor),Pulses,Hyderabad,244.61,June,Local Market Survey
+Beef (Local),Meat,Karachi,982.68,December,Municipal Report
+Lentils (Masoor),Pulses,Islamabad,254.18,April,Municipal Report
+Sugar,Grain,Lahore,120.63,May,Online Retailer
+Oranges,Fruit,Rawalpindi,154.55,January,Municipal Report
+Carrot,Vegetable,Sialkot,163.29,April,Online Retailer
+Chicken Breast,Meat,Sialkot,711,June,Municipal Report
+Grapes,Fruit,Hyderabad,235.43,June,Municipal Report
+Maize,Grain,Peshawar,105.04,November,Wholesale Market
+Potato,Vegetable,Lahore,68.81,November,Online Retailer
+Chicken Breast,Meat,Multan,643.06,August,Local Market Survey
+Tea (Loose),Beverage,Sialkot,910.93,September,Retailer Listing
+Salt,Condiment,Peshawar,43.91,February,Retailer Listing
+Cooking Oil (Sunflower),Oil,Multan,343.24,September,Local Market Survey
+Ghee,Oil,Sialkot,1185.16,June,Online Retailer
+Chicken (Whole),Meat,Rawalpindi,549.88,January,Municipal Report
+Carrot,Vegetable,Islamabad,154.73,October,Local Market Survey
+Spinach,Vegetable,Quetta,63.49,June,Wholesale Market
+Mutton,Meat,Hyderabad,1406.41,May,Wholesale Market
+Wheat,Grain,Lahore,115.59,November,Retailer Listing
+Chicken Breast,Meat,Quetta,611.47,February,Municipal Report
+Tea (Loose),Beverage,Rawalpindi,959.24,July,Retailer Listing
+Grapes,Fruit,Faisalabad,217.14,May,Local Market Survey
+Lentils (Moong),Pulses,Sialkot,349.83,May,Online Retailer
+Chickpeas,Pulses,Faisalabad,222.18,April,Municipal Report
+Tea (Loose),Beverage,Faisalabad,957.43,January,Wholesale Market
+Tea (Loose),Beverage,Hyderabad,859.05,September,Municipal Report
+Maize,Grain,Islamabad,91.38,January,Online Retailer
+Ghee,Oil,Lahore,1009.59,May,Local Market Survey
+Flour (Atta),Grain,Sialkot,129.54,May,Local Market Survey
+Oranges,Fruit,Quetta,144.36,October,Online Retailer
+Chicken Breast,Meat,Lahore,723.82,November,Local Market Survey
+Flour (Atta),Grain,Faisalabad,99.94,August,Online Retailer
+Potato,Vegetable,Islamabad,69.89,June,Online Retailer
+Cooking Oil (Sunflower),Oil,Sialkot,373.56,March,Wholesale Market
+Yogurt,Dairy,Lahore,208.96,December,Retailer Listing
+Rice (Basmati),Grain,Faisalabad,272.9,October,Retailer Listing
+Tea (Loose),Beverage,Lahore,955.92,November,Local Market Survey
+Cooking Oil (Sunflower),Oil,Quetta,344.25,January,Municipal Report
+Maize,Grain,Faisalabad,97.52,April,Wholesale Market
+Ghee,Oil,Lahore,992.48,June,Wholesale Market
+Rice (Basmati),Grain,Lahore,329.09,June,Wholesale Market
+Lentils (Masoor),Pulses,Multan,285.01,December,Online Retailer
+Onion,Vegetable,Islamabad,86.84,February,Wholesale Market
+Grapes,Fruit,Karachi,220.63,December,Municipal Report
+Lentils (Moong),Pulses,Faisalabad,333.47,April,Wholesale Market
+Potato,Vegetable,Hyderabad,79.22,December,Wholesale Market
+Beef (Local),Meat,Hyderabad,1046.05,February,Retailer Listing
+Grapes,Fruit,Quetta,246.38,February,Online Retailer
+Fish (Rohu),Meat,Faisalabad,744.03,February,Local Market Survey
+Carrot,Vegetable,Faisalabad,126.58,July,Municipal Report
+Tomato,Vegetable,Quetta,124.5,January,Local Market Survey
+Rice (Irri),Grain,Hyderabad,147.71,June,Retailer Listing
+Apple,Fruit,Karachi,176.24,April,Local Market Survey
+Potato,Vegetable,Hyderabad,71.91,March,Retailer Listing
+Tomato,Vegetable,Sialkot,146.81,December,Wholesale Market
+Potato,Vegetable,Quetta,82.15,June,Wholesale Market
+Sugar,Grain,Quetta,130.16,June,Local Market Survey
+Fish (Pomfret),Meat,Sialkot,1246.36,April,Local Market Survey
+Fish (Pomfret),Meat,Hyderabad,1130.89,October,Municipal Report
+Banana,Fruit,Rawalpindi,108.14,March,Local Market Survey
+Tea (Loose),Beverage,Karachi,985.21,June,Retailer Listing
+Maize,Grain,Rawalpindi,94.3,July,Local Market Survey
+Yogurt,Dairy,Hyderabad,252.05,September,Online Retailer
+Cheese (Local),Dairy,Peshawar,796.94,August,Local Market Survey
+Fish (Pomfret),Meat,Islamabad,1136.85,April,Online Retailer
+Oranges,Fruit,Karachi,161.65,November,Online Retailer
+Flour (Atta),Grain,Lahore,113.94,April,Wholesale Market
+Chickpeas,Pulses,Islamabad,206.53,March,Wholesale Market
+Milk,Dairy,Sialkot,198.38,December,Municipal Report
+Milk,Dairy,Multan,201.72,January,Wholesale Market
+Tea (Loose),Beverage,Quetta,867.76,August,Wholesale Market
+Lentils (Moong),Pulses,Hyderabad,281.47,February,Municipal Report
+Rice (Irri),Grain,Sialkot,145.62,February,Municipal Report
+Spinach,Vegetable,Islamabad,60.74,November,Municipal Report
+Lentils (Moong),Pulses,Sialkot,300.88,November,Municipal Report
+Banana,Fruit,Rawalpindi,125.9,April,Wholesale Market
+Tea (Loose),Beverage,Quetta,1023.75,September,Municipal Report
+Yogurt,Dairy,Quetta,241.28,August,Wholesale Market
+Sugar,Grain,Rawalpindi,113.16,October,Municipal Report
+Eggplant,Vegetable,Multan,75.26,November,Wholesale Market
+Carrot,Vegetable,Islamabad,138.75,November,Local Market Survey
+Tomato,Vegetable,Hyderabad,113.19,October,Retailer Listing
+Spices (Mixed),Condiment,Multan,746.1,July,Online Retailer
+Flour (Atta),Grain,Faisalabad,109.03,March,Retailer Listing
+Eggplant,Vegetable,Islamabad,72.05,March,Online Retailer
+Wheat,Grain,Hyderabad,134.58,December,Municipal Report
+Yogurt,Dairy,Hyderabad,245.89,March,Retailer Listing
+Lentils (Moong),Pulses,Multan,327.5,December,Online Retailer
+Flour (Atta),Grain,Hyderabad,108.73,November,Municipal Report
+Fish (Rohu),Meat,Hyderabad,744.81,July,Municipal Report
+Onion,Vegetable,Peshawar,97.28,May,Wholesale Market
+Tomato,Vegetable,Lahore,116.8,March,Municipal Report
+Eggplant,Vegetable,Hyderabad,82.11,May,Online Retailer
+Chickpeas,Pulses,Faisalabad,205.12,July,Online Retailer
+Mutton,Meat,Faisalabad,1288.19,October,Local Market Survey
+Spinach,Vegetable,Sialkot,71.27,October,Local Market Survey
+Rice (Irri),Grain,Islamabad,129.88,February,Wholesale Market
+Grapes,Fruit,Islamabad,238.14,December,Online Retailer
+Mango,Fruit,Faisalabad,262.29,July,Wholesale Market
+Banana,Fruit,Peshawar,125.92,April,Wholesale Market
+Fish (Rohu),Meat,Hyderabad,796.23,July,Retailer Listing
+Tomato,Vegetable,Peshawar,129.01,March,Retailer Listing
+Grapes,Fruit,Hyderabad,227.86,April,Online Retailer
+Apple,Fruit,Quetta,206.64,October,Local Market Survey
+Mango,Fruit,Rawalpindi,237.64,October,Retailer Listing
+Tomato,Vegetable,Lahore,131.1,December,Online Retailer
+Spinach,Vegetable,Quetta,66.63,October,Online Retailer
+Lentils (Moong),Pulses,Multan,309.81,September,Online Retailer
+Maize,Grain,Karachi,96.53,March,Online Retailer
+Lentils (Masoor),Pulses,Quetta,221.74,July,Municipal Report
+Spices (Mixed),Condiment,Rawalpindi,700.59,July,Retailer Listing
+Lentils (Masoor),Pulses,Islamabad,257.4,November,Online Retailer
+Fish (Pomfret),Meat,Peshawar,1202.58,December,Online Retailer
+Yogurt,Dairy,Multan,229.35,January,Online Retailer
+Rice (Irri),Grain,Peshawar,151.88,May,Retailer Listing
+Salt,Condiment,Sialkot,46.38,December,Wholesale Market
+Milk,Dairy,Multan,220.81,October,Municipal Report
+Fish (Pomfret),Meat,Multan,1030.25,March,Online Retailer
+Milk,Dairy,Lahore,221.43,November,Municipal Report
+Chicken (Whole),Meat,Lahore,535.87,October,Online Retailer
+Spices (Mixed),Condiment,Faisalabad,724.1,July,Local Market Survey
+Chicken (Whole),Meat,Karachi,559.2,November,Retailer Listing
+Grapes,Fruit,Faisalabad,208.12,April,Retailer Listing
+Carrot,Vegetable,Faisalabad,120.45,July,Wholesale Market
+Spices (Mixed),Condiment,Karachi,865.28,February,Online Retailer
+Eggplant,Vegetable,Multan,85.04,July,Retailer Listing
+Flour (Atta),Grain,Hyderabad,134.29,December,Local Market Survey
+Grapes,Fruit,Faisalabad,216.18,October,Online Retailer
+Lentils (Masoor),Pulses,Islamabad,221.55,January,Retailer Listing
+Eggplant,Vegetable,Islamabad,83.36,December,Online Retailer
+Beef (Local),Meat,Peshawar,935.09,February,Retailer Listing
+Potato,Vegetable,Peshawar,77.43,November,Online Retailer
+Mango,Fruit,Sialkot,239.33,April,Local Market Survey
+Spices (Mixed),Condiment,Hyderabad,851.76,January,Online Retailer
+Onion,Vegetable,Lahore,78.37,August,Retailer Listing
+Guava,Fruit,Sialkot,145.5,September,Online Retailer
+Cooking Oil (Sunflower),Oil,Islamabad,346.17,April,Local Market Survey
+Guava,Fruit,Sialkot,145.81,October,Online Retailer
+Flour (Atta),Grain,Peshawar,106.41,February,Municipal Report
+Tea (Loose),Beverage,Islamabad,907.96,October,Local Market Survey
+Banana,Fruit,Faisalabad,120.99,November,Local Market Survey
+Chickpeas,Pulses,Faisalabad,196.14,July,Online Retailer
+Oranges,Fruit,Islamabad,168.18,June,Wholesale Market
+Banana,Fruit,Rawalpindi,121.71,September,Municipal Report
+Cheese (Local),Dairy,Karachi,847.14,July,Retailer Listing
+Sugar,Grain,Hyderabad,121.65,July,Municipal Report
+Fish (Rohu),Meat,Islamabad,785.94,May,Online Retailer
+Tea (Loose),Beverage,Karachi,938.46,July,Retailer Listing
+Onion,Vegetable,Rawalpindi,90.37,November,Local Market Survey
+Milk,Dairy,Hyderabad,215.64,September,Online Retailer
+Milk,Dairy,Islamabad,211.99,August,Retailer Listing
+Yogurt,Dairy,Lahore,204.67,October,Municipal Report
+Potato,Vegetable,Lahore,63.23,September,Wholesale Market
+Flour (Atta),Grain,Peshawar,106.65,July,Online Retailer
+Grapes,Fruit,Islamabad,226.09,February,Local Market Survey
+Cheese (Local),Dairy,Faisalabad,852.38,March,Retailer Listing
+Maize,Grain,Quetta,110.49,July,Municipal Report
+Lentils (Masoor),Pulses,Lahore,226.48,September,Retailer Listing
+Spinach,Vegetable,Sialkot,64.1,March,Local Market Survey
+Apple,Fruit,Lahore,205.84,March,Municipal Report
+Mutton,Meat,Multan,1304.09,January,Online Retailer
+Milk,Dairy,Hyderabad,210.52,June,Retailer Listing
+Fish (Rohu),Meat,Faisalabad,754.34,November,Online Retailer
+Spinach,Vegetable,Lahore,52.81,October,Retailer Listing
+Mango,Fruit,Peshawar,284.04,September,Municipal Report
+Tomato,Vegetable,Hyderabad,126.74,June,Wholesale Market
+Flour (Atta),Grain,Sialkot,125.69,October,Online Retailer
+Guava,Fruit,Islamabad,125.19,November,Municipal Report
+Lentils (Moong),Pulses,Islamabad,272.98,April,Wholesale Market
+Salt,Condiment,Karachi,42.47,November,Wholesale Market
+Lentils (Masoor),Pulses,Sialkot,281.36,August,Retailer Listing
+Potato,Vegetable,Islamabad,65.7,May,Local Market Survey
+Maize,Grain,Hyderabad,92.93,August,Wholesale Market
+Milk,Dairy,Faisalabad,200.51,August,Wholesale Market
+Lentils (Masoor),Pulses,Lahore,243.61,July,Retailer Listing
+Chickpeas,Pulses,Multan,218.35,February,Online Retailer
+Tea (Loose),Beverage,Rawalpindi,1025.27,June,Online Retailer
+Beef (Local),Meat,Multan,914.04,March,Online Retailer
+Maize,Grain,Faisalabad,104.5,December,Retailer Listing
+Mutton,Meat,Lahore,1014.03,July,Municipal Report
+Tomato,Vegetable,Faisalabad,127.37,August,Online Retailer
+Spices (Mixed),Condiment,Islamabad,721.32,September,Wholesale Market
+Chicken (Whole),Meat,Faisalabad,517.21,August,Online Retailer
+Wheat,Grain,Lahore,109.58,January,Retailer Listing
+Chicken (Whole),Meat,Rawalpindi,528.86,October,Municipal Report
+Mango,Fruit,Hyderabad,255.91,April,Online Retailer
+Cheese (Local),Dairy,Hyderabad,958.53,February,Municipal Report
+Ghee,Oil,Karachi,997.38,October,Municipal Report
+Banana,Fruit,Sialkot,122.71,May,Retailer Listing
+Yogurt,Dairy,Sialkot,249.84,September,Retailer Listing
+Cheese (Local),Dairy,Karachi,870.1,January,Wholesale Market
+Milk,Dairy,Lahore,211.03,August,Online Retailer
+Fish (Rohu),Meat,Islamabad,641.19,April,Wholesale Market
+Flour (Atta),Grain,Sialkot,100.21,July,Local Market Survey
+Guava,Fruit,Islamabad,145.2,April,Wholesale Market
+Chicken (Whole),Meat,Karachi,491.19,May,Wholesale Market
+Fish (Pomfret),Meat,Faisalabad,1067.63,October,Local Market Survey
+Eggplant,Vegetable,Islamabad,77.07,February,Municipal Report
+Sugar,Grain,Peshawar,119.41,May,Local Market Survey
+Salt,Condiment,Peshawar,46.21,October,Local Market Survey
+Carrot,Vegetable,Lahore,136.39,March,Online Retailer
+Eggplant,Vegetable,Hyderabad,89.75,February,Retailer Listing
+Fish (Rohu),Meat,Sialkot,858.66,May,Wholesale Market
+Fish (Rohu),Meat,Multan,695.91,May,Retailer Listing
+Chicken Breast,Meat,Quetta,738.27,June,Local Market Survey
+Salt,Condiment,Faisalabad,34.92,July,Retailer Listing
+Lentils (Moong),Pulses,Islamabad,325.52,February,Wholesale Market
+Chickpeas,Pulses,Sialkot,209.09,January,Wholesale Market
+Oranges,Fruit,Faisalabad,139.53,November,Municipal Report
+Mutton,Meat,Quetta,1186.36,July,Local Market Survey
+Lentils (Moong),Pulses,Faisalabad,274.08,August,Local Market Survey
+Tomato,Vegetable,Hyderabad,127.39,January,Municipal Report
+Banana,Fruit,Peshawar,136.4,November,Retailer Listing
+Flour (Atta),Grain,Lahore,102.99,February,Wholesale Market
+Lentils (Moong),Pulses,Rawalpindi,287.66,October,Online Retailer
+Banana,Fruit,Peshawar,114.98,February,Online Retailer
+Onion,Vegetable,Hyderabad,107.69,June,Wholesale Market
+Flour (Atta),Grain,Hyderabad,114.43,April,Online Retailer
+Yogurt,Dairy,Sialkot,224.25,February,Wholesale Market
+Grapes,Fruit,Hyderabad,238.7,January,Local Market Survey
+Rice (Irri),Grain,Karachi,143.31,May,Local Market Survey
+Yogurt,Dairy,Sialkot,203.71,January,Wholesale Market
+Lentils (Masoor),Pulses,Peshawar,240.98,April,Retailer Listing
+Oranges,Fruit,Faisalabad,170.49,March,Municipal Report
+Lentils (Masoor),Pulses,Hyderabad,276.99,August,Online Retailer
+Banana,Fruit,Karachi,127.61,January,Online Retailer
+Spices (Mixed),Condiment,Karachi,779.72,December,Local Market Survey
+Cheese (Local),Dairy,Sialkot,942.3,October,Local Market Survey
+Chicken Breast,Meat,Peshawar,663.02,December,Wholesale Market
+Flour (Atta),Grain,Peshawar,124.32,March,Retailer Listing
+Onion,Vegetable,Karachi,74.49,August,Municipal Report
+Ghee,Oil,Lahore,972.32,September,Wholesale Market
+Lentils (Masoor),Pulses,Hyderabad,235.78,January,Retailer Listing
+Wheat,Grain,Multan,115.34,June,Municipal Report
+Lentils (Moong),Pulses,Multan,311.04,June,Local Market Survey
+Ghee,Oil,Peshawar,1009.06,August,Local Market Survey
+Beef (Local),Meat,Rawalpindi,1027.18,June,Local Market Survey
+Mango,Fruit,Rawalpindi,223.75,January,Wholesale Market
+Lentils (Masoor),Pulses,Peshawar,218.55,August,Online Retailer
+Guava,Fruit,Rawalpindi,124.76,February,Online Retailer
+Rice (Irri),Grain,Rawalpindi,132.45,June,Retailer Listing
+Chicken (Whole),Meat,Faisalabad,486.69,November,Local Market Survey
+Maize,Grain,Hyderabad,93.81,October,Retailer Listing
+Milk,Dairy,Multan,190.34,March,Municipal Report
+Milk,Dairy,Quetta,214.39,December,Retailer Listing
+Milk,Dairy,Faisalabad,220.74,May,Municipal Report
+Tea (Loose),Beverage,Rawalpindi,870.47,April,Wholesale Market
+Salt,Condiment,Multan,39.55,May,Wholesale Market
+Chickpeas,Pulses,Islamabad,192.02,September,Municipal Report
+Tomato,Vegetable,Rawalpindi,121.13,July,Online Retailer
+Potato,Vegetable,Quetta,76.15,October,Retailer Listing
+Potato,Vegetable,Islamabad,63.76,February,Online Retailer
+Chicken Breast,Meat,Faisalabad,705.93,September,Local Market Survey
+Milk,Dairy,Hyderabad,207.01,December,Municipal Report
+Lentils (Moong),Pulses,Lahore,279.47,April,Municipal Report
+Cheese (Local),Dairy,Multan,879.59,July,Online Retailer
+Mutton,Meat,Islamabad,1134.31,January,Wholesale Market
+Cheese (Local),Dairy,Karachi,893.74,April,Municipal Report
+Tomato,Vegetable,Faisalabad,132.93,January,Wholesale Market
+Beef (Local),Meat,Multan,810.27,July,Wholesale Market
+Spices (Mixed),Condiment,Lahore,726.49,March,Online Retailer
+Cooking Oil (Sunflower),Oil,Islamabad,394.5,December,Online Retailer
+Potato,Vegetable,Islamabad,74.12,July,Wholesale Market
+Milk,Dairy,Multan,191.01,June,Local Market Survey
+Milk,Dairy,Multan,187.93,August,Municipal Report
+Rice (Irri),Grain,Multan,148.99,May,Municipal Report
+Tea (Loose),Beverage,Islamabad,894.52,June,Municipal Report
+Mutton,Meat,Lahore,1099.82,July,Online Retailer
+Eggplant,Vegetable,Hyderabad,89.35,December,Local Market Survey
+Tomato,Vegetable,Rawalpindi,112.78,July,Local Market Survey
+Wheat,Grain,Hyderabad,114.06,September,Local Market Survey
+Sugar,Grain,Peshawar,117.5,July,Wholesale Market
+Lentils (Masoor),Pulses,Sialkot,264.43,May,Retailer Listing
+Fish (Rohu),Meat,Hyderabad,781.32,May,Retailer Listing
+Rice (Irri),Grain,Islamabad,133.96,October,Municipal Report
+Rice (Irri),Grain,Lahore,122.63,February,Wholesale Market
+Rice (Irri),Grain,Quetta,154.14,June,Online Retailer
+Sugar,Grain,Quetta,119.37,September,Municipal Report
+Spinach,Vegetable,Quetta,66.86,February,Local Market Survey
+Ghee,Oil,Sialkot,994.02,April,Retailer Listing
+Lentils (Moong),Pulses,Sialkot,289.77,August,Retailer Listing
+Ghee,Oil,Rawalpindi,901.3,October,Municipal Report
+Carrot,Vegetable,Multan,145.62,February,Retailer Listing
+Wheat,Grain,Faisalabad,114.37,July,Local Market Survey
+Eggplant,Vegetable,Quetta,89.36,February,Wholesale Market
+Chickpeas,Pulses,Lahore,211.62,February,Online Retailer
+Apple,Fruit,Faisalabad,227.21,March,Wholesale Market
+Oranges,Fruit,Multan,150.37,August,Retailer Listing
+Fish (Pomfret),Meat,Sialkot,1111.79,April,Retailer Listing
+Yogurt,Dairy,Multan,215.47,March,Wholesale Market
+Apple,Fruit,Rawalpindi,205.45,September,Municipal Report
+Apple,Fruit,Multan,224.46,December,Municipal Report
+Chicken (Whole),Meat,Islamabad,535.13,August,Wholesale Market
+Chicken Breast,Meat,Lahore,712.38,November,Wholesale Market
+Chicken (Whole),Meat,Multan,568.64,February,Wholesale Market
+Tea (Loose),Beverage,Hyderabad,829.6,January,Online Retailer
+Ghee,Oil,Sialkot,927.99,July,Local Market Survey
+Ghee,Oil,Sialkot,1018.59,May,Local Market Survey
+Chicken Breast,Meat,Islamabad,631.91,April,Online Retailer
+Sugar,Grain,Multan,114.77,November,Municipal Report
+Cheese (Local),Dairy,Islamabad,830.6,April,Municipal Report
+Rice (Irri),Grain,Multan,143.72,April,Retailer Listing
+Flour (Atta),Grain,Sialkot,119.94,April,Local Market Survey
+Yogurt,Dairy,Hyderabad,230.35,December,Wholesale Market
+Sugar,Grain,Multan,117.46,February,Municipal Report
+Spinach,Vegetable,Hyderabad,62.84,March,Retailer Listing
+Flour (Atta),Grain,Islamabad,101.76,January,Online Retailer
+Lentils (Moong),Pulses,Faisalabad,326.84,December,Retailer Listing
+Chicken Breast,Meat,Quetta,764.14,November,Local Market Survey
+Chickpeas,Pulses,Sialkot,191.77,October,Retailer Listing
+Tea (Loose),Beverage,Rawalpindi,966.79,December,Retailer Listing
+Tomato,Vegetable,Faisalabad,129.35,March,Municipal Report
+Wheat,Grain,Faisalabad,117.65,May,Municipal Report
+Flour (Atta),Grain,Quetta,127.43,February,Municipal Report
+Maize,Grain,Multan,112.42,March,Retailer Listing
+Flour (Atta),Grain,Peshawar,119.91,February,Wholesale Market
+Spices (Mixed),Condiment,Karachi,703.81,October,Wholesale Market
+Cooking Oil (Sunflower),Oil,Lahore,344.63,September,Local Market Survey
+Flour (Atta),Grain,Faisalabad,103.92,July,Online Retailer
+Yogurt,Dairy,Quetta,254.88,March,Wholesale Market
+Oranges,Fruit,Islamabad,163.4,March,Local Market Survey
+Mutton,Meat,Karachi,1267.76,February,Wholesale Market
+Potato,Vegetable,Rawalpindi,67.65,September,Wholesale Market
+Yogurt,Dairy,Multan,252.74,May,Wholesale Market
+Grapes,Fruit,Multan,242.61,September,Online Retailer
+Lentils (Masoor),Pulses,Quetta,283.63,April,Retailer Listing
+Grapes,Fruit,Lahore,204.46,December,Local Market Survey
+Lentils (Moong),Pulses,Multan,300.31,December,Retailer Listing
+Fish (Pomfret),Meat,Karachi,1130.31,July,Wholesale Market
+Flour (Atta),Grain,Multan,111.93,August,Online Retailer
+Ghee,Oil,Peshawar,914.23,February,Wholesale Market
+Lentils (Moong),Pulses,Peshawar,353.03,June,Online Retailer
+Beef (Local),Meat,Lahore,858.41,April,Retailer Listing
+Guava,Fruit,Karachi,133.23,March,Wholesale Market
+Milk,Dairy,Multan,214.29,March,Municipal Report
+Beef (Local),Meat,Faisalabad,936.02,December,Local Market Survey
+Chickpeas,Pulses,Islamabad,198,August,Municipal Report
+Chicken (Whole),Meat,Hyderabad,574.28,November,Wholesale Market
+Onion,Vegetable,Hyderabad,91.07,March,Retailer Listing
+Cheese (Local),Dairy,Quetta,829.85,January,Wholesale Market
+Potato,Vegetable,Hyderabad,78.66,September,Municipal Report
+Wheat,Grain,Multan,135.64,June,Wholesale Market
+Tea (Loose),Beverage,Quetta,817.23,January,Municipal Report
+Chickpeas,Pulses,Multan,180.23,February,Municipal Report
+Fish (Rohu),Meat,Lahore,724.37,July,Local Market Survey
+Spinach,Vegetable,Lahore,62.78,July,Online Retailer
+Rice (Basmati),Grain,Sialkot,349.36,November,Wholesale Market
+Mango,Fruit,Quetta,261.07,June,Municipal Report
+Chickpeas,Pulses,Lahore,186.42,November,Municipal Report
+Guava,Fruit,Islamabad,132.21,February,Municipal Report
+Oranges,Fruit,Faisalabad,157.44,November,Online Retailer
+Salt,Condiment,Lahore,36.98,February,Retailer Listing
+Tea (Loose),Beverage,Rawalpindi,897.31,May,Local Market Survey
+Milk,Dairy,Multan,188.97,July,Retailer Listing
+Spinach,Vegetable,Quetta,70.17,March,Municipal Report
+Oranges,Fruit,Lahore,127.23,August,Retailer Listing
+Sugar,Grain,Islamabad,129.72,April,Local Market Survey
+Tea (Loose),Beverage,Peshawar,940.64,July,Online Retailer
+Mutton,Meat,Lahore,1226.06,August,Local Market Survey
+Spinach,Vegetable,Sialkot,66.13,August,Wholesale Market
+Chicken Breast,Meat,Karachi,727.74,May,Retailer Listing
+Milk,Dairy,Lahore,184.37,September,Municipal Report
+Eggplant,Vegetable,Peshawar,81.51,September,Wholesale Market
+Oranges,Fruit,Sialkot,144.28,July,Online Retailer
+Mutton,Meat,Multan,1235.88,March,Retailer Listing
+Apple,Fruit,Islamabad,215.54,April,Local Market Survey
+Fish (Rohu),Meat,Faisalabad,674.45,April,Retailer Listing
+Chickpeas,Pulses,Rawalpindi,210.99,June,Wholesale Market
+Cooking Oil (Sunflower),Oil,Rawalpindi,375.19,June,Online Retailer
+Fish (Pomfret),Meat,Hyderabad,1215.39,January,Online Retailer
+Mango,Fruit,Lahore,247.03,May,Local Market Survey
+Potato,Vegetable,Faisalabad,75.67,July,Local Market Survey
+Rice (Basmati),Grain,Karachi,281.8,June,Retailer Listing
+Rice (Basmati),Grain,Multan,327.76,June,Online Retailer
+Grapes,Fruit,Quetta,247,May,Online Retailer
+Oranges,Fruit,Faisalabad,163.69,July,Wholesale Market
+Apple,Fruit,Quetta,231.76,December,Municipal Report
+Rice (Basmati),Grain,Rawalpindi,322.63,September,Municipal Report
+Grapes,Fruit,Sialkot,244.25,July,Wholesale Market
+Apple,Fruit,Sialkot,221.75,October,Municipal Report
+Cheese (Local),Dairy,Sialkot,960.28,November,Retailer Listing
+Sugar,Grain,Islamabad,128.36,July,Local Market Survey
+Carrot,Vegetable,Sialkot,154.29,March,Municipal Report
+Flour (Atta),Grain,Quetta,115.34,June,Wholesale Market
+Carrot,Vegetable,Multan,134.29,February,Online Retailer
+Oranges,Fruit,Sialkot,145.01,September,Online Retailer
+Chickpeas,Pulses,Islamabad,176.85,July,Municipal Report
+Spices (Mixed),Condiment,Sialkot,858.94,January,Local Market Survey
+Chickpeas,Pulses,Faisalabad,199.46,March,Municipal Report
+Chicken (Whole),Meat,Lahore,480.98,May,Municipal Report
+Fish (Pomfret),Meat,Quetta,1224.05,August,Local Market Survey
+Potato,Vegetable,Lahore,59.97,July,Wholesale Market
+Maize,Grain,Rawalpindi,107.63,March,Municipal Report
+Tea (Loose),Beverage,Quetta,893.86,June,Local Market Survey
+Fish (Rohu),Meat,Rawalpindi,728.58,November,Retailer Listing
+Maize,Grain,Peshawar,106.4,June,Retailer Listing
+Cooking Oil (Sunflower),Oil,Rawalpindi,387.23,April,Wholesale Market
+Grapes,Fruit,Quetta,251.34,May,Wholesale Market
+Potato,Vegetable,Multan,65.96,March,Wholesale Market
+Fish (Rohu),Meat,Sialkot,744.38,November,Municipal Report
+Grapes,Fruit,Faisalabad,215.96,September,Wholesale Market
+Carrot,Vegetable,Quetta,134.06,June,Online Retailer
+Maize,Grain,Karachi,87.96,October,Wholesale Market
+Chickpeas,Pulses,Islamabad,220.89,June,Retailer Listing
+Guava,Fruit,Hyderabad,144.68,August,Local Market Survey
+Rice (Irri),Grain,Rawalpindi,135.71,September,Wholesale Market
+Cooking Oil (Sunflower),Oil,Peshawar,419.19,December,Online Retailer
+Beef (Local),Meat,Multan,824.25,October,Wholesale Market
+Wheat,Grain,Karachi,125.34,October,Online Retailer
+Eggplant,Vegetable,Karachi,89.68,December,Online Retailer
+Beef (Local),Meat,Faisalabad,960.71,May,Municipal Report
+Ghee,Oil,Faisalabad,1081.03,November,Online Retailer
+Rice (Basmati),Grain,Islamabad,281.57,February,Retailer Listing
+Grapes,Fruit,Islamabad,227.84,January,Wholesale Market
+Sugar,Grain,Islamabad,129.38,December,Local Market Survey
+Lentils (Moong),Pulses,Lahore,312.02,February,Retailer Listing
+Carrot,Vegetable,Karachi,129.29,March,Retailer Listing
+Banana,Fruit,Faisalabad,111.54,November,Retailer Listing
+Potato,Vegetable,Rawalpindi,59.32,August,Municipal Report
+Tomato,Vegetable,Hyderabad,111.59,August,Municipal Report
+Sugar,Grain,Karachi,115.24,December,Municipal Report
+Chicken (Whole),Meat,Hyderabad,496.31,March,Wholesale Market
+Beef (Local),Meat,Quetta,861,August,Wholesale Market
+Guava,Fruit,Islamabad,123.06,December,Local Market Survey
+Grapes,Fruit,Rawalpindi,231.54,February,Wholesale Market
+Rice (Irri),Grain,Rawalpindi,144.85,December,Online Retailer
+Mango,Fruit,Peshawar,253.99,May,Municipal Report
+Sugar,Grain,Sialkot,128.33,July,Retailer Listing
+Cooking Oil (Sunflower),Oil,Multan,397.39,November,Local Market Survey
+Potato,Vegetable,Sialkot,79.63,November,Retailer Listing
+Tea (Loose),Beverage,Rawalpindi,930.03,August,Retailer Listing
+Tea (Loose),Beverage,Rawalpindi,875.12,April,Retailer Listing
+Fish (Pomfret),Meat,Lahore,1104.78,September,Local Market Survey
+Chicken (Whole),Meat,Karachi,490.55,June,Local Market Survey
+Fish (Rohu),Meat,Hyderabad,720.63,August,Online Retailer
+Oranges,Fruit,Peshawar,135.27,August,Wholesale Market
+Flour (Atta),Grain,Peshawar,108.48,September,Wholesale Market
+Tomato,Vegetable,Multan,118.35,October,Online Retailer
+Eggplant,Vegetable,Peshawar,70.75,July,Municipal Report
+Fish (Pomfret),Meat,Islamabad,927.84,August,Online Retailer
+Sugar,Grain,Sialkot,123.77,November,Municipal Report
+Onion,Vegetable,Rawalpindi,93.97,July,Local Market Survey
+Milk,Dairy,Rawalpindi,206.71,September,Municipal Report
+Maize,Grain,Sialkot,110.06,January,Local Market Survey
+Onion,Vegetable,Karachi,86.92,December,Retailer Listing
+Beef (Local),Meat,Quetta,977.54,June,Wholesale Market
+Fish (Pomfret),Meat,Peshawar,1018.52,October,Retailer Listing
+Carrot,Vegetable,Islamabad,145.41,November,Municipal Report
+Carrot,Vegetable,Islamabad,150.85,March,Municipal Report
+Chicken (Whole),Meat,Islamabad,494.45,August,Local Market Survey
+Banana,Fruit,Karachi,117.61,March,Wholesale Market
+Mutton,Meat,Hyderabad,1302.9,October,Wholesale Market
+Beef (Local),Meat,Lahore,863.94,September,Wholesale Market
+Cheese (Local),Dairy,Quetta,875.36,July,Online Retailer
+Rice (Irri),Grain,Karachi,132.76,November,Municipal Report
+Spinach,Vegetable,Faisalabad,55.72,October,Retailer Listing
+Eggplant,Vegetable,Quetta,82,April,Wholesale Market
+Flour (Atta),Grain,Sialkot,126.29,January,Wholesale Market
+Tea (Loose),Beverage,Islamabad,907.98,August,Municipal Report
+Rice (Basmati),Grain,Rawalpindi,330.09,April,Municipal Report
+Chicken Breast,Meat,Quetta,653.88,February,Retailer Listing
+Lentils (Moong),Pulses,Hyderabad,330.8,May,Online Retailer
+Lentils (Masoor),Pulses,Islamabad,234.02,January,Retailer Listing
+Rice (Irri),Grain,Faisalabad,126.55,October,Retailer Listing
+Beef (Local),Meat,Lahore,1009.2,December,Municipal Report
+Potato,Vegetable,Islamabad,62.14,August,Municipal Report
+Ghee,Oil,Karachi,1073.9,November,Online Retailer
+Oranges,Fruit,Lahore,153.73,January,Online Retailer
+Cheese (Local),Dairy,Islamabad,814.18,October,Online Retailer
+Cooking Oil (Sunflower),Oil,Sialkot,358.87,August,Retailer Listing
+Apple,Fruit,Sialkot,216.4,March,Wholesale Market
+Lentils (Moong),Pulses,Lahore,281.49,February,Retailer Listing
+Banana,Fruit,Faisalabad,119.67,September,Local Market Survey
+Apple,Fruit,Islamabad,183.59,October,Local Market Survey
+Oranges,Fruit,Lahore,163.75,December,Municipal Report
+Tea (Loose),Beverage,Hyderabad,1057.54,March,Online Retailer
+Apple,Fruit,Multan,219.63,January,Retailer Listing
+Flour (Atta),Grain,Rawalpindi,115.69,August,Local Market Survey
+Lentils (Moong),Pulses,Karachi,276.66,February,Online Retailer
+Grapes,Fruit,Quetta,247.9,December,Online Retailer
+Onion,Vegetable,Islamabad,87.75,June,Online Retailer
+Flour (Atta),Grain,Hyderabad,126.33,May,Municipal Report
+Carrot,Vegetable,Karachi,151.64,December,Retailer Listing
+Beef (Local),Meat,Peshawar,931.78,January,Retailer Listing
+Salt,Condiment,Multan,45.2,February,Municipal Report
+Yogurt,Dairy,Karachi,203.56,April,Retailer Listing
+Eggplant,Vegetable,Hyderabad,77.17,February,Online Retailer
+Ghee,Oil,Islamabad,1077.05,September,Wholesale Market
+Lentils (Masoor),Pulses,Multan,286.48,October,Local Market Survey
+Chicken Breast,Meat,Sialkot,777.87,October,Online Retailer
+Tea (Loose),Beverage,Islamabad,929.79,June,Online Retailer
+Guava,Fruit,Islamabad,115.21,February,Wholesale Market
+Tomato,Vegetable,Islamabad,111.14,April,Wholesale Market
+Grapes,Fruit,Karachi,199.57,February,Municipal Report
+Tea (Loose),Beverage,Faisalabad,991.62,January,Wholesale Market
+Wheat,Grain,Rawalpindi,127.83,May,Wholesale Market
+Chicken Breast,Meat,Karachi,569.76,August,Local Market Survey
+Yogurt,Dairy,Rawalpindi,208.48,September,Wholesale Market
+Spices (Mixed),Condiment,Karachi,813.93,June,Retailer Listing
+Milk,Dairy,Rawalpindi,187.9,May,Retailer Listing
+Potato,Vegetable,Quetta,71.95,October,Wholesale Market
+Apple,Fruit,Peshawar,178.62,August,Online Retailer
+Beef (Local),Meat,Karachi,854.06,January,Retailer Listing
+Onion,Vegetable,Sialkot,91.03,January,Online Retailer
+Lentils (Masoor),Pulses,Islamabad,212.41,August,Online Retailer
+Maize,Grain,Quetta,106.1,April,Online Retailer
+Onion,Vegetable,Karachi,91.25,November,Retailer Listing
+Ghee,Oil,Rawalpindi,1079.65,May,Retailer Listing
+Salt,Condiment,Quetta,39.86,November,Online Retailer
+Mango,Fruit,Sialkot,292.64,February,Retailer Listing
+Rice (Basmati),Grain,Quetta,306.01,December,Wholesale Market
+Sugar,Grain,Karachi,130.67,November,Municipal Report
+Chickpeas,Pulses,Karachi,187.98,September,Online Retailer
+Wheat,Grain,Karachi,119.94,May,Municipal Report
+Milk,Dairy,Peshawar,232.37,October,Municipal Report
+Mango,Fruit,Hyderabad,276.77,December,Municipal Report
+Salt,Condiment,Multan,40.13,October,Online Retailer
+Lentils (Masoor),Pulses,Peshawar,266.15,February,Municipal Report
+Carrot,Vegetable,Sialkot,145.16,October,Wholesale Market
+Apple,Fruit,Lahore,214.31,March,Online Retailer
+Lentils (Moong),Pulses,Karachi,268.31,April,Local Market Survey
+Mutton,Meat,Sialkot,1358.35,January,Local Market Survey
+Maize,Grain,Sialkot,95.01,February,Municipal Report
+Potato,Vegetable,Multan,68.45,September,Wholesale Market
+Banana,Fruit,Karachi,108.58,September,Municipal Report
+Onion,Vegetable,Sialkot,97.2,November,Local Market Survey
+Wheat,Grain,Faisalabad,109.98,July,Wholesale Market
+Apple,Fruit,Islamabad,213.45,August,Online Retailer
+Eggplant,Vegetable,Sialkot,85.04,July,Online Retailer
+Beef (Local),Meat,Rawalpindi,917.57,November,Online Retailer
+Oranges,Fruit,Faisalabad,166.23,December,Local Market Survey
+Oranges,Fruit,Faisalabad,142.33,August,Municipal Report
+Oranges,Fruit,Faisalabad,133.71,July,Wholesale Market
+Flour (Atta),Grain,Karachi,99.03,March,Municipal Report
+Chickpeas,Pulses,Sialkot,206.98,July,Municipal Report
+Banana,Fruit,Islamabad,117.54,May,Local Market Survey
+Beef (Local),Meat,Islamabad,1034.14,December,Municipal Report
+Fish (Rohu),Meat,Lahore,685.87,September,Wholesale Market
+Lentils (Masoor),Pulses,Rawalpindi,234.01,November,Municipal Report
+Milk,Dairy,Quetta,223.93,April,Local Market Survey
+Guava,Fruit,Lahore,124.77,October,Municipal Report
+Apple,Fruit,Sialkot,193.87,September,Municipal Report
+Flour (Atta),Grain,Islamabad,115.58,August,Online Retailer
+Mango,Fruit,Islamabad,285.13,May,Online Retailer
+Beef (Local),Meat,Hyderabad,821.71,August,Retailer Listing
+Sugar,Grain,Faisalabad,128.09,July,Online Retailer
+Ghee,Oil,Peshawar,1154.17,November,Local Market Survey
+Banana,Fruit,Karachi,117.63,October,Local Market Survey
+Chickpeas,Pulses,Hyderabad,197.77,June,Municipal Report
+Chicken Breast,Meat,Karachi,632.67,October,Municipal Report
+Lentils (Masoor),Pulses,Islamabad,233.73,January,Local Market Survey
+Lentils (Moong),Pulses,Islamabad,301.77,March,Retailer Listing
+Chickpeas,Pulses,Islamabad,221.64,December,Retailer Listing
+Spinach,Vegetable,Sialkot,58.68,May,Online Retailer
+Milk,Dairy,Quetta,227.89,January,Wholesale Market
+Tea (Loose),Beverage,Karachi,840.79,December,Retailer Listing
+Spices (Mixed),Condiment,Rawalpindi,810.62,June,Wholesale Market
+Milk,Dairy,Karachi,215.79,February,Retailer Listing
+Milk,Dairy,Sialkot,216.26,April,Wholesale Market
+Carrot,Vegetable,Karachi,150.91,March,Municipal Report
+Oranges,Fruit,Quetta,146.61,May,Local Market Survey
+Mango,Fruit,Faisalabad,273.82,February,Local Market Survey
+Cooking Oil (Sunflower),Oil,Faisalabad,308,August,Online Retailer
+Fish (Rohu),Meat,Quetta,711.13,December,Online Retailer
+Fish (Rohu),Meat,Islamabad,630.28,February,Local Market Survey
+Spices (Mixed),Condiment,Islamabad,912.99,December,Municipal Report
+Mango,Fruit,Faisalabad,262.89,November,Retailer Listing
+Carrot,Vegetable,Peshawar,141.22,December,Municipal Report
+Fish (Pomfret),Meat,Islamabad,1049.14,September,Municipal Report
+Spices (Mixed),Condiment,Faisalabad,755.66,November,Wholesale Market
+Banana,Fruit,Rawalpindi,112.27,September,Municipal Report
+Tea (Loose),Beverage,Multan,1028.53,March,Wholesale Market
+Rice (Basmati),Grain,Karachi,286.74,November,Wholesale Market
+Tomato,Vegetable,Islamabad,109.19,January,Online Retailer
+Mango,Fruit,Quetta,255.8,May,Local Market Survey
+Ghee,Oil,Sialkot,1125.71,September,Municipal Report
+Beef (Local),Meat,Peshawar,991.1,June,Wholesale Market
+Spices (Mixed),Condiment,Karachi,793.87,November,Retailer Listing
+Spinach,Vegetable,Quetta,57.15,July,Municipal Report
+Apple,Fruit,Quetta,232.62,April,Online Retailer
+Salt,Condiment,Lahore,36.87,May,Retailer Listing
+Cooking Oil (Sunflower),Oil,Multan,345.7,June,Retailer Listing
+Wheat,Grain,Sialkot,125.32,October,Municipal Report
+Fish (Pomfret),Meat,Hyderabad,1257.53,September,Retailer Listing
+Chicken (Whole),Meat,Peshawar,471.42,September,Local Market Survey
+Carrot,Vegetable,Karachi,126.17,January,Online Retailer
+Maize,Grain,Faisalabad,103.53,March,Municipal Report
+Ghee,Oil,Quetta,1103.53,February,Local Market Survey
+Lentils (Masoor),Pulses,Faisalabad,286.3,November,Local Market Survey
+Salt,Condiment,Multan,43.35,July,Retailer Listing
+Flour (Atta),Grain,Islamabad,105.08,June,Wholesale Market
+Tea (Loose),Beverage,Lahore,910.09,March,Municipal Report
+Lentils (Moong),Pulses,Lahore,278.57,August,Local Market Survey
+Rice (Irri),Grain,Peshawar,140.07,June,Local Market Survey
+Spinach,Vegetable,Peshawar,69.43,November,Online Retailer
+Mutton,Meat,Karachi,1152.35,November,Wholesale Market
+Chicken (Whole),Meat,Lahore,515.34,July,Wholesale Market
+Mutton,Meat,Hyderabad,1359.06,July,Online Retailer
+Spinach,Vegetable,Lahore,64.04,May,Online Retailer
+Eggplant,Vegetable,Sialkot,81.67,October,Municipal Report
+Fish (Rohu),Meat,Quetta,792.85,December,Local Market Survey
+Carrot,Vegetable,Faisalabad,150.52,May,Wholesale Market
+Cooking Oil (Sunflower),Oil,Hyderabad,399.98,October,Wholesale Market
+Chicken (Whole),Meat,Lahore,436.31,July,Wholesale Market
+Salt,Condiment,Peshawar,46.32,April,Online Retailer
+Eggplant,Vegetable,Peshawar,91.73,March,Local Market Survey
+Guava,Fruit,Karachi,126.4,January,Retailer Listing
+Fish (Rohu),Meat,Rawalpindi,672.13,November,Local Market Survey
+Chicken (Whole),Meat,Quetta,608.46,March,Local Market Survey
+Sugar,Grain,Multan,120.75,January,Retailer Listing
+Grapes,Fruit,Multan,221.47,December,Local Market Survey
+Carrot,Vegetable,Quetta,145.65,December,Wholesale Market
+Mutton,Meat,Islamabad,1169.88,June,Wholesale Market
+Fish (Pomfret),Meat,Lahore,1065.04,November,Wholesale Market
+Rice (Irri),Grain,Lahore,149.8,April,Municipal Report
+Flour (Atta),Grain,Sialkot,132.06,June,Local Market Survey
+Ghee,Oil,Islamabad,1136.26,June,Online Retailer
+Rice (Basmati),Grain,Peshawar,330.64,June,Online Retailer
+Cheese (Local),Dairy,Hyderabad,914.3,September,Wholesale Market
+Rice (Irri),Grain,Peshawar,143.85,July,Municipal Report
+Chickpeas,Pulses,Sialkot,241.01,April,Retailer Listing
+Banana,Fruit,Islamabad,112.71,September,Municipal Report
+Yogurt,Dairy,Rawalpindi,228.23,August,Retailer Listing
+Chickpeas,Pulses,Lahore,206.49,December,Wholesale Market
+Lentils (Moong),Pulses,Karachi,282.33,May,Local Market Survey
+Carrot,Vegetable,Rawalpindi,140.49,March,Local Market Survey
+Mango,Fruit,Quetta,251.19,April,Online Retailer
+Lentils (Moong),Pulses,Sialkot,339.82,November,Local Market Survey
+Lentils (Moong),Pulses,Islamabad,291.4,October,Wholesale Market
+Flour (Atta),Grain,Islamabad,111.34,February,Retailer Listing
+Chicken (Whole),Meat,Multan,535.02,September,Municipal Report
+Flour (Atta),Grain,Faisalabad,103.57,August,Local Market Survey
+Rice (Basmati),Grain,Rawalpindi,286.05,September,Local Market Survey
+Cooking Oil (Sunflower),Oil,Hyderabad,418.22,June,Municipal Report
+Beef (Local),Meat,Quetta,1015.62,October,Municipal Report
+Sugar,Grain,Rawalpindi,132.09,February,Local Market Survey
+Spinach,Vegetable,Islamabad,61.28,June,Local Market Survey
+Mutton,Meat,Multan,1119.33,January,Retailer Listing
+Apple,Fruit,Hyderabad,196.8,April,Online Retailer
+Sugar,Grain,Peshawar,125.02,December,Local Market Survey
+Guava,Fruit,Lahore,129.24,June,Online Retailer
+Spices (Mixed),Condiment,Peshawar,876.29,August,Retailer Listing
+Wheat,Grain,Lahore,106.22,July,Municipal Report
+Maize,Grain,Hyderabad,105.49,March,Wholesale Market
+Tea (Loose),Beverage,Islamabad,978.39,April,Municipal Report
+Cheese (Local),Dairy,Islamabad,813.03,February,Local Market Survey
+Lentils (Moong),Pulses,Faisalabad,305.68,June,Retailer Listing
+Ghee,Oil,Rawalpindi,1047.04,March,Retailer Listing
+Milk,Dairy,Quetta,207.46,November,Wholesale Market
+Eggplant,Vegetable,Islamabad,72.73,August,Retailer Listing
+Chicken Breast,Meat,Peshawar,619.4,November,Municipal Report
+Chicken (Whole),Meat,Peshawar,554.73,July,Municipal Report
+Fish (Rohu),Meat,Lahore,663.97,June,Local Market Survey
+Apple,Fruit,Peshawar,218.89,December,Municipal Report
+Apple,Fruit,Rawalpindi,185.56,March,Wholesale Market
+Onion,Vegetable,Hyderabad,92.14,December,Retailer Listing
+Sugar,Grain,Multan,129.2,April,Local Market Survey
+Cooking Oil (Sunflower),Oil,Quetta,334.31,October,Retailer Listing
+Fish (Pomfret),Meat,Rawalpindi,991.07,November,Retailer Listing
+Yogurt,Dairy,Multan,228.57,June,Retailer Listing
+Wheat,Grain,Lahore,110.57,April,Online Retailer
+Spices (Mixed),Condiment,Faisalabad,755.7,June,Wholesale Market
+Beef (Local),Meat,Islamabad,956.77,November,Municipal Report
+Wheat,Grain,Hyderabad,116.13,April,Online Retailer
+Chickpeas,Pulses,Multan,195.16,March,Local Market Survey
+Apple,Fruit,Faisalabad,217.66,October,Municipal Report
+Chicken (Whole),Meat,Hyderabad,585.86,January,Online Retailer
+Fish (Pomfret),Meat,Karachi,1178.68,June,Wholesale Market
+Apple,Fruit,Multan,229.74,November,Online Retailer
+Carrot,Vegetable,Faisalabad,134.29,March,Municipal Report
+Cheese (Local),Dairy,Rawalpindi,999.98,November,Municipal Report
+Beef (Local),Meat,Peshawar,868.04,June,Online Retailer
+Tea (Loose),Beverage,Quetta,834.83,August,Retailer Listing
+Spinach,Vegetable,Lahore,53.38,September,Wholesale Market
+Tea (Loose),Beverage,Hyderabad,829.06,August,Municipal Report
+Spinach,Vegetable,Islamabad,58.93,May,Online Retailer
+Rice (Irri),Grain,Hyderabad,154.42,September,Local Market Survey
+Potato,Vegetable,Lahore,73.81,October,Wholesale Market
+Onion,Vegetable,Rawalpindi,82.45,April,Local Market Survey
+Tea (Loose),Beverage,Hyderabad,951.1,November,Wholesale Market
+Beef (Local),Meat,Karachi,832.63,March,Retailer Listing
+Spices (Mixed),Condiment,Sialkot,921.15,May,Online Retailer
+Mutton,Meat,Quetta,1359.63,June,Retailer Listing
+Salt,Condiment,Lahore,40.57,May,Wholesale Market
+Cooking Oil (Sunflower),Oil,Quetta,363.92,February,Wholesale Market
+Cooking Oil (Sunflower),Oil,Lahore,355.41,January,Online Retailer
+Spinach,Vegetable,Quetta,64.61,June,Wholesale Market
+Yogurt,Dairy,Lahore,221.14,October,Online Retailer
+Yogurt,Dairy,Hyderabad,225.36,February,Wholesale Market
+Oranges,Fruit,Quetta,162.62,November,Municipal Report
+Oranges,Fruit,Hyderabad,174.32,January,Wholesale Market
+Tea (Loose),Beverage,Rawalpindi,798.49,February,Retailer Listing
+Banana,Fruit,Rawalpindi,131.93,May,Local Market Survey
+Rice (Basmati),Grain,Hyderabad,325.55,June,Municipal Report
+Beef (Local),Meat,Peshawar,868.32,May,Municipal Report
+Banana,Fruit,Quetta,123.79,December,Wholesale Market
+Spinach,Vegetable,Rawalpindi,55.43,October,Wholesale Market
+Banana,Fruit,Peshawar,130.13,August,Online Retailer
+Tomato,Vegetable,Rawalpindi,120.96,June,Municipal Report
+Sugar,Grain,Multan,127.92,April,Local Market Survey
+Carrot,Vegetable,Peshawar,161.54,April,Municipal Report
+Milk,Dairy,Peshawar,216.12,September,Municipal Report
+Carrot,Vegetable,Sialkot,148.09,May,Wholesale Market
+Grapes,Fruit,Multan,257.62,December,Local Market Survey
+Lentils (Moong),Pulses,Quetta,345.47,January,Online Retailer
+Beef (Local),Meat,Faisalabad,853.04,June,Online Retailer
+Potato,Vegetable,Multan,67.89,December,Retailer Listing
+Flour (Atta),Grain,Faisalabad,119.86,April,Wholesale Market
+Onion,Vegetable,Quetta,93.44,August,Municipal Report
+Salt,Condiment,Rawalpindi,37.25,October,Local Market Survey
+Potato,Vegetable,Islamabad,74.4,January,Wholesale Market
+Apple,Fruit,Multan,221,January,Municipal Report
+Salt,Condiment,Karachi,36.89,April,Municipal Report
+Tomato,Vegetable,Sialkot,114.13,February,Online Retailer
+Cheese (Local),Dairy,Quetta,883.43,December,Local Market Survey
+Mango,Fruit,Sialkot,277.88,June,Wholesale Market
+Cooking Oil (Sunflower),Oil,Lahore,367.03,October,Local Market Survey
+Lentils (Moong),Pulses,Quetta,293.9,January,Retailer Listing
+Yogurt,Dairy,Faisalabad,222.11,September,Online Retailer
+Mango,Fruit,Multan,236.08,January,Local Market Survey
+Guava,Fruit,Peshawar,129.89,February,Online Retailer
+Lentils (Masoor),Pulses,Islamabad,255.05,May,Local Market Survey
+Tomato,Vegetable,Lahore,129.84,May,Online Retailer
+Guava,Fruit,Peshawar,144.54,April,Retailer Listing
+Sugar,Grain,Karachi,113.03,December,Online Retailer
+Chicken (Whole),Meat,Islamabad,515.49,January,Retailer Listing
+Cooking Oil (Sunflower),Oil,Hyderabad,349.01,February,Municipal Report
+Milk,Dairy,Hyderabad,226.12,June,Online Retailer
+Lentils (Masoor),Pulses,Sialkot,270.45,July,Online Retailer
+Apple,Fruit,Lahore,197.31,January,Online Retailer
+Tea (Loose),Beverage,Karachi,907.25,November,Municipal Report
+Yogurt,Dairy,Hyderabad,215.45,June,Online Retailer
+Spices (Mixed),Condiment,Faisalabad,793.31,November,Wholesale Market
+Salt,Condiment,Hyderabad,42.26,December,Online Retailer
+Mutton,Meat,Faisalabad,1304.86,August,Municipal Report
+Chickpeas,Pulses,Faisalabad,223.89,October,Municipal Report
+Salt,Condiment,Peshawar,37.06,September,Wholesale Market
+Beef (Local),Meat,Sialkot,1006.84,April,Online Retailer
+Yogurt,Dairy,Multan,236.84,August,Online Retailer
+Flour (Atta),Grain,Islamabad,105.97,November,Municipal Report
+Oranges,Fruit,Karachi,151.78,December,Wholesale Market
+Wheat,Grain,Rawalpindi,122.12,November,Local Market Survey
+Maize,Grain,Islamabad,105.27,June,Online Retailer
+Lentils (Masoor),Pulses,Hyderabad,274.98,July,Retailer Listing
+Chickpeas,Pulses,Karachi,202.35,June,Online Retailer
+Ghee,Oil,Multan,934.15,July,Local Market Survey
+Tea (Loose),Beverage,Karachi,865.01,March,Retailer Listing
+Banana,Fruit,Quetta,126.51,July,Wholesale Market
+Spices (Mixed),Condiment,Karachi,856.6,June,Local Market Survey
+Carrot,Vegetable,Quetta,143.66,September,Wholesale Market
+Grapes,Fruit,Multan,234.31,June,Wholesale Market
+Cheese (Local),Dairy,Islamabad,974.62,March,Retailer Listing
+Sugar,Grain,Karachi,102.87,July,Retailer Listing
+Fish (Pomfret),Meat,Karachi,1017.77,October,Local Market Survey
+Maize,Grain,Peshawar,112.13,November,Retailer Listing
+Tomato,Vegetable,Islamabad,131.96,June,Municipal Report
+Mango,Fruit,Hyderabad,251.71,July,Online Retailer
+Eggplant,Vegetable,Multan,91.14,April,Wholesale Market
+Fish (Rohu),Meat,Faisalabad,684.9,August,Online Retailer
+Sugar,Grain,Sialkot,121.44,December,Retailer Listing
+Milk,Dairy,Faisalabad,221.05,December,Retailer Listing
+Spices (Mixed),Condiment,Faisalabad,843.19,July,Municipal Report
+Eggplant,Vegetable,Faisalabad,83.99,January,Retailer Listing
+Tea (Loose),Beverage,Multan,827.79,April,Local Market Survey
+Tea (Loose),Beverage,Quetta,850.96,March,Online Retailer
+Flour (Atta),Grain,Lahore,104.91,May,Local Market Survey
+Carrot,Vegetable,Rawalpindi,137.15,February,Wholesale Market
+Wheat,Grain,Faisalabad,109.16,September,Wholesale Market
+Fish (Rohu),Meat,Quetta,695.33,October,Local Market Survey
+Chickpeas,Pulses,Karachi,180.44,September,Local Market Survey
+Mango,Fruit,Faisalabad,274.79,May,Online Retailer
+Chickpeas,Pulses,Hyderabad,218.63,June,Wholesale Market
+Maize,Grain,Sialkot,118.51,April,Online Retailer
+Ghee,Oil,Lahore,899.59,October,Municipal Report
+Banana,Fruit,Hyderabad,126.44,June,Online Retailer
+Grapes,Fruit,Islamabad,238.99,January,Online Retailer
+Rice (Basmati),Grain,Peshawar,316.85,October,Local Market Survey
+Chicken (Whole),Meat,Peshawar,620.44,December,Municipal Report
+Chicken (Whole),Meat,Lahore,494.87,April,Wholesale Market
+Ghee,Oil,Quetta,975.55,September,Municipal Report
+Spinach,Vegetable,Islamabad,57.41,September,Wholesale Market
+Rice (Irri),Grain,Multan,134.39,January,Wholesale Market
+Potato,Vegetable,Rawalpindi,77.34,September,Online Retailer
+Potato,Vegetable,Multan,75.44,June,Wholesale Market
+Sugar,Grain,Hyderabad,125.39,August,Local Market Survey
+Grapes,Fruit,Karachi,221.82,December,Local Market Survey
+Grapes,Fruit,Rawalpindi,228.73,January,Local Market Survey
+Banana,Fruit,Hyderabad,137.97,December,Wholesale Market
+Spices (Mixed),Condiment,Rawalpindi,850.04,April,Municipal Report
+Yogurt,Dairy,Lahore,225.74,August,Wholesale Market
+Beef (Local),Meat,Peshawar,943.09,October,Online Retailer
+Salt,Condiment,Hyderabad,39.02,October,Wholesale Market
+Spices (Mixed),Condiment,Hyderabad,857.35,January,Retailer Listing
+Chickpeas,Pulses,Lahore,211.65,May,Online Retailer
+Salt,Condiment,Sialkot,38.86,September,Online Retailer
+Salt,Condiment,Multan,39.01,December,Retailer Listing
+Chickpeas,Pulses,Peshawar,183.83,October,Retailer Listing
+Potato,Vegetable,Faisalabad,66.29,October,Local Market Survey
+Sugar,Grain,Faisalabad,117,October,Local Market Survey
+Lentils (Masoor),Pulses,Lahore,233.49,December,Retailer Listing
+Sugar,Grain,Multan,114.95,May,Local Market Survey
+Milk,Dairy,Islamabad,189.75,November,Municipal Report
+Tea (Loose),Beverage,Faisalabad,973.35,December,Municipal Report
+Banana,Fruit,Islamabad,110.28,March,Municipal Report
+Tea (Loose),Beverage,Multan,865.41,September,Retailer Listing
+Onion,Vegetable,Karachi,96.22,June,Wholesale Market
+Chicken Breast,Meat,Karachi,627.49,January,Retailer Listing
+Oranges,Fruit,Faisalabad,142.05,November,Online Retailer
+Cheese (Local),Dairy,Karachi,795.19,April,Municipal Report
+Banana,Fruit,Quetta,138.27,April,Wholesale Market
+Wheat,Grain,Islamabad,125.28,November,Wholesale Market
+Spinach,Vegetable,Lahore,64.07,December,Wholesale Market
+Mutton,Meat,Multan,1271.27,December,Wholesale Market
+Salt,Condiment,Multan,44.41,July,Municipal Report
+Fish (Rohu),Meat,Islamabad,751.87,December,Retailer Listing
+Rice (Irri),Grain,Faisalabad,128.87,April,Retailer Listing
+Mango,Fruit,Rawalpindi,244.94,November,Wholesale Market
+Lentils (Moong),Pulses,Islamabad,314.41,December,Municipal Report
+Cooking Oil (Sunflower),Oil,Karachi,370.07,March,Local Market Survey
+Yogurt,Dairy,Sialkot,206,February,Wholesale Market
+Chicken (Whole),Meat,Multan,571.31,January,Wholesale Market
+Rice (Irri),Grain,Faisalabad,126.45,July,Retailer Listing
+Guava,Fruit,Quetta,122.57,September,Online Retailer
+Spinach,Vegetable,Faisalabad,53,September,Online Retailer
+Grapes,Fruit,Lahore,182.38,August,Municipal Report
+Grapes,Fruit,Quetta,211.44,November,Wholesale Market
+Flour (Atta),Grain,Multan,105.52,May,Retailer Listing
+Cooking Oil (Sunflower),Oil,Hyderabad,402.76,April,Online Retailer
+Chicken Breast,Meat,Faisalabad,686.38,August,Local Market Survey
+Onion,Vegetable,Lahore,90.63,September,Local Market Survey
+Rice (Irri),Grain,Multan,148.97,December,Online Retailer
+Sugar,Grain,Peshawar,120.36,November,Retailer Listing
+Oranges,Fruit,Lahore,139.19,August,Municipal Report
+Wheat,Grain,Quetta,128.96,December,Retailer Listing
+Lentils (Moong),Pulses,Sialkot,334.68,November,Municipal Report
+Mango,Fruit,Multan,275.05,July,Municipal Report
+Tomato,Vegetable,Faisalabad,123.33,December,Online Retailer
+Beef (Local),Meat,Multan,842.44,July,Online Retailer
+Cooking Oil (Sunflower),Oil,Quetta,344.42,January,Municipal Report
+Mutton,Meat,Sialkot,1304.6,December,Local Market Survey
+Salt,Condiment,Quetta,45.5,March,Online Retailer
+Ghee,Oil,Rawalpindi,1024.05,September,Online Retailer
+Cheese (Local),Dairy,Hyderabad,1000.55,February,Online Retailer
+Onion,Vegetable,Rawalpindi,87.84,January,Online Retailer
+Yogurt,Dairy,Multan,196.1,September,Retailer Listing
+Potato,Vegetable,Faisalabad,64.17,October,Retailer Listing
+Beef (Local),Meat,Karachi,787.89,March,Municipal Report
+Lentils (Masoor),Pulses,Faisalabad,238.06,June,Wholesale Market
+Milk,Dairy,Karachi,177.34,July,Online Retailer
+Spinach,Vegetable,Faisalabad,61.73,February,Wholesale Market
+Onion,Vegetable,Karachi,84.06,December,Local Market Survey
+Apple,Fruit,Multan,191.75,September,Online Retailer
+Salt,Condiment,Faisalabad,43.74,July,Retailer Listing
+Flour (Atta),Grain,Faisalabad,122.53,March,Retailer Listing
+Cheese (Local),Dairy,Hyderabad,1046.5,November,Online Retailer
+Beef (Local),Meat,Hyderabad,899.01,July,Municipal Report
+Cooking Oil (Sunflower),Oil,Rawalpindi,363.83,June,Online Retailer
+Potato,Vegetable,Karachi,75.21,May,Local Market Survey
+Salt,Condiment,Lahore,42.72,May,Municipal Report
+Tomato,Vegetable,Lahore,126.62,November,Municipal Report
+Rice (Basmati),Grain,Peshawar,287.15,November,Local Market Survey
+Potato,Vegetable,Peshawar,68.62,March,Retailer Listing
+Tea (Loose),Beverage,Rawalpindi,985.43,April,Online Retailer
+Chicken (Whole),Meat,Karachi,513.56,April,Local Market Survey
+Cooking Oil (Sunflower),Oil,Sialkot,401.97,January,Municipal Report
+Spinach,Vegetable,Islamabad,62.21,April,Wholesale Market
+Cooking Oil (Sunflower),Oil,Hyderabad,405.87,May,Wholesale Market
+Potato,Vegetable,Lahore,67.59,December,Online Retailer
+Carrot,Vegetable,Rawalpindi,153.09,December,Local Market Survey
+Eggplant,Vegetable,Lahore,78.83,February,Retailer Listing
+Rice (Basmati),Grain,Islamabad,323,May,Wholesale Market
+Chicken (Whole),Meat,Sialkot,604.41,January,Retailer Listing
+Apple,Fruit,Islamabad,216.67,October,Online Retailer
+Carrot,Vegetable,Karachi,142.84,May,Municipal Report
+Mango,Fruit,Multan,253.9,September,Municipal Report
+Spices (Mixed),Condiment,Quetta,720.95,July,Online Retailer
+Guava,Fruit,Hyderabad,128.9,December,Retailer Listing
+Tomato,Vegetable,Peshawar,114.94,August,Municipal Report
+Rice (Irri),Grain,Peshawar,154.77,October,Local Market Survey
+Apple,Fruit,Islamabad,192.56,November,Wholesale Market
+Fish (Rohu),Meat,Peshawar,636.71,September,Wholesale Market
+Tea (Loose),Beverage,Hyderabad,977.75,July,Municipal Report
+Rice (Basmati),Grain,Islamabad,314.84,August,Local Market Survey
+Tomato,Vegetable,Rawalpindi,117.93,May,Wholesale Market
+Wheat,Grain,Karachi,110.66,November,Municipal Report
+Cheese (Local),Dairy,Sialkot,1053.09,December,Online Retailer
+Beef (Local),Meat,Peshawar,888.46,December,Local Market Survey
+Salt,Condiment,Peshawar,45.54,June,Wholesale Market
+Grapes,Fruit,Lahore,238.86,January,Retailer Listing
+Spinach,Vegetable,Quetta,60.48,January,Retailer Listing
+Mango,Fruit,Multan,255,April,Wholesale Market
+Spices (Mixed),Condiment,Quetta,885.88,December,Online Retailer
+Lentils (Masoor),Pulses,Peshawar,242.04,April,Online Retailer
+Mutton,Meat,Lahore,1156.12,April,Wholesale Market
+Rice (Basmati),Grain,Islamabad,312.45,October,Online Retailer
+Carrot,Vegetable,Quetta,131.5,February,Local Market Survey
+Salt,Condiment,Peshawar,40.37,February,Retailer Listing
+Cheese (Local),Dairy,Multan,948.91,September,Online Retailer
+Carrot,Vegetable,Faisalabad,135.01,February,Municipal Report
+Lentils (Masoor),Pulses,Karachi,257.06,August,Wholesale Market
+Eggplant,Vegetable,Islamabad,76.89,July,Local Market Survey
+Flour (Atta),Grain,Karachi,115.64,November,Wholesale Market
+Onion,Vegetable,Quetta,85.63,February,Retailer Listing
+Oranges,Fruit,Multan,144.71,December,Municipal Report
+Tomato,Vegetable,Lahore,115.83,December,Retailer Listing
+Oranges,Fruit,Rawalpindi,135.76,February,Local Market Survey
+Tea (Loose),Beverage,Faisalabad,954.71,January,Retailer Listing
+Fish (Pomfret),Meat,Karachi,1112.03,October,Municipal Report
+Spinach,Vegetable,Multan,65.44,March,Wholesale Market
+Lentils (Masoor),Pulses,Multan,241.84,October,Municipal Report
+Chicken Breast,Meat,Faisalabad,666.04,August,Municipal Report
+Ghee,Oil,Hyderabad,920.28,September,Online Retailer
+Spinach,Vegetable,Sialkot,63.96,January,Online Retailer
+Flour (Atta),Grain,Lahore,115.3,March,Municipal Report
+Fish (Rohu),Meat,Karachi,597.47,July,Municipal Report
+Lentils (Masoor),Pulses,Hyderabad,246.71,July,Local Market Survey
+Ghee,Oil,Karachi,1042.64,January,Local Market Survey
+Cheese (Local),Dairy,Multan,1022.66,June,Wholesale Market
+Mutton,Meat,Peshawar,1092.46,February,Wholesale Market
+Guava,Fruit,Quetta,121.62,March,Municipal Report
+Tomato,Vegetable,Sialkot,121.15,July,Online Retailer
+Mango,Fruit,Multan,242.64,May,Online Retailer
+Eggplant,Vegetable,Sialkot,78.89,May,Municipal Report
+Wheat,Grain,Faisalabad,136.44,March,Municipal Report
+Tomato,Vegetable,Multan,119.09,December,Wholesale Market
+Cooking Oil (Sunflower),Oil,Karachi,341.05,February,Local Market Survey
+Oranges,Fruit,Lahore,154.73,September,Municipal Report
+Potato,Vegetable,Peshawar,79.35,April,Wholesale Market
+Spinach,Vegetable,Faisalabad,65.36,September,Online Retailer
+Cooking Oil (Sunflower),Oil,Sialkot,357.94,October,Local Market Survey
+Chicken (Whole),Meat,Quetta,536.93,February,Wholesale Market
+Oranges,Fruit,Quetta,164.08,June,Online Retailer
+Yogurt,Dairy,Karachi,226.72,July,Wholesale Market
+Mango,Fruit,Karachi,232.72,September,Online Retailer
+Lentils (Moong),Pulses,Islamabad,273.85,October,Municipal Report
+Salt,Condiment,Islamabad,36,July,Retailer Listing
+Fish (Rohu),Meat,Hyderabad,795.68,July,Municipal Report
+Tea (Loose),Beverage,Islamabad,822.7,September,Online Retailer
+Beef (Local),Meat,Quetta,886.32,August,Retailer Listing
+Lentils (Moong),Pulses,Quetta,289.26,June,Local Market Survey
+Banana,Fruit,Lahore,108.22,September,Retailer Listing
+Flour (Atta),Grain,Peshawar,109.44,September,Wholesale Market
+Potato,Vegetable,Karachi,60.14,July,Local Market Survey
+Eggplant,Vegetable,Faisalabad,83.33,October,Retailer Listing
+Mango,Fruit,Islamabad,232.62,February,Retailer Listing
+Rice (Basmati),Grain,Peshawar,344.54,May,Retailer Listing
+Maize,Grain,Islamabad,97.04,January,Wholesale Market
+Spices (Mixed),Condiment,Karachi,835.89,June,Municipal Report
+Chicken Breast,Meat,Hyderabad,737.41,June,Municipal Report
+Flour (Atta),Grain,Peshawar,110.52,May,Wholesale Market
+Lentils (Moong),Pulses,Islamabad,297.49,December,Local Market Survey
+Onion,Vegetable,Faisalabad,81.86,August,Local Market Survey
+Apple,Fruit,Karachi,174.91,November,Retailer Listing
+Lentils (Moong),Pulses,Rawalpindi,320.5,November,Wholesale Market
+Ghee,Oil,Quetta,990.48,April,Wholesale Market
+Wheat,Grain,Quetta,130.44,March,Municipal Report
+Mango,Fruit,Lahore,243.66,December,Retailer Listing
+Cooking Oil (Sunflower),Oil,Faisalabad,380.05,April,Wholesale Market
+Apple,Fruit,Hyderabad,189.88,July,Municipal Report
+Guava,Fruit,Peshawar,141.14,July,Online Retailer
+Maize,Grain,Quetta,100.18,August,Local Market Survey
+Maize,Grain,Karachi,90.5,July,Local Market Survey
+Chicken (Whole),Meat,Lahore,513.38,April,Online Retailer
+Lentils (Moong),Pulses,Karachi,301.52,January,Local Market Survey
+Carrot,Vegetable,Lahore,121.06,August,Retailer Listing
+Guava,Fruit,Peshawar,133.82,April,Municipal Report
+Milk,Dairy,Faisalabad,189.52,July,Municipal Report
+Spices (Mixed),Condiment,Karachi,875.31,December,Retailer Listing
+Sugar,Grain,Multan,119.09,January,Wholesale Market
+Spinach,Vegetable,Hyderabad,62.79,October,Wholesale Market
+Tea (Loose),Beverage,Karachi,826.97,February,Retailer Listing
+Flour (Atta),Grain,Rawalpindi,107.21,November,Retailer Listing
+Potato,Vegetable,Karachi,70.26,January,Online Retailer
+Chicken (Whole),Meat,Lahore,530.88,August,Wholesale Market
+Onion,Vegetable,Multan,102.07,June,Municipal Report
+Ghee,Oil,Karachi,853.77,January,Wholesale Market
+Sugar,Grain,Hyderabad,134.96,January,Local Market Survey
+Oranges,Fruit,Rawalpindi,154.25,April,Retailer Listing
+Oranges,Fruit,Karachi,161.38,April,Local Market Survey
+Guava,Fruit,Faisalabad,133.98,October,Retailer Listing
+Eggplant,Vegetable,Faisalabad,80.24,February,Wholesale Market
+Wheat,Grain,Lahore,131.67,October,Wholesale Market
+Potato,Vegetable,Hyderabad,62.15,August,Retailer Listing
+Cheese (Local),Dairy,Quetta,921.48,February,Wholesale Market
+Lentils (Masoor),Pulses,Islamabad,208.44,August,Wholesale Market
+Mango,Fruit,Lahore,263.43,January,Local Market Survey
+Chicken Breast,Meat,Peshawar,612.31,February,Local Market Survey
+Chicken Breast,Meat,Karachi,708.19,April,Local Market Survey
+Mutton,Meat,Faisalabad,1185.64,November,Wholesale Market
+Beef (Local),Meat,Rawalpindi,1022.33,June,Municipal Report
+Mutton,Meat,Rawalpindi,1315.1,June,Local Market Survey
+Beef (Local),Meat,Quetta,899.6,September,Retailer Listing
+Onion,Vegetable,Karachi,93.25,January,Retailer Listing
+Ghee,Oil,Hyderabad,1005.25,February,Online Retailer
+Tomato,Vegetable,Rawalpindi,131.07,April,Municipal Report
+Eggplant,Vegetable,Karachi,82.39,September,Online Retailer
+Rice (Basmati),Grain,Rawalpindi,277.58,October,Online Retailer
+Tomato,Vegetable,Multan,133.44,February,Wholesale Market
+Maize,Grain,Sialkot,99.86,November,Retailer Listing
+Milk,Dairy,Quetta,213.35,September,Wholesale Market
+Chicken (Whole),Meat,Lahore,492.86,May,Municipal Report
+Flour (Atta),Grain,Rawalpindi,108.98,February,Local Market Survey
+Grapes,Fruit,Lahore,199.87,May,Local Market Survey
+Rice (Basmati),Grain,Peshawar,285.17,May,Local Market Survey
+Tomato,Vegetable,Sialkot,127.52,July,Online Retailer
+Fish (Rohu),Meat,Lahore,690.06,December,Retailer Listing
+Oranges,Fruit,Sialkot,142.53,July,Local Market Survey
+Maize,Grain,Hyderabad,101,February,Municipal Report
+Lentils (Moong),Pulses,Faisalabad,321.58,May,Wholesale Market
+Eggplant,Vegetable,Faisalabad,79.84,June,Municipal Report
+Ghee,Oil,Rawalpindi,1018.51,October,Retailer Listing
+Ghee,Oil,Lahore,1080.25,December,Wholesale Market
+Yogurt,Dairy,Lahore,230.01,March,Local Market Survey
+Guava,Fruit,Quetta,152.14,March,Municipal Report
+Cheese (Local),Dairy,Islamabad,884.36,February,Wholesale Market
+Chicken Breast,Meat,Sialkot,636.97,July,Municipal Report
+Flour (Atta),Grain,Hyderabad,103.46,July,Online Retailer
+Fish (Pomfret),Meat,Karachi,921.13,July,Municipal Report
+Tomato,Vegetable,Islamabad,137.32,December,Online Retailer
+Oranges,Fruit,Hyderabad,161.06,March,Wholesale Market
+Chicken (Whole),Meat,Faisalabad,548.45,October,Wholesale Market
+Banana,Fruit,Islamabad,104.04,July,Local Market Survey
+Mango,Fruit,Lahore,265.49,July,Local Market Survey
+Tomato,Vegetable,Islamabad,120.43,November,Municipal Report
+Rice (Basmati),Grain,Quetta,306.61,May,Online Retailer
+Spices (Mixed),Condiment,Faisalabad,800.43,January,Online Retailer
+Maize,Grain,Faisalabad,111.67,February,Municipal Report
+Chicken Breast,Meat,Peshawar,673.99,June,Wholesale Market
+Fish (Rohu),Meat,Hyderabad,698.56,February,Wholesale Market
+Onion,Vegetable,Karachi,92.92,June,Retailer Listing
+Yogurt,Dairy,Peshawar,212.84,December,Municipal Report
+Mango,Fruit,Multan,275.04,March,Municipal Report
+Spinach,Vegetable,Multan,58.8,June,Wholesale Market
+Rice (Irri),Grain,Multan,131.71,October,Online Retailer
+Chickpeas,Pulses,Quetta,218.29,June,Local Market Survey
+Tea (Loose),Beverage,Rawalpindi,897.65,November,Online Retailer
+Chicken (Whole),Meat,Faisalabad,596.08,December,Local Market Survey
+Ghee,Oil,Hyderabad,1109.79,April,Online Retailer
+Spices (Mixed),Condiment,Faisalabad,864.24,December,Municipal Report
+Oranges,Fruit,Karachi,134.98,August,Retailer Listing
+Fish (Rohu),Meat,Peshawar,786.38,March,Municipal Report
+Banana,Fruit,Hyderabad,116.51,August,Local Market Survey
+Milk,Dairy,Islamabad,201.63,January,Wholesale Market
+Tea (Loose),Beverage,Hyderabad,872.88,August,Municipal Report
+Salt,Condiment,Lahore,34.21,September,Retailer Listing
+Cheese (Local),Dairy,Quetta,842.18,August,Municipal Report
+Yogurt,Dairy,Sialkot,238.91,April,Local Market Survey
+Sugar,Grain,Karachi,119.9,March,Retailer Listing
+Apple,Fruit,Sialkot,197.52,September,Wholesale Market
+Oranges,Fruit,Karachi,139.01,July,Municipal Report
+Lentils (Moong),Pulses,Islamabad,293.72,March,Municipal Report
+Tea (Loose),Beverage,Karachi,834.71,March,Retailer Listing
+Maize,Grain,Islamabad,105.82,May,Municipal Report
+Yogurt,Dairy,Multan,255.39,April,Retailer Listing
+Sugar,Grain,Hyderabad,126.23,August,Wholesale Market
+Cooking Oil (Sunflower),Oil,Hyderabad,368.42,November,Retailer Listing
+Flour (Atta),Grain,Faisalabad,122.15,October,Online Retailer
+Banana,Fruit,Sialkot,127.05,July,Local Market Survey
+Lentils (Moong),Pulses,Peshawar,312.53,February,Online Retailer
+Eggplant,Vegetable,Quetta,86.92,December,Retailer Listing
+Grapes,Fruit,Rawalpindi,200.92,August,Municipal Report
+Milk,Dairy,Peshawar,201.47,December,Municipal Report
+Spices (Mixed),Condiment,Sialkot,920.87,April,Retailer Listing
+Ghee,Oil,Lahore,1043.6,July,Retailer Listing
+Tea (Loose),Beverage,Islamabad,928.38,December,Municipal Report
+Tomato,Vegetable,Multan,113.06,February,Municipal Report
+Sugar,Grain,Faisalabad,112.63,July,Online Retailer
+Eggplant,Vegetable,Islamabad,74.99,May,Online Retailer
+Banana,Fruit,Peshawar,134.92,September,Wholesale Market
+Ghee,Oil,Hyderabad,1136.56,December,Local Market Survey

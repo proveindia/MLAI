@@ -1,0 +1,6 @@
+Module 16: Additional Resources, Further Reading, Bibliography, and More to Explore
+At the end of each module, we’ll share a list of additional resources for you to explore. These resources will enable you to dive deeper into the concepts that resonate with your work or your career aspirations. You are not required to review these resources.
+
+Brownlee, Jason. Support Vector Machines for Machine Learning. Machine Learning Mastery. Last modified August 15, 2020. https://machinelearningmastery.com/support-vector-machines-for-machine-learning/ Links to an external site..
+Maximum Margin Separating Hyperplane in Scikit Learn. Last modified January 30, 2023. https://www.geeksforgeeks.org/maximum-margin-separating-hyperplane-in-scikit-learn/ Links to an external site..
+Scikit-Learn. Support Vector Machines. Accessed July 25, 2024. https://scikit-learn.org/stable/modules/svm.html Links to an external site..

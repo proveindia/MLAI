@@ -1,0 +1,7 @@
+Additional Resources, Further Reading, Bibliography, and More to Explore
+At the end of each module, we’ll share a list of additional resources for you to explore. These resources will enable you to dive deeper into the concepts that resonate with your work or your career aspirations. You are not required to review these resources.
+
+Bird, Steven., Loper, Edward., and Klein, Ewan. Natural Language Processing with Python. Sebastopol: O’Reilly Media, 2009.
+Moez, Ali. “NLTK Sentiment Analysis Tutorial for Beginners.” DataCamp. Last modified March 2023. https://www.datacamp.com/tutorial/text-analytics-beginners-nltk Links to an external site..
+NLTK Project. “Natural Language Toolkit.” Last modified January 2, 2023. https://www.nltk.org/ Links to an external site..
+Socher, Richard., Perelygin,Alex., Wu, Jean., Chuang, Jason., Manning, Christopher., Ng, Andrew., and Potts, Christopher. “Deeply Moving: Deep Learning for Sentiment Analysis.” Stanford NLP Group. Accessed August 7, 2024. https://nlp.stanford.edu/sentiment/index.html Links to an external site..

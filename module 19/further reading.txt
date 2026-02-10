@@ -1,0 +1,8 @@
+Module 19: Additional Resources, Further Reading, Bibliography, and More to Explore
+At the end of each module, we’ll share a list of additional resources for you to explore. These resources will enable you to dive deeper into the concepts that resonate with your work or your career aspirations. You are not required to review these resources.
+
+Dabass, Jyoti. “Personalized Recommendations: A Comprehensive Guide to Recommendation Systems, Types, and Building Your Own from Scratch.” Medium. Last modified May 16, 2024.
+https://python.plainenglish.io/personalized-recommendations-a-comprehensive-guide-to-recommendation-systems-types-and-building-81b80d4fb913 Links to an external site..
+Jannach, Dietmar, Markus Zanker, Alexander Felfernig, and Gerhard Friedrich. Recommender Systems: An Introduction. Cambridge: Cambridge University Press, 2010.
+https://www.amazon.com/Recommender-Systems-Introduction-Dietmar-Jannach/dp/0521493366 Links to an external site..
+Korbut, Daniil. “Recommendation System Algorithms: An Overview.” KDNuggets. Accessed August 10, 2024. https://www.kdnuggets.com/2017/08/recommendation-system-algorithms-overview.html Links to an external site..

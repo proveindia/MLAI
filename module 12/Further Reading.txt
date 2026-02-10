@@ -1,0 +1,9 @@
+IBM. “What Is the K-Nearest Neighbors (KNN) Algorithm?” Accessed July 10, 2024. https://www.ibm.com/topics/knn Links to an external site..
+
+
+GeeksforGeeks. “K-Nearest Neighbor (KNN) Algorithm.” Last modified July 5, 2024. https://www.geeksforgeeks.org/k-nearest-neighbours/ Links to an external site..
+
+
+Harrison, Onel. “Machine Learning Basics with the K-Nearest Neighbors Algorithm.” Medium. Last modified September 10, 2018. https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761 Links to an external site..
+
+Scikit-Learn. “KNeighborsClassifier.” Accessed July 8, 2024. https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html Links to an external site..

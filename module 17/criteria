@@ -1,0 +1,68 @@
+
+Required Assignment 17.1: Comparing Classifiers
+Criteria	Ratings	Pts
+This criterion is linked to a Learning OutcomeProject organization:
+• A READMe file with a summary of findings and a link to the Jupyter Notebook.
+• Jupyter Notebook has headings and text appropriately formatted.
+• No unnecessary files.
+• Directories and files have appropriate names and locations.
+5 pts
+Excellent
+Your submission includes all of the listed components.
+
+Your submission includes a few or none of the listed components.
+5 pts
+This criterion is linked to a Learning OutcomeSyntax and code quality:
+• Libraries are imported and aliased correctly.
+• Code does not contain errors.
+• No long strings of code output.
+• Demonstrates competency with pandas.
+• Demonstrates competency with seaborn.
+• Comments are used appropriately to explain code.
+• Variables are sensible.
+5 pts
+Excellent
+Your submission includes all of the listed components.
+
+Your submission includes a few or none of the listed components.
+5 pts
+This criterion is linked to a Learning OutcomeVisualizations:
+• Appropriate plots for categorical and continuous variables are utilized.
+• Plots contain readable labels.
+• Plots contain descriptive titles.
+• Axes are legible.
+• Subplots are used when appropriate.
+• Plots are scaled appropriately for readability.
+5 pts
+Excellent
+Your submission includes all of the listed components.
+
+Your submission includes a few or none of the listed components.
+5 pts
+This criterion is linked to a Learning OutcomeModeling:
+• Use of multiple machine learning models.
+• Cross-validation of models.
+• Grid search hyperparameters.
+• Appropriate interpretation of coefficients in models.
+• Appropriate interpretation of an evaluation metric.
+• Clear identification of an evaluation metric.
+• Clear rationale for use of the given evaluation metric.
+5 pts
+Excellent
+Your submission includes all of the listed components.
+
+Your submission includes a few or none of the listed components.
+5 pts
+This criterion is linked to a Learning OutcomeFindings:
+• Clearly stated business understanding of the problem.
+• Clean and organized notebook with data cleaning.
+• Correct and concise interpretation of descriptive and inferential statistics.
+• Clearly stated findings in their own section with actionable items highlighted in appropriate language for a nontechnical audience.
+• Next steps and recommendations.
+5 pts
+Excellent
+Your submission includes all of the listed components.
+
+Your submission includes a few or none of the listed components.
+5 pts
+Total Points: 25
