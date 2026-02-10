@@ -6,7 +6,7 @@ Welcome to my Machine Learning and Artificial Intelligence course repository. Th
 
 The repository is organized by modules, each covering specific topics in ML/AI.
 
-### 📚 Modules
+### 📚 Modules 
 
 - **Module 1 - 19**: Each module directory contains:
   - Jupyter Notebooks (`.ipynb`) for lessons and assignments.
