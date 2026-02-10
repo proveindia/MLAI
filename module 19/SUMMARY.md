@@ -11,6 +11,48 @@ This module explored Recommendation Systems, focusing on Collaborative Filtering
 *   **Surprise Library:** A Python scikit for building and analyzing recommender systems.
 *   **Hybrid Recommendations:** Combining multiple algorithms (e.g., SVD + SlopeOne) to improve prediction accuracy.
 
+## Additional Algorithms Used
+Beyond SVD and SlopeOne, the module utilized several other algorithms from the Surprise library:
+
+1.  **NMF (Non-Negative Matrix Factorization):** similar to SVD but enforces non-negative factors, often leading to more interpretable results.
+2.  **CoClustering:** A collaborative filtering algorithm based on co-clustering users and items (simultaneous clustering).
+3.  **KNNBasic:** A basic collaborative filtering algorithm.
+4.  **NormalPredictor:** A baseline algorithm that predicts a random rating based on the distribution of the training set (assumed to be normal), used for comparison.
+
+## Hyperparameter Tuning
+
+### Search Strategy: RandomizedSearchCV vs GridSearchCV
+In the discussion assignment, **RandomizedSearchCV** was used instead of GridSearchCV.
+*   **Why?** Recommender systems often have a large hyperparameter space (factors, learning rates, regularization). GridSearch tries every combination, which is computationally expensive and slow.
+*   **RandomizedSearchCV** samples a fixed number of parameter settings (`n_iter`) from specified distributions, effectively finding good hyperparameters in a fraction of the time.
+
+### Key Hyperparameters for SVD
+The following parameters were tuned for the `SVD` algorithm:
+
+*   **`n_factors`:** The number of latent factors (dimensions) to represent users and items. Higher values capture more complexity but risk overfitting.
+    *   *Range searched:* 50 to 200.
+*   **`n_epochs`:** The number of iterations of the SGD procedure.
+    *   *Range searched:* 20 to 50.
+*   **`lr_all`:** The learning rate for all parameters. Controls step size during optimization.
+    *   *Distribution:* Uniform closer to 0 (e.g., 0.002 to 0.015).
+*   **`reg_all`:** The regularization term for all parameters. Prevents overfitting by penalizing large coefficients.
+    *   *Distribution:* Uniform (e.g., 0.02 to 0.1).
+
+### Key Hyperparameters for KNNBasic
+*   **`k`:** The maximum number of neighbors to take into account for aggregation.
+    *   *Range searched:* 10 to 50.
+*   **`min_k`:** The minimum number of neighbors to take into account for aggregation. If not enough neighbors are found, the neighbor aggregation is not performed.
+    *   *Range searched:* 1 to 5.
+*   **`sim_options`:** A dictionary of options for the similarity measure.
+    *   **`name`:** The name of the similarity metric to use (MSD, Cosine, Pearson).
+    *   **`user_based`:** Whether the similarity is computed between users (True) or items (False).
+
+### Key Hyperparameters for NMF (Non-Negative Matrix Factorization)
+*   **`n_factors`:** The number of latent factors.
+    *   *Range searched:* 15 to 40.
+*   **`n_epochs`:** The number of iterations of the SGD procedure.
+    *   *Range searched:* 20 to 50.
+
 ## Key Formulas
 
 ### 1. Matrix Factorization (ALS Update Rule)
@@ -26,16 +68,28 @@ $$P_{a,b} := P_{a,b} - \alpha \sum_{j \in R_a}^N e_{a,j}Q_{b,j}$$
 ### 2. Weighted Hybrid Prediction
 A weighted hybrid model combines predictions from multiple algorithms (e.g., SVD and SlopeOne) using a linear combination.
 
-$$\hat{r}_{ui} = \alpha \cdot \hat{r}_{SVD} + (1-\alpha) \cdot \hat{r}_{SlopeOne}$$
+$$ \hat{r}_{ui} = \alpha \cdot \hat{r}_{\text{SVD}} + (1-\alpha) \cdot \hat{r}_{\text{SlopeOne}} $$
 
 In the assignment, an equal weight ($\alpha = 0.5$) was used:
-$$ \hat{r}_{hybrid} = 0.5 \cdot \hat{r}_{SVD} + 0.5 \cdot \hat{r}_{SlopeOne} $$
+$$ \hat{r}_{\text{hybrid}} = 0.5 \cdot \hat{r}_{\text{SVD}} + 0.5 \cdot \hat{r}_{\text{SlopeOne}} $$
 
 ### 3. Similarity Measures (KNN)
 Memory-based collaborative filtering relies on similarity measures like Cosine Similarity or Pearson Correlation.
 
 **Cosine Similarity:**
 $$ \text{sim}(u, v) = \frac{\sum_{i} r_{ui} r_{vi}}{\sqrt{\sum_{i} r_{ui}^2} \sqrt{\sum_{i} r_{vi}^2}} $$
+
+**Pearson Correlation:**
+$$ \text{sim}(u, v) = \frac{\sum_{i \in I_{uv}} (r_{ui} - \bar{r}_u)(r_{vi} - \bar{r}_v)}{\sqrt{\sum_{i \in I_{uv}} (r_{ui} - \bar{r}_u)^2} \sqrt{\sum_{i \in I_{uv}} (r_{vi} - \bar{r}_v)^2}} $$
+
+**Mean Squared Difference (MSD) Similarity:**
+$$ \text{msd}(u, v) = \frac{1}{|I_{uv}|} \sum_{i \in I_{uv}} (r_{ui} - r_{vi})^2 $$
+$$ \text{sim}(u, v) = \frac{1}{\text{msd}(u, v) + 1} $$
+
+### 4. Evaluation Metric (RMSE)
+Root Mean Squared Error is the standard metric for evaluating rating predictions.
+
+$$ \text{RMSE} = \sqrt{\frac{1}{|\hat{R}|} \sum_{\hat{r}_{ui} \in \hat{R}} (r_{ui} - \hat{r}_{ui})^2} $$
 
 ## Types of Hybrid Recommendation
 
