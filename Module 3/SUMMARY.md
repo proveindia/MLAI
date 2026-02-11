@@ -5,7 +5,50 @@ Data Visualization is the art of communicating data insights effectively. We use
 
 ## Key Concepts
 
-### Chart Selection Guide
+### 1. Data Science Methodologies
+Structured approaches to solving data problems.
+
+#### CRISP-DM (Cross-Industry Standard Process for Data Mining)
+The most widely used open standard process model. It is hierarchical with four levels of abstraction: **Phases**, **Generic Tasks**, **Specialized Tasks**, and **Process Instances**.
+
+**The 6 Phases:**
+1.  **Business Understanding:** Focuses on understanding project objectives and requirements from a business perspective.
+    *   *Tasks:* Determine Business Objectives, Assess Situation, Determine Data Mining Goals, Produce Project Plan.
+2.  **Data Understanding:** Initial data collection and familiarization. Identify data quality problems.
+3.  **Data Preparation:** Construct the final dataset (clean, transform, format). This is often the most time-consuming phase.
+4.  **Modeling:** Select and apply modeling techniques. Calibrate parameters.
+5.  **Evaluation:** Evaluate the model against business objectives. Determine if there is an important business issue not sufficiently considered.
+6.  **Deployment:** Organize and present the results (report or repeatable process).
+
+```mermaid
+graph TD
+    BU(Business Understanding) --> DU(Data Understanding)
+    DU --> DP(Data Preparation)
+    DP --> M(Modeling)
+    M --> E(Evaluation)
+    E --> D(Deployment)
+    E -->|Not Good Enough| BU
+    M -->|Iterate| DP
+```
+
+#### OSEMN (Obtain, Scrub, Explore, Model, Interpret)
+A concise framework often used for individual contributors.
+*   **Obtain:** Gather data from sources (APIs, CSVs, DBs).
+*   **Scrub:** Clean data (Handle missing values, outliers).
+*   **Explore:** EDA (Exploratory Data Analysis) to find patterns.
+*   **Model:** Train Machine Learning algorithms.
+*   **Interpret:** Explain results to stakeholders (Storytelling).
+
+#### TDSP (Team Data Science Process)
+Microsoft's agile, iterative data science methodology for teams. Key components:
+*   **Business Understanding**
+*   **Data Acquisition and Understanding**
+*   **Modeling**
+*   **Deployment**
+*   **Customer Acceptance**
+*   *Emphasis on collaboration, version control, and reproducible analysis.*
+
+### 2. Chart Selection Guide
 
 ```mermaid
 graph TD
@@ -30,14 +73,28 @@ graph TD
     *   *Barplot:* Comparison of category vs number.
     *   *Heatmap:* Correlation matrix.
 
-### 2. Matplotlib vs Seaborn
+### 2. Visualization Libraries
 *   **Matplotlib:** The foundation. Good for precise customization.
-*   **Seaborn:** Built on top. Good for beautiful default styles and statistical aggregation.
+*   **Seaborn:** Built on top of Matplotlib. Excellent for statistical plots and color accessibility.
+*   **Plotly:** Powerful for **interactive** graphs (zoom, hover). Using `px.bar`, `px.line`.
 
 ### 3. Anatomy of a Plot
 Understanding the components of a Matplotlib figure is crucial for customization.
 
 ![Anatomy of a Matplotlib Plot](images/anatomy_of_a_plot.png)
+
+### 4. Advanced Pandas Operations
+Crucial for data preprocessing in the lifecycle.
+
+*   **GroupBy & Aggregation:** Splitting data into groups and computing summary stats.
+    *   `df.groupby('Entity').agg(sum)`: Sum values for each country.
+    *   `df.groupby('Year').agg({'gdp': 'max'})`: Max GDP per year.
+*   **Filtering:** Keeping groups that satisfy a condition.
+    *   `df.groupby('Entity').filter(lambda x: x['gdp'].max() > 10)`: Keep countries whose max GDP > 10.
+*   **Indexing:** Rearranging how data is accessed.
+    *   `df.set_index('Year')`: Use Year as the row label (useful for time-series).
+    *   `df.reset_index()`: Move index back to a column.
+    *   *Note:* `set_index` creates a copy; it does not modify in place unless specified.
 
 
 ## Code for Learning
@@ -112,5 +169,46 @@ g = sns.FacetGrid(df, col="time", row="sex")
 # Map a histogram to each location
 g.map(sns.histplot, "total_bill")
 
+plt.show()
+```
+
+### 4. Advanced Seaborn Plots
+Visualizing high-dimensional relationships.
+
+#### Pairplot (Scatter Matrix)
+Plots pairwise relationships in a dataset. Good for quick EDA.
+
+```python
+# Plots every numerical variable against every other one
+# hue='species' colors points by category
+sns.pairplot(df, hue='sex', palette='husl')
+plt.show()
+```
+
+#### Heatmap (Correlation Matrix)
+Visualizing the strength of relationships between numerical variables.
+
+```python
+# 1. Compute Correlation Matrix
+corr = df.corr(numeric_only=True)
+
+# 2. Plot Heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(
+    corr, 
+    annot=True,     # Show numbers
+    cmap='coolwarm', # Blue to Red
+    fmt=".2f",      # 2 decimal places
+    linewidths=0.5
+)
+plt.title("Correlation Matrix")
+plt.show()
+```
+
+#### Violin Plot
+Combines a boxplot with a kernel density estimate (KDE). Shows distribution shape + summary stats.
+
+```python
+sns.violinplot(data=df, x="day", y="total_bill", palette="muted")
 plt.show()
 ```
