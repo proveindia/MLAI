@@ -79,6 +79,8 @@ models = {
     'decisiontreeclassifier': (DecisionTreeClassifier(), {'decisiontreeclassifier__max_depth': [3, 5, 10]}),
 }
 
+best_models = {}  # Dictionary to store the best estimator for each model
+
 results = []
 for name, (model, param_grid) in models.items():
     pipeline = Pipeline([
@@ -87,6 +89,9 @@ for name, (model, param_grid) in models.items():
     ])
     grid_search = GridSearchCV(pipeline, param_grid, cv=5, n_jobs=-1)
     grid_search.fit(X_train, y_train)
+    
+    # Store the best model found by GridSearchCV
+    best_models[name] = grid_search.best_estimator_
 ```
 
 ### Hyperparameter Tuning Details
