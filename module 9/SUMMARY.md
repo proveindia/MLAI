@@ -28,6 +28,8 @@ As the number of features (dimensions) increases, the amount of data needed to g
 *   **Wrapper Methods:** Evaluate subsets of features by training a model (e.g., SFS, RFE). Computationally expensive but usually accurate.
 *   **Embedded Methods:** Perform feature selection during the model training process (e.g., Lasso, Tree-based importance).
 
+![Lasso Feature Selection](images/lasso_selection.png)
+
 ## Key Formulas
 
 ### 1. Lasso Regression (L1 Regularization)

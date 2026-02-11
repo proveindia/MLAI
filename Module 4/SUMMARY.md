@@ -21,6 +21,8 @@ graph LR
 2.  **Clean:** Handle nulls, duplicates, and incorrect types.
 3.  **Visualize:** Plot distributions and relationships.
 
+![EDA Techniques: Outliers & Correlation](images/eda_techniques.png)
+
 ### 2. Data Types
 *   **Quantitative (Numerical):**
     *   *Continuous:* Height, Price, Temperature.

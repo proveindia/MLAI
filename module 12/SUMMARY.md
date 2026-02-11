@@ -301,8 +301,9 @@ plt.show()
 
 ### 5. Visualizing Decision Boundaries
 
-![Decision Boundaries](images/dbounds.png)
-*Figure 2: Decision boundaries for KNN with K=1 (Left) vs K=15 (Right). Note how K=1 overfits with island-like regions, while K=15 creates smoother boundaries.*
+![Decision Boundaries](images/knn_decision_boundaries.png)
+
+*Figure 2: Decision boundaries for KNN with K=1 (Left) vs K=20 (Right). Note how K=1 overfits with island-like regions, while K=20 creates smoother boundaries.*
 
 ```python
 def plot_knn_boundary(n_neighbors, X, y):

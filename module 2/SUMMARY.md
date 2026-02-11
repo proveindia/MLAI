@@ -23,6 +23,8 @@ Understanding probability distributions is key to statistical inference. This mo
 
 ## Visualizing Skewness
 
+![Skewness and Central Tendency](images/skewness_comparison.png)
+
 ```mermaid
 graph TD
     subgraph Symmetrical

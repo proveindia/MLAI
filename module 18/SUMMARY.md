@@ -8,7 +8,7 @@ This module introduced Natural Language Processing (NLP) techniques, specificall
     *   **Word Tokenization:** Splitting text into individual words.
     *   **Sentence Tokenization:** Splitting text into sentences.
 
-![Tokenization Process](images/tokenization.png)
+![Tokenization Process](images/tokenization_process.png)
 *Figure 1: Visual representation of splitting a sentence into tokens.*
 
 *   **NLTK (Natural Language Toolkit):** A leading Python library for working with human language data.

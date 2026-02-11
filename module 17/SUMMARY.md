@@ -20,6 +20,9 @@ graph LR
     E --> G[Logistic / SVM / KNN]
 ```
 
+![Model Performance Comparison](images/model_comparison.png)
+*Figure 1: Accuracy comparison showing Decision Tree as the best performer.*
+
 ## Key Findings
 *   **Demographics:** Students and Retired individuals have the highest subscription rates.
 *   **Age:** U-shaped relationship; young adults and seniors are more likely to subscribe.

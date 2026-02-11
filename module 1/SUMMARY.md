@@ -12,6 +12,8 @@ This module lays the groundwork for Machine Learning, covering the Python ecosys
     *   *Examples:* Clustering (Customer segmentation), Dimensionality Reduction (PCA).
 *   **Reinforcement Learning:** Agents learning through trial and error (Rewards/Penalties).
 
+![Supervised vs Unsupervised Visualization](images/ml_types_comparison.png)
+
 ### 2. The Python Ecosystem
 *   **NumPy:** Numerical computing, Vectors, Matrices.
 *   **Pandas:** Tabular data manipulation (DataFrames).

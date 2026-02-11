@@ -41,7 +41,7 @@ $$ z = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_n x_n $$
 *   **$\beta_0$** (Pronounced: *beta zero*): The intercept (bias term).
 *   **$\beta_i$** (Pronounced: *beta i*): The coefficient for feature $x_i$.
 
-![Sigmoid Function](images/sigmoid.png)
+![Sigmoid Function](images/sigmoid_visualization.png)
 *Figure 1: The sigmoid function curve showing how it maps input values to probabilities between 0 and 1.*
 
 **Properties:**

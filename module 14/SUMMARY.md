@@ -347,8 +347,8 @@ print(importance_df)
 
 ### 5. Decision Boundary Visualization
 
-![Decision Boundary](images/p3.png)
-*Figure 2: Decision boundaries showing how the tree partitions the feature space.*
+![Decision Boundary](images/dt_boundaries.png)
+*Figure 2: Decision boundaries showing how the tree partitions the feature space with different depths.*
 
 ```python
 from matplotlib.colors import ListedColormap

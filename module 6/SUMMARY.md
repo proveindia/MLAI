@@ -25,7 +25,27 @@ $$ Z = X \cdot W $$
 *   $Z$: Transformed data (Principal Components).
 *   $W$: Matrix of Top-$k$ Eigenvectors.
 
-### 2. K-Means Inertia (Within-Cluster Sum of Squares)
+### 2. SVD (Singular Value Decomposition)
+PCA is often implemented using SVD.
+$$ X = U \Sigma V^T $$
+
+![Singular Value Decomposition Visualization](images/svd_decomposition.png)
+
+*   $X$: Data Matrix.
+*   $U$: Left Singular Vectors.
+*   $\Sigma$: Diagonal matrix of Singular Values.
+*   $V^T$: Right Singular Vectors (Principal Components).
+
+### 3. Feature Normalization ($X_{norm}$)
+Essential before PCA to ensure all features have the same scale.
+
+![Feature Normalization Comparison](images/feature_normalization.png)
+
+$$ x_{norm} = \frac{x - \mu}{\sigma} $$
+*   $\mu$: Mean of the feature.
+*   $\sigma$: Standard deviation of the feature.
+
+### 4. K-Means Inertia (Within-Cluster Sum of Squares)
 The goal of K-Means is to minimize this value.
 
 $$ \text{Inertia} = \sum_{j=1}^k \sum_{i \in C_j} ||x_i - \mu_j||^2 $$

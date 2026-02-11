@@ -11,6 +11,9 @@ Machine Learning models require numerical input.
 *   **One-Hot Encoding:** For nominal data with no order (e.g., Apple, Banana, Cherry). Creates binary columns ($0$ or $1$). Avoids false ranking.
 
 #### Visualizing Encoding
+
+![One-Hot Encoding Transformation](images/encoding_visualization.png)
+
 ```mermaid
 graph TD
     subgraph Ordinal Encoding

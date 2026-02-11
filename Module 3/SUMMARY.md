@@ -18,6 +18,9 @@ graph TD
 ```
 
 ### 1. Types of Plots
+
+![Common Data Visualization Types](images/data_viz_types.png)
+
 *   **Univariate (One Variable):**
     *   *Histogram / KDE:* Distribution of numerical data.
     *   *Boxplot:* Outliers and quartiles.

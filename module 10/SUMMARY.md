@@ -15,6 +15,9 @@ A time series is **stationary** if its statistical properties (mean, variance, a
 
 ### 2. Time Series Decomposition
 Breaking a series into its constituent parts to understand it better:
+
+![Time Series Decomposition](images/ts_decomposition_visual.png)
+
 1.  **Trend:** The long-term direction (increasing/decreasing).
 2.  **Seasonality:** Repeating patterns at fixed intervals (e.g., weekly, yearly).
 3.  **Residuals (Noise):** The random variation left after extracting trend and seasonality.

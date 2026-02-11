@@ -26,6 +26,9 @@ A mathematical function that quantifies the error between the model's prediction
 
 ### 2. Gradient Descent
 An iterative algorithm that moves parameters in the opposite direction of the gradient (slope) to find the minimum.
+
+![Gradient Descent Convergence](images/gradient_descent_contour.png)
+
 *   **Learning Rate ($\alpha$):** Controlled step size.
     *   **Too Small:** Converges very slowly.
     *   **Too Large:** Can overshoot the minimum and diverge.
