@@ -13,6 +13,19 @@ This module focused on Support Vector Machines (SVM), specifically the Maximum M
     *   `kernel='rbf'`: Radial Basis Function (infinite dimensions).
 *   **Decision Function:** A function that returns the distance of samples to the separating hyperplane.
 
+## SVM Classification Workflow
+
+```mermaid
+graph LR
+    A[Input Data] --> B{Linearly Separable?}
+    B -->|Yes| C[Linear Kernel]
+    B -->|No| D[Apply Kernel Trick RBF/Poly]
+    D --> E[Transform to Higher Dimension]
+    E --> F[Find Max Margin Hyperplane]
+    C --> F
+    F --> G[Classify New Points]
+```
+
 ## Key Formulas
 
 ### 1. Hyperplane
@@ -172,21 +185,62 @@ svc_poly = SVC(kernel='poly', degree=3, C=10)
 svc_poly.fit(X_train, y_train)
 ```
 
-### Grid Search for Hyperparameters
-Tuning `C`, `kernel`, and `gamma` to find the best model.
+### Telecom Churn Classification: Model Comparison
+
+In this module, we tackle a real-world business problem: predicting customer churn. We compare multiple classifiers (KNN, Logistic Regression, SVM, Decision Tree) using a systematic pipeline.
+
+#### 1. Data Preparation
+- **Dataset:** Telecom Churn dataset.
+- **Preprocessing:** Handling categorical variables (e.g., 'International plan', 'Voice mail plan') by converting them to binary/dummy variables.
+- **Imbalance Check:** Identifying class imbalance (e.g., fewer churners than retainers) is crucial, as it impacts metric selection (Accuracy vs. Recall/F1-Score).
+
+#### 2. The Modeling Pipeline
+We use `Pipeline` to ensure preprocessing (Scaling) is correctly applied within cross-validation folds, preventing data leakage.
 
 ```python
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
+import pandas as pd
+import time
 
-param_grid = {
-    'C': [0.1, 1, 10, 100],
-    'gamma': [1, 0.1, 0.01, 0.001],
-    'kernel': ['rbf', 'poly', 'linear']
+# Define models and hyperparameters for Grid Search
+models = {
+    'knn': (KNeighborsClassifier(), {'knn__n_neighbors': [3, 5, 7]}),
+    'logisticregression': (LogisticRegression(max_iter=1000), {'logisticregression__C': [0.1, 1, 10]}),
+    'svc': (SVC(), {'svc__C': [0.1, 1, 10], 'svc__kernel': ['linear', 'rbf']}),
+    'decisiontree': (DecisionTreeClassifier(), {'decisiontree__max_depth': [5, 10, 15]})
 }
 
-grid = GridSearchCV(SVC(), param_grid, refit=True, verbose=2)
-grid.fit(X_train, y_train)
+results = []
 
-print(f"Best Parameters: {grid.best_params_}")
-print(f"Best Estimator: {grid.best_estimator_}")
+for name, (model, params) in models.items():
+    # Construct Pipeline
+    # Scaling is essential for SVM and KNN
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),
+        (name, model)
+    ])
+    
+    # Grid Search with Cross Validation
+    grid = GridSearchCV(pipeline, param_grid=params, cv=5, n_jobs=-1)
+    
+    start = time.time()
+    grid.fit(X_train, y_train)
+    fit_time = time.time() - start
+    
+    # Evaluation
+    best_model = grid.best_estimator_
+    train_score = best_model.score(X_train, y_train)
+    test_score = best_model.score(X_test, y_test)
+    
+    results.append([name, train_score, test_score, fit_time])
+
+# Summary of Results
+results_df = pd.DataFrame(results, columns=['Model', 'Train Acc', 'Test Acc', 'Fit Time'])
+print(results_df)
 ```

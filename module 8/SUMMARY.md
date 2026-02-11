@@ -43,6 +43,7 @@ graph LR
 
 ### 1. Polynomial Features (Degree 2)
 For features $a, b$:
+
 $$ \text{Features} \rightarrow 1, a, b, a^2, ab, b^2 $$
 (Includes Bias $1$, original terms, squares, and interaction $ab$)
 

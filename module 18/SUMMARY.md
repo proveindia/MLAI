@@ -22,6 +22,20 @@ This module introduced Natural Language Processing (NLP) techniques, specificall
 ![Stemming vs Lemmatization](images/stemming_lemma.png)
 *Figure 2: Comparison between Stemming (chopping) and Lemmatization (meaning-based).*
 
+## NLP Preprocessing Pipeline
+
+```mermaid
+graph LR
+    A[Raw Text] --> B(Sentence Tokenization)
+    B --> C(Word Tokenization)
+    C --> D(Remove Stopwords)
+    D --> E{Normalization}
+    E -->|Technique 1| F[Stemming]
+    E -->|Technique 2| G[Lemmatization]
+    F --> H[Vectorization BoW/TF-IDF]
+    G --> H
+```
+
 ## Key Formulas
 
 ### Lexical Diversity

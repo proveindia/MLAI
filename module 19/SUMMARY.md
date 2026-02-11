@@ -10,6 +10,19 @@ This module explored Recommendation Systems, focusing on Collaborative Filtering
 ![Collaborative Filtering Types](images/cf_types.png)
 *Figure 1: Comparison of User-Based, Item-Based, and Model-Based Collaborative Filtering.*
 
+## Recommendation Approaches
+
+```mermaid
+graph TD
+    A[Recommendation Systems] --> B{Collaborative Filtering}
+    B --> C[Memory Based]
+    B --> D[Model Based]
+    C --> E[User-Based KNN]
+    C --> F[Item-Based KNN]
+    D --> G[Matrix Factorization SVD/ALS]
+    D --> H[Deep Learning]
+```
+
 *   **Alternating Least Squares (ALS):** Iterative optimization to find user and item factors.
 *   **Matrix Factorization (SVD):** Decomposing the user-item interaction matrix into lower-dimensional matrices.
 

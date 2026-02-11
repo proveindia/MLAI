@@ -5,6 +5,17 @@ Data Analytics is the foundation of Machine Learning. It involves **Exploratory 
 
 ## Key Concepts
 
+### EDA Workflow
+
+```mermaid
+graph LR
+    A[Raw Data] --> B[Inspection: Nulls/Types]
+    B --> C[Cleaning: Impute/Drop]
+    C --> D[Univariate Analysis]
+    D --> E[Bivariate Analysis]
+    E --> F[Insights & Reporting]
+```
+
 ### 1. The EDA Process
 1.  **Inspect:** Check shape, data types, and missing values.
 2.  **Clean:** Handle nulls, duplicates, and incorrect types.

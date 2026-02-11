@@ -5,6 +5,19 @@ Optimization is the engine of Machine Learning. It involves finding the best par
 
 ## Key Concepts
 
+### Optimization Loop
+
+```mermaid
+graph TD
+    A[Start: Init Params] --> B[Forward Pass: Predict]
+    B --> C[Calculate Loss J]
+    C --> D[Backward Pass: Gradient]
+    D --> E[Update Params]
+    E --> F{Converged?}
+    F -->|No| B
+    F -->|Yes| G[Stop]
+```
+
 ### 1. The Loss Function ($J(\theta)$)
 A mathematical function that quantifies the error between the model's predictions and the actual data.
 *   **$J(\theta)$** (Pronounced: *J of Theta*): The cost function parameterized by weights $\theta$.
@@ -20,16 +33,21 @@ An iterative algorithm that moves parameters in the opposite direction of the gr
 ## Key Formulas
 
 ### 1. Mean Squared Error (MSE) - The Loss Function
+
 $$ J(\theta) = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2 $$
 
 ### 2. The Gradient ($\nabla J$)
 The derivative of the loss function with respect to the weights. It points "uphill".
+
 $$ \nabla J(\theta) = -\frac{2}{n} \sum_{i=1}^n (y_i - \hat{y}_i) \cdot x_i $$
+
 *   **$\nabla$** (Pronounced: *Nabla* or *Del*): Symbol for the Gradient (vector of partial derivatives).
 
 ### 3. Update Rule (The "Learning" Step)
 We move "downhill" by subtracting the gradient.
+
 $$ \theta_{new} = \theta_{old} - \alpha \cdot \nabla J(\theta) $$
+
 *   **$\alpha$** (Pronounced: *Alpha*): The Learning Rate (step size).
 
 ## Code for Learning

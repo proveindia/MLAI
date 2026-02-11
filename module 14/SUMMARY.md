@@ -13,6 +13,17 @@ This module covered Decision Trees, a versatile non-parametric supervised learni
 *   **Pruning:** Reducing tree complexity by removing sections that provide little predictive power.
 *   **Feature Importance:** Quantifies the contribution of each feature to the model's predictions.
 
+## Decision Tree Decision Process
+
+```mermaid
+graph TD
+    A[Start Node: All Data] -->|Feature 1 < Threshold?| B[Left Child]
+    A -->|Feature 1 > Threshold?| C[Right Child]
+    B -->|Feature 2 < Threshold?| D[Leaf: Class A]
+    B -->|Feature 2 > Threshold?| E[Leaf: Class B]
+    C --> F[Leaf: Class A]
+```
+
 ## Key Formulas
 
 ### 1. Gini Impurity

@@ -20,23 +20,37 @@ Grouping similar data points together.
 
 ### 1. PCA Transformation
 Projecting data $X$ onto the Principal Components (Eigenvectors $W$).
+
 $$ Z = X \cdot W $$
 *   $Z$: Transformed data (Principal Components).
 *   $W$: Matrix of Top-$k$ Eigenvectors.
 
 ### 2. K-Means Inertia (Within-Cluster Sum of Squares)
 The goal of K-Means is to minimize this value.
+
 $$ \text{Inertia} = \sum_{j=1}^k \sum_{i \in C_j} ||x_i - \mu_j||^2 $$
+
 *   **$\mu_j$** (Pronounced: *Mu sub j*): Centroid of cluster $j$.
 *   **$\sum$** (Pronounced: *Sum*): Summation of distances.
 
 ## Visualizing PCA Flow
 ```mermaid
-graph LR
-    A[Raw Data (100 Features)] --> B[StandardScaler]
-    B --> C[PCA Calculation]
-    C --> D{Variance Ratio}
-    D -->|Keep 95% Var| E[Transformed Data (10 Components)]
+flowchart LR
+    A["Raw Data (100 Features)"] --> B["StandardScaler"]
+    B --> C["PCA Calculation"]
+    C --> D{"Variance Ratio"}
+    D -->|"Keep 95% Var"| E["Transformed Data (10 Components)"]
+```
+
+## Visualizing K-Means Clustering
+```mermaid
+flowchart TD
+    Start([Start]) --> Init["Initialize K Centroids"]
+    Init --> Assign["Assign Points to Nearest Centroid"]
+    Assign --> Calc["Calculate New Centroids (Mean)"]
+    Calc --> Check{"Centroids Changed?"}
+    Check -- Yes --> Assign
+    Check -- No --> Finish([Converged / Final Clusters])
 ```
 
 ## Code for Learning

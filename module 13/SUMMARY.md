@@ -14,6 +14,17 @@ This module introduced Logistic Regression, a fundamental algorithm for classifi
 
 ## Key Formulas
 
+### Logistic Regression Workflow
+
+```mermaid
+graph LR
+    A[Input Features X] --> B[Linear Combi: z = wX + b]
+    B --> C[Sigmoid Activation: σ z]
+    C --> D{Prob > 0.5?}
+    D -->|Yes| E[Class 1]
+    D -->|No| F[Class 0]
+```
+
 ### 1. Sigmoid Function
 
 The sigmoid function maps any real-valued number to the range [0, 1], which can be interpreted as a probability.
@@ -258,42 +269,59 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
-```
 
-### 1. Basic Binary Logistic Regression
+### Product Category Classification (PriceRunner Dataset)
 
-Train a simple logistic regression model for binary classification.
+In this module, we handle a dataset with **high-cardinality categorical features** (e.g., Product Titles, Merchant IDs). Standard One-Hot Encoding would create too many features, so we use advanced techniques.
+
+#### 1. The Challenge: High Cardinality
+A feature like "Product Name" might have thousands of unique values.
+- **One-Hot Encoding:** Creates thousands of sparse columns (inefficient).
+- **Target Encoding (James-Stein):** Replaces the category with a weighted average of the target variable for that category, shrinking it towards the global mean to prevent overfitting.
+
+#### 2. Advanced Encoding Pipeline
+We use `category_encoders` combined with `sklearn` pipelines.
 
 ```python
-# Load data
-penguins = sns.load_dataset('penguins').dropna()
-penguins_binary = penguins[penguins['species'].isin(['Adelie', 'Gentoo'])]
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler
+from category_encoders import JamesSteinEncoder
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import SelectFromModel
 
-# Prepare features and target
-X = penguins_binary[['flipper_length_mm', 'bill_length_mm']]
-y = (penguins_binary['species'] == 'Gentoo').astype(int)  # 1 for Gentoo, 0 for Adelie
+# Feature Selection
+# 'num' and 'cat' would be lists of column names
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', StandardScaler(), numeric_cols),
+        ('cat', JamesSteinEncoder(), categorical_cols)
+    ]
+)
 
-# Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Pipeline: Preprocess -> Select Features -> Classify
+pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('selector', SelectFromModel(LogisticRegression(penalty='l1', solver='liblinear'))),
+    ('classifier', LogisticRegression())
+])
 
-# Train model
-logreg = LogisticRegression(random_state=42)
-logreg.fit(X_train, y_train)
-
-# Predict
-y_pred = logreg.predict(X_test)
-y_pred_proba = logreg.predict_proba(X_test)[:, 1]  # Probability of positive class
+# Fit on training data
+pipeline.fit(X_train, y_train)
 
 # Evaluate
-print(f"Accuracy: {accuracy_score(y_test, y_pred):.3f}")
-print(f"Precision: {precision_score(y_test, y_pred):.3f}")
-print(f"Recall: {recall_score(y_test, y_pred):.3f}")
-print(f"F1 Score: {f1_score(y_test, y_pred):.3f}")
-
-# Model coefficients
-print(f"\nIntercept (β₀): {logreg.intercept_[0]:.3f}")
-print(f"Coefficients (β): {logreg.coef_[0]}")
+print(f"Test Accuracy: {pipeline.score(X_test, y_test):.3f}")
 ```
+
+#### 3. Why James-Stein?
+It balances the **category's mean** with the **global mean**.
+- If a category is reliable (many data points), use its own mean.
+- If a category is rare (few data points), pull it towards the global average.
+This is defined as:
+$$ \hat{\mu}_i = (1 - B) y_i + B \bar{y} $$
+Where $B$ is the shrinking factor.
+
+
 
 ![Logistic Regression Visualization](images/lr.png)
 *Figure 4: Logistic regression model showing the sigmoid curve fitted to binary classification data.*

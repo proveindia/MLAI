@@ -8,6 +8,18 @@ This module involved a comprehensive project applying the CRISP-DM methodology t
 *   **Imbalanced Data:** Handling datasets where one class (non-subscribers) significantly outnumbers the other.
 *   **Model Comparison:** Evaluating multiple classifiers (Logistic Regression, KNN, SVM, Decision Tree) to find the best performer.
 
+## Project Pipeline
+
+```mermaid
+graph LR
+    A[Bank Data] --> B[Preprocessing: OneHot/Scale]
+    B --> C[Train Test Split]
+    C --> D[GridSearch CV]
+    D --> E{Model Comparison}
+    E --> F[Decision Tree Best]
+    E --> G[Logistic / SVM / KNN]
+```
+
 ## Key Findings
 *   **Demographics:** Students and Retired individuals have the highest subscription rates.
 *   **Age:** U-shaped relationship; young adults and seniors are more likely to subscribe.

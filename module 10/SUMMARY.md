@@ -27,16 +27,21 @@ Breaking a series into its constituent parts to understand it better:
 
 ### 1. Differencing (for Stationarity)
 Used to remove trends.
+
 $$ y'_t = y_t - y_{t-1} $$
 
 ### 2. AR (Autoregressive) Model
 Predicting the current value based on past values.
+
 $$ y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + ... + \phi_p y_{t-p} + \epsilon_t $$
+
 *   **$p$** (Pronounced: *p*): The order of the AR term (number of lags).
 
 ### 3. MA (Moving Average) Model
 Predicting the current value based on past forecast errors (shocks).
+
 $$ y_t = c + \epsilon_t + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + ... + \theta_q \epsilon_{t-q} $$
+
 *   **$q$** (Pronounced: *q*): The order of the MA term.
 
 ### 4. ARIMA Model
@@ -47,8 +52,11 @@ Combines AR, Integration (Differencing), and MA. Notation: **ARIMA(p, d, q)**.
 
 ### 5. Error Metrics (Evaluation)
 *   **MAE (Mean Absolute Error):** Average magnitude of errors.
+
     $$ \text{MAE} = \frac{1}{n} \sum |y_i - \hat{y}_i| $$
+
 *   **RMSE (Root Mean Square Error):** Penalizes large errors heavily.
+
     $$ \text{RMSE} = \sqrt{\frac{1}{n} \sum (y_i - \hat{y}_i)^2} $$
 
 ## Code for Learning
@@ -129,6 +137,20 @@ check_stationarity(df_diff)
 
 ### 3. ARIMA Forecasting
 Building a model to predict future values.
+
+## Forecasting Workflow
+
+```mermaid
+graph TD
+    A[Raw Time Series] --> B{Stationary?}
+    B -->|No| C[Differencing / Log Transform]
+    C --> B
+    B -->|Yes| D[Determine p, d, q via ACF/PACF]
+    D --> E[Train ARIMA Model]
+    E --> F[Check Residuals White Noise]
+    F -->|Bad| D
+    F -->|Good| G[Generate Forecasts]
+```
 
 ```python
 # Split data

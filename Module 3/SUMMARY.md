@@ -5,6 +5,18 @@ Data Visualization is the art of communicating data insights effectively. We use
 
 ## Key Concepts
 
+### Chart Selection Guide
+
+```mermaid
+graph TD
+    A[What to Visualize?] --> B{Distribution}
+    A --> C{Relationship}
+    A --> D{Comparison}
+    B --> E[Histogram / KDE / Boxplot]
+    C --> F[Scatterplot / Heatmap]
+    D --> G[Barplot / Countplot]
+```
+
 ### 1. Types of Plots
 *   **Univariate (One Variable):**
     *   *Histogram / KDE:* Distribution of numerical data.

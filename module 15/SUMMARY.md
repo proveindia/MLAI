@@ -42,6 +42,19 @@ $$ \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta) $$
 *   **$\alpha$** (Pronounced: *alpha*): The learning rate (step size).
 *   **$\frac{\partial}{\partial \theta_j} J(\theta)$** (Pronounced: *partial derivative of J with respect to theta j*): The gradient of the cost function.
 
+## Gradient Descent Algorithm Flow
+
+```mermaid
+graph TD
+    A[Start] --> B[Initialize Parameters Theta randomly]
+    B --> C[Compute Cost J]
+    C --> D[Compute Gradient]
+    D --> E[Update Theta: Theta - alpha * Gradient]
+    E --> F{Converged?}
+    F -->|No| C
+    F -->|Yes| G[Return Optimal Theta]
+```
+
 ### 4. Gradient for Linear Regression
 The gradient (partial derivative) of MSE with respect to each parameter:
 

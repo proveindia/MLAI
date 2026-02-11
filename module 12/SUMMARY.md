@@ -10,7 +10,20 @@ This module focused on the K-Nearest Neighbors (KNN) algorithm, a versatile dist
 *   **Pipelines:** A mechanism to chain preprocessing steps (like scaling) with the estimator, ensuring consistent transformation of training and test data.
 *   **Data Leakage:** A common error where information from the test set influences the training process (e.g., scaling before splitting). Pipelines prevent this.
 *   **Grid Search (GridSearchCV):** An exhaustive search over specified parameter values to find the optimal model configuration.
+*   **Curse of Dimensionality:** In high dimensions, all points become equidistant, reducing KNN effectiveness. Requires dimensionality reduction (PCA).
 *   **Cross-Validation:** Evaluating model performance by splitting data into multiple train/test folds to ensure robustness.
+
+## KNN Algorithm Steps
+
+```mermaid
+graph TD
+    A[New Data Point] --> B[Calculate Distance to All Training Points]
+    B --> C[Sort Distances Ascending]
+    C --> D[Pick Top K Neighbors]
+    D --> E{Task Type?}
+    E -->|Classification| F[Majority Vote]
+    E -->|Regression| G[Average Target Value]
+```
 
 ## Key Formulas
 
@@ -203,6 +216,55 @@ print(f"Best CV Accuracy: {grid_search.best_score_:.3f}")
 # Evaluate best model
 best_model = grid_search.best_estimator_
 print(f"Test Accuracy: {best_model.score(X_test, y_test):.3f}")
+```
+
+### K-Nearest Neighbors (KNN) for Semantic Search
+
+In this module, we move beyond simple classification to implementing **Semantic Search** using KNN. This involves:
+
+1.  **Text Embedding:** Using pre-trained models like `SentenceTransformer` to convert text descriptions into high-dimensional numerical vectors.
+2.  **Dimensionality Reduction (Optional):** Techniques like PCA can be used to visualize these high-dimensional vectors.
+3.  **Nearest Neighbor Search:** Using KNN to find the most similar items (nearest neighbors) in the vector space based on a query vector.
+
+#### 1. Generating Embeddings
+We use `sentence-transformers` to encode text into embeddings.
+
+```python
+from sentence_transformers import SentenceTransformer
+import pandas as pd
+
+# Load a pre-trained model
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Example Data
+sentences = ["This is an example sentence", "Each sentence is converted"]
+embeddings = model.encode(sentences)
+
+# Convert to DataFrame for analysis
+df_embeddings = pd.DataFrame(embeddings)
+print(df_embeddings.head())
+```
+
+#### 2. Implementing KNN for Search
+Once we have embeddings, we can fit a KNN model to find similar items.
+
+```python
+from sklearn.neighbors import NearestNeighbors
+
+# Initialize KNN
+# metric='cosine' is often preferred for high-dimensional text vectors
+knn = NearestNeighbors(n_neighbors=5, metric='cosine')
+
+# Fit on the embeddings
+knn.fit(embeddings)
+
+# Find nearest neighbors for a new query
+query = "Example search query"
+query_embedding = model.encode([query])
+distances, indices = knn.kneighbors(query_embedding)
+
+print(f"Indices of nearest neighbors: {indices}")
+print(f"Distances: {distances}")
 ```
 
 ### 4. Visualizing the "Elbow Method"

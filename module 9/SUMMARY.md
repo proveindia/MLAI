@@ -5,6 +5,19 @@ Feature Selection is the process of reducing the number of input variables when 
 
 ## Key Concepts
 
+### Feature Selection Strategies
+
+```mermaid
+graph TD
+    A[All Features] --> B{Method}
+    B --> C[Filter: Correlation / Variance]
+    B --> D[Wrapper: RFE / SFS]
+    B --> E[Embedded: Lasso / Trees]
+    C --> F[Reduced Feature Set]
+    D --> F
+    E --> F
+```
+
 ### 1. The Curse of Dimensionality
 As the number of features (dimensions) increases, the amount of data needed to generalize accurately grows exponentially.
 *   **Consequence:** Models become complex, slower to train, and more prone to **overfitting**.
@@ -19,13 +32,17 @@ As the number of features (dimensions) increases, the amount of data needed to g
 
 ### 1. Lasso Regression (L1 Regularization)
 Lasso adds a penalty equal to the absolute value of the magnitude of coefficients. This can shrink some coefficients to exactly **zero**, effectively performing feature selection.
+
 $$ J(\beta) = \text{MSE} + \lambda \sum_{j=1}^p |\beta_j| $$
+
 *   **$\lambda$** (Pronounced: *Lambda*): Penalty term. Higher $\lambda$ $\rightarrow$ More coefficients become zero.
 *   **$\beta$** (Pronounced: *Beta*): The model coefficients (weights).
 
 ### 2. Ridge Regression (L2 Regularization)
 Adds a penalty equal to the square of the magnitude of coefficients. Shrinks coefficients but rarely to zero.
+
 $$ J(\beta) = \text{MSE} + \lambda \sum_{j=1}^p \beta_j^2 $$
+
 *   **$\beta^2$** (Pronounced: *Beta squared*): The squared magnitude of the coefficients.
 
 ## Code for Learning

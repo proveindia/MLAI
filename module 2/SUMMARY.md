@@ -40,20 +40,21 @@ graph TD
 
 ## Key Formulas
 
-### 1. The Mean ($\mu$)
-The average value.
-$$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$
+### 1. Measures of Central Tendency
+*   **Mean ($\mu$):** The arithmetic average. Sensitive to outliers.
 
-*   **$\mu$** (Pronounced: *Mu*): The population mean.
-*   **$\sum$** (Pronounced: *Sum*): Summation.
-*   **$N$** (Pronounced: *N*): Total number of observations.
+    $$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$
 
-### 2. Standard Deviation ($\sigma$)
-A measure of the amount of variation or dispersion of a set of values.
-$$ \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2} $$
+*   **Median:** The middle value when data is sorted. Robust to outliers.
+*   **Mode:** The most frequent value. Can be multimodal.
 
-*   **$\sigma$** (Pronounced: *Sigma*): Population standard deviation.
-*   **$\sigma^2$** (Pronounced: *Sigma squared*): Variance.
+### 2. Measures of Dispersion
+*   **Standard Deviation ($\sigma$):** The average distance from the mean.
+
+    $$ \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2} $$
+
+    *   **$\sigma$** (Pronounced: *Sigma*): Population standard deviation.
+    *   **$\sigma^2$** (Pronounced: *Sigma squared*): Variance.
 
 ### 3. Normal Distribution Rule (68-95-99.7)
 Percentage of data within standard deviations from the mean:
