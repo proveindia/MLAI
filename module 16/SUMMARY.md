@@ -15,14 +15,32 @@ This module focused on Support Vector Machines (SVM), specifically the Maximum M
 
 ## Key Formulas
 
+### 1. Hyperplane
+The decision boundary in N-dimensional space:
+
+$$ w^T x + b = 0 $$
+
+*   **$w$** (Pronounced: *w*): The weight vector perpendicular to the hyperplane.
+*   **$x$** (Pronounced: *x*): The input feature vector.
+*   **$b$** (Pronounced: *b*): The bias term (intercept).
+*   **$T$** (Pronounced: *transpose*): Operation flipping the vector to a row vector.
+
+### 2. Margin
+The distance between the hyperplane and the nearest data point (support vector). SVM maximizes this margin:
+
+$$ \text{Margin} = \frac{2}{||w||} $$
+
+*   **$||w||$** (Pronounced: *norm of w*): The Euclidean length (magnitude) of the weight vector.
+
 ### 3. Cost Function (Hinge Loss)
 SVM minimizes the Hinge Loss function to find the maximum margin. It penalizes misclassifications:
 
 $$ L(y, f(x)) = \max(0, 1 - y \cdot f(x)) $$
 
-*   **$y$**: True label (-1 or 1).
-*   **$f(x)$**: Predicted score ($w^T x + b$).
-*   **$L$**: Loss is 0 if correctly classified with sufficient margin ($y \cdot f(x) \geq 1$), otherwise increases linearly.
+*   **$L$** (Pronounced: *Loss*): The hinge loss value.
+*   **$y$** (Pronounced: *y*): The true class label (-1 or 1).
+*   **$f(x)$** (Pronounced: *f of x*): The predicted score from the decision function ($w^T x + b$).
+*   **$\cdot$** (Pronounced: *dot*): Multiplication.
 
 ### 4. Kernel Functions & The Kernel Trick
 **The Problem:** Many datasets are not linearly separable in their original dimensions (e.g., concentric circles).
@@ -35,18 +53,35 @@ Instead of explicitly calculating the coordinates of data points in a high-dimen
 
 **Common Kernels:**
 *   **Linear Kernel:** For linearly separable data.
+
     $$ K(x, x') = x^T x' $$
+
+    *   **$K(x, x')$** (Pronounced: *K of x and x prime*): The kernel function value representing similarity.
+    *   **$x'$** (Pronounced: *x prime*): Another data point (support vector) we are comparing against.
+
 *   **Polynomial Kernel:** Maps data into a polynomial feature space.
+
     $$ K(x, x') = (\gamma x^T x' + r)^d $$
-    *   $d$: Degree of the polynomial.
+
+    *   **$\gamma$** (Pronounced: *gamma*): A coefficient scaling the input data.
+    *   **$r$** (Pronounced: *r*): A constant term (coefficient 0).
+    *   **$d$** (Pronounced: *d*): The degree of the polynomial.
+
 *   **Radial Basis Function (RBF) Kernel:** (Default) Maps data into an infinite-dimensional space. Effective for complex, non-linear boundaries.
+
     $$ K(x, x') = \exp(-\gamma ||x - x'||^2) $$
-    *   $\gamma$ (gamma): Controls the influence of a single training example.
+
+    *   **$\gamma$** (Pronounced: *gamma*): Controls the reach of a single training example's influence.
+    *   **$\exp$** (Pronounced: *exponential*): The exponential function ($e$ raised to the power of...).
+    *   **$||x - x'||^2$** (Pronounced: *squared Euclidean distance*): The squared distance between two data points.
 
 ### 5. Kernel Matrix (Gram Matrix)
 **Definition:** A square matrix ($n \times n$) containing the pairwise similarity scores between all training data points.
 
 $$ K_{ij} = K(x_i, x_j) $$
+
+*   **$K_{ij}$** (Pronounced: *K sub i j*): The element in the $i$-th row and $j$-th column of the kernel matrix.
+*   **$x_i, x_j$** (Pronounced: *x sub i, x sub j*): The $i$-th and $j$-th data points in the training set.
 
 *   **Role:** During training, SVM doesn't look at the data points directly; it looks at this matrix of relationships. It tells the algorithm "how similar is point $i$ to point $j$?" in the high-dimensional space.
 *   **Properties:** It must be symmetric and positive semi-definite (Mercer's Theorem).
