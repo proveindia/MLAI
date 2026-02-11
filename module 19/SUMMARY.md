@@ -129,15 +129,34 @@ $$ \text{sim}(u, v) = \frac{1}{\text{msd}(u, v) + 1} $$
 
 *   **$|I_{uv}|$** (Pronounced: *cardinality of I sub u, v*): The number of items rated by both user $u$ and user $v$.
 
-### 4. Evaluation Metric (RMSE)
-Root Mean Squared Error is the standard metric for evaluating rating predictions.
+### 4. Evaluation Metrics
+
+Recommender systems are typically evaluated using error metrics that measure the difference between predicted and actual ratings.
+
+**Root Mean Squared Error (RMSE):**
+
+RMSE is the standard metric for evaluating rating predictions. It penalizes larger errors more heavily due to squaring.
 
 $$ \text{RMSE} = \sqrt{\frac{1}{|\hat{R}|} \sum_{\hat{r}_{ui} \in \hat{R}} (r_{ui} - \hat{r}_{ui})^2} $$
 
+*   **$\text{RMSE}$** (Pronounced: *R-M-S-E* or *Root Mean Squared Error*)
 *   **$\hat{R}$** (Pronounced: *R hat*): The set of all predicted ratings.
 *   **$|\hat{R}|$** (Pronounced: *cardinality of R hat*): The total number of predictions made.
 *   **$r_{ui}$** (Pronounced: *r sub u, i*): The actual rating.
 *   **$\hat{r}_{ui}$** (Pronounced: *r hat sub u, i*): The predicted rating.
+
+**Mean Absolute Error (MAE):**
+
+MAE is another common metric that treats all errors equally, making it more robust to outliers compared to RMSE.
+
+$$ \text{MAE} = \frac{1}{|\hat{R}|} \sum_{\hat{r}_{ui} \in \hat{R}} |r_{ui} - \hat{r}_{ui}| $$
+
+*   **$\text{MAE}$** (Pronounced: *M-A-E* or *Mean Absolute Error*)
+*   **$|r_{ui} - \hat{r}_{ui}|$** (Pronounced: *absolute value of r sub u, i minus r hat sub u, i*): The absolute error between actual and predicted ratings.
+
+**When to use which:**
+- Use **RMSE** when you want to penalize large errors more heavily
+- Use **MAE** when all errors should be treated equally and you want more robustness to outliers
 
 ## Types of Hybrid Recommendation
 
