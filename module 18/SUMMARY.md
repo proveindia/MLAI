@@ -7,9 +7,20 @@ This module introduced Natural Language Processing (NLP) techniques, specificall
 *   **Tokenization:** The process of breaking down text into smaller units (tokens).
     *   **Word Tokenization:** Splitting text into individual words.
     *   **Sentence Tokenization:** Splitting text into sentences.
+
+![Tokenization Process](images/tokenization.png)
+*Figure 1: Visual representation of splitting a sentence into tokens.*
+
 *   **NLTK (Natural Language Toolkit):** A leading Python library for working with human language data.
 *   **Lexical Diversity:** The ratio of unique words to the total number of words in a text. A measure of vocabulary richness.
 *   **Bag of Words (implied context):** Representing text as a collection of its words, disregarding grammar and word order but keeping multiplicity.
+*   **Stop Words:** Common words (e.g., "is", "the", "at") that are often removed because they carry little meaningful information.
+*   **Stemming vs. Lemmatization:** Techniques to reduce words to their base form.
+    *   **Stemming:** Crude heuristic process that chops off the ends of words (e.g., "better" -> "bet").
+    *   **Lemmatization:** Uses vocabulary and morphological analysis to return the dictionary form (lemma) (e.g., "better" -> "good").
+
+![Stemming vs Lemmatization](images/stemming_lemma.png)
+*Figure 2: Comparison between Stemming (chopping) and Lemmatization (meaning-based).*
 
 ## Key Formulas
 
@@ -30,7 +41,9 @@ Naive Bayes is a probabilistic classifier based on Bayes' theorem, often used fo
 $$ P(c|d) \propto P(c) \prod_{w \in d} P(w|c) $$
 
 *   **$P(c|d)$** (Pronounced: *probability of c given d*): The posterior probability of class $c$ given document $d$.
+*   **$\propto$** (Pronounced: *proportional to*): Indicates relationship.
 *   **$P(c)$** (Pronounced: *probability of c*): The prior probability of class $c$.
+*   **$\prod$** (Pronounced: *product*): Product over all words $w$ in document $d$.
 *   **$P(w|c)$** (Pronounced: *probability of w given c*): The likelihood of word $w$ occurring in class $c$.
 
 **Laplace Smoothing:**
@@ -47,6 +60,20 @@ A representation of text that describes the occurrence of words within a documen
 2.  A measure of the presence of known words (often a count).
 
 It disregards grammar and word order but keeps multiplicity. Using `CountVectorizer` in sklearn creates this representation.
+
+### TF-IDF (Term Frequency - Inverse Document Frequency)
+A statistical measure used to evaluate how important a word is to a document in a collection or corpus.
+
+$$ \text{TF-IDF}(t, d) = \text{TF}(t, d) \cdot \text{IDF}(t) $$
+
+*   **TF** (Term Frequency): How typically a word appears in a document.
+*   **IDF** (Inverse Document Frequency): How rare the word is across all documents.
+    $$ \text{IDF}(t) = \log \frac{N}{df(t)} $$
+*   **$N$** (Pronounced: *N*): Total number of documents.
+*   **$df(t)$** (Pronounced: *document frequency of t*): Number of documents containing term $t$.
+
+![TF-IDF Heatmap](images/tfidf_heatmap.png)
+*Figure 3: Heatmap showing TF-IDF scores. Rare words unique to a document get higher scores.*
 
 ## Assignment Highlights
 *   **Data:** Excerpt from Isaac Newton's *Principia* and WhatsApp status dataset.
