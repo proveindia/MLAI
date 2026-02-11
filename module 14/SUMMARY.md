@@ -13,6 +13,7 @@ This module covered Decision Trees, a versatile non-parametric supervised learni
     *   `min_samples_split`: The minimum number of samples required to split an internal node.
 *   **Overfitting:** Creating a tree that is too complex and matches the training data too closely, leading to poor generalization on new data.
 *   **Decision Boundaries:** Visualizing how the tree partitions the feature space into classes.
+*   **Cost Complexity Pruning:** A technique to find the optimal balance between tree complexity and accuracy by penalizing the number of terminal nodes.
 
 ## Assignment Highlights
 *   **Dataset:** Penguins dataset.
@@ -21,6 +22,19 @@ This module covered Decision Trees, a versatile non-parametric supervised learni
     *   Built Decision Tree models with Scikit-Learn.
     *   Experimented with hyperparameters like `max_depth` to observe the effect on model complexity and performance.
     *   Visualized the resulting trees and decision boundaries.
+
+## Key Formulas
+
+### 1. Gini Impurity
+A measure of how often a randomly chosen element from the set would be incorrectly labeled if it was randomly labeled according to the distribution of labels in the subset.
+
+$$ G = 1 - \sum_{i=1}^{C} p_i^2 $$
+where $p_i$ is the probability of an item being classified for a specific class.
+
+### 2. Entropy
+A measure of impurity or randomness in the data.
+
+$$ H = - \sum_{i=1}^{C} p_i \log_2(p_i) $$
 
 ## Implementation Details
 

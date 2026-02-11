@@ -7,8 +7,16 @@ This module focused on the K-Nearest Neighbors (KNN) algorithm and the process o
 *   **K-Nearest Neighbors (KNN):** A distance-based algorithm used for classification (and regression). It classifies a data point based on the majority class of its 'K' nearest neighbors.
 *   **Pipelines:** Using `sklearn.pipeline.Pipeline` to chain preprocessing steps (like scaling and encoding) with the estimator. This ensures that validation data is processed exactly like training data and prevents data leakage.
 *   **ColumnTransformer:** Applying different preprocessing steps to different subsets of features (e.g., scaling numeric features, one-hot encoding categorical features).
-*   **Grid Search (GridSearchCV):** systematically working through multiple combinations of parameter tunes, cross-validating as it goes to determine which tune gives the best performance.
-*   **Cross-Validation:** A technique to evaluate a model by training on several subsets of input data and evaluating on the complementary subset.
+*   **Grid Search (GridSearchCV):** systematically working through multiple combinations of parameter tunes, cross-validating as it goes
+    *   **Grid Search:** Exhaustive search over specified parameter values for an estimator.
+    *   **Cross Validation:** Evaluating estimator performance by splitting data into train/test sets multiple times (e.g., K-Fold).
+
+## Key Formulas
+
+### Euclidean Distance
+The distance between two points $p$ and $q$ in n-dimensional space, used to find nearest neighbors:
+
+$$ d(p, q) = \sqrt{\sum_{i=1}^{n} (q_i - p_i)^2} $$
 
 ## Assignment Highlights
 *   **Dataset:** Credit card default dataset (or similar).

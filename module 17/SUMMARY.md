@@ -20,6 +20,22 @@ This module involved a comprehensive project applying the CRISP-DM methodology t
 *   **Logistic Regression & SVM:** Strong baselines with similar accuracy (~91.20%).
 *   **KNN:** Slightly lower accuracy (~90.13%) and computationally expensive for inference.
 
+## Key Formulas
+
+### Classification Metrics
+
+**Accuracy:**
+$$ \frac{TP + TN}{TP + TN + FP + FN} $$
+
+**Precision:**
+$$ \frac{TP}{TP + FP} $$
+
+**Recall (Sensitivity):**
+$$ \frac{TP}{TP + FN} $$
+
+**F1-Score:**
+$$ 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} $$
+
 ## Recommendations
 *   Target specific demographics (Students, Retired) and time campaigns during high-conversion months.
 *   Focus on quality of conversation (duration) rather than just quantity.

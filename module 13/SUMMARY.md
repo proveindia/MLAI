@@ -18,8 +18,22 @@ This module introduced Logistic Regression, a critical algorithm for classificat
 *   **Goal:** Classify penguin species based on features like flipper length.
 *   **Process:** 
     *   Fitted a Logistic Regression model.
+    *   **ROC Curve (Receiver Operating Characteristic):** A plot of the True Positive Rate vs. False Positive Rate at different classification thresholds. The **AUC (Area Under the Curve)** represents the overall performance (1.0 is perfect, 0.5 is random guessing).
     *   Visualized the sigmoid curve and probabilities.
     *   Evaluated the model using accuracy, precision, and recall to understand the trade-offs between different metrics.
+
+## Key Formulas
+
+### 1. Sigmoid Function
+Maps any real-valued number into the range [0, 1], interpreted as probability:
+
+$$ \sigma(z) = \frac{1}{1 + e^{-z}} $$
+where $z = \beta_0 + \beta_1 x_1 + ... + \beta_n x_n$.
+
+### 2. Log Loss (Binary Cross-Entropy)
+The cost function minimized in Logistic Regression:
+
+$$ J(\theta) = - \frac{1}{m} \sum_{i=1}^{m} [y^{(i)}\log(\hat{y}^{(i)}) + (1-y^{(i)})\log(1-\hat{y}^{(i)})] $$
 
 ## Implementation Details
 

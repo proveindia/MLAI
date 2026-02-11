@@ -20,6 +20,20 @@ This module explored the optimization algorithm Gradient Descent and its applica
     *   Implemented the gradient descent update rule manually.
     *   Visualized the cost reduction over iterations.
     *   Compared the Manual implementation results with Scikit-Learn's `LinearRegression` or `SGDRegressor`.
+    *   **Stochastic Gradient Descent (SGD):** Updating parameters based on a single training example at a time, which is faster but noisier.
+
+## Key Formulas
+
+### Gradient Descent Update Rule
+To minimize a cost function $J(\theta)$, parameters are updated iteratively:
+
+$$ \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta) $$
+
+*   $\alpha$: Learning rate (step size).
+*   $\frac{\partial}{\partial \theta_j} J(\theta)$: Gradient of the cost function.
+
+For Linear Regression (with MSE), the update for weight $\theta_j$ is:
+$$ \theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)} $$
 
 ## Implementation Details
 

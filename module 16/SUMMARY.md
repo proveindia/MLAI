@@ -13,6 +13,18 @@ This module focused on Support Vector Machines (SVM), specifically the Maximum M
     *   `kernel='rbf'`: Radial Basis Function (infinite dimensions).
 *   **Decision Function:** A function that returns the distance of samples to the separating hyperplane.
 
+## Key Formulas
+
+### 1. Hyperplane
+The decision boundary in N-dimensional space:
+
+$$ w^T x + b = 0 $$
+
+### 2. Margin
+The distance between the hyperplane and the nearest data point (support vector). SVM maximizes this margin:
+
+$$ \text{Margin} = \frac{2}{||w||} $$
+
 ## Assignment Highlights
 *   **Dataset:** Synthetic blobs.
 *   **Goal:** Implement specific SVC estimators and visualize decision boundaries.

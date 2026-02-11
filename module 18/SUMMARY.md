@@ -11,6 +11,16 @@ This module introduced Natural Language Processing (NLP) techniques, specificall
 *   **Lexical Diversity:** The ratio of unique words to the total number of words in a text. A measure of vocabulary richness.
 *   **Bag of Words (implied context):** Representing text as a collection of its words, disregarding grammar and word order but keeping multiplicity.
 
+## Key Formulas
+
+### Lexical Diversity
+A measure of the richness of the vocabulary used in a text, defined as the ratio of unique tokens to the total number of tokens.
+
+$$ L_d = \frac{|V|}{N} $$
+
+*   $|V|$: Size of the vocabulary (count of unique tokens).
+*   $N$: Total number of tokens in the text.
+
 ## Assignment Highlights
 *   **Data:** Excerpt from Isaac Newton's *Principia* and WhatsApp status dataset.
 *   **Goal:** Tokenize text and analyze basic statistics.
