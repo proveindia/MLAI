@@ -15,71 +15,108 @@ This module focused on Support Vector Machines (SVM), specifically the Maximum M
 
 ## Key Formulas
 
-### 1. Hyperplane
-The decision boundary in N-dimensional space:
+### 3. Cost Function (Hinge Loss)
+SVM minimizes the Hinge Loss function to find the maximum margin. It penalizes misclassifications:
 
-$$ w^T x + b = 0 $$
+$$ L(y, f(x)) = \max(0, 1 - y \cdot f(x)) $$
 
-### 2. Margin
-The distance between the hyperplane and the nearest data point (support vector). SVM maximizes this margin:
+*   **$y$**: True label (-1 or 1).
+*   **$f(x)$**: Predicted score ($w^T x + b$).
+*   **$L$**: Loss is 0 if correctly classified with sufficient margin ($y \cdot f(x) \geq 1$), otherwise increases linearly.
 
-$$ \text{Margin} = \frac{2}{||w||} $$
+### 4. Kernel Functions
+Kernels calculate the dot product in a higher-dimensional space without explicitly transforming the data ("Kernel Trick").
+
+*   **Linear Kernel:**
+    $$ K(x, x') = x^T x' $$
+*   **Polynomial Kernel:**
+    $$ K(x, x') = (\gamma x^T x' + r)^d $$
+    *   $d$: Degree of the polynomial.
+*   **Radial Basis Function (RBF) Kernel:**
+    $$ K(x, x') = \exp(-\gamma ||x - x'||^2) $$
+    *   $\gamma$ (gamma): Controls the influence of a single training example.
+
+## Hyperparameters
+
+### 1. Regularization (`C`)
+*   **Definition:** Controls the trade-off between achieving a low error on the training data and minimizing the norm of the weights (maximizing margin).
+*   **High C:** Strict penalty for misclassification. Results in a smaller margin and complex boundary (Risk: Overfitting).
+*   **Low C:** More tolerance for misclassification. Results in a wider margin and simpler boundary (Risk: Underfitting).
+
+### 2. Gamma (`gamma`)
+*   **Definition:** Kernel coefficient for 'rbf', 'poly', and 'sigmoid'. Defines how far the influence of a single training example reaches.
+*   **High Gamma:** Only close points influence the boundary. Creates islands of decision boundaries around points (Risk: Overfitting).
+*   **Low Gamma:** Far points influence the boundary. Result is a smoother, more linear-like boundary.
 
 ## Assignment Highlights
 *   **Dataset:** Synthetic blobs.
 *   **Goal:** Implement specific SVC estimators and visualize decision boundaries.
 *   **Process:**
     *   Instantiated `SVC` with a linear kernel.
-    *   Identified support vectors.
-    *   Calculated the slope and margins of the decision boundary.
-    *   Visualized the decision boundary and support vectors.
-    *   Compared Linear SVC with Logistic Regression and Polynomial SVC.
+    *   Identified support vectors using `support_vectors_`.
+    *   Calculated decision boundary characteristics.
+    *   Visualized margins and support vectors.
+    *   Implemented Polynomial SVM for non-linear data.
 
 ## Implementation Details
 
 ### Linear Support Vector Classifier
-The `SVC` class with `kernel='linear'` is used to fit a linear decision boundary. The `support_vectors_` attribute provides the indices of the support vectors.
+The `SVC` class with `kernel='linear'` fits a linear decision boundary.
 
 ```python
-svc_1 = SVC(kernel = 'linear').fit(X_train, y_train)
-support_vectors = svc_1.support_vectors_
+svc_linear = SVC(kernel='linear', C=1.0)
+svc_linear.fit(X_train, y_train)
+
+# Get support vectors
+support_vectors = svc_linear.support_vectors_
+print(f"Number of support vectors: {len(support_vectors)}")
 ```
 
 ### Decision Function and Visualization
-The `decision_function` method returns the distance of samples to the separating hyperplane, which is useful for visualizing the decision boundary and margins.
+Using `decision_function` to plot decision boundaries and margins.
 
 ```python
-# Grid of points to plot decision boundaries 
-XX, YY = np.meshgrid(X_train[:, 0], X_train[:, 1])
-xy = np.vstack([XX.ravel(), YY.ravel()]).T
+# Create grid
+h = .02
+x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 
-# Output from grid of points based on decision function
-Z = svc_1.decision_function(xy).reshape(XX.shape)
+# Predict scores
+Z = svc_linear.decision_function(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
 
-# Plots of points and support vectors
-fig, ax = plt.subplots()
-ax.contour(XX, YY,  Z, levels = [0], colors = ['black'])
-ax.scatter(support_vectors[:, 0], support_vectors[:, 1], color = 'red', s = 80, marker = 'x')
-ax.set_title('Support Vectors and Maximum Margin\nNote Black Line as Decision Boundary');
+# Plot
+plt.contour(xx, yy, Z, colors='k', levels=[-1, 0, 1], alpha=0.5, linestyles=['--', '-', '--'])
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired)
+plt.scatter(support_vectors[:, 0], support_vectors[:, 1], s=100, linewidth=1, facecolors='none', edgecolors='k')
+plt.title("Linear SVM Decision Boundary")
+plt.show()
 ```
 
 ### Polynomial Kernel
-For non-linear decision boundaries, a polynomial kernel can be used by setting `kernel='poly'`.
+For non-linear data, use `kernel='poly'`.
 
 ```python
-svc2 = SVC(kernel='poly').fit(X_train, y_train)
+svc_poly = SVC(kernel='poly', degree=3, C=10)
+svc_poly.fit(X_train, y_train)
 ```
 
-### Grid Search with SVM
-`GridSearchCV` can be used to tune hyperparameters like `C` and `kernel`.
+### Grid Search for Hyperparameters
+Tuning `C`, `kernel`, and `gamma` to find the best model.
 
 ```python
-params = {'kernel': ['rbf', 'poly', 'linear', 'sigmoid']}
+from sklearn.model_selection import GridSearchCV
 
-svc = SVC()
-grid = GridSearchCV(svc, param_grid=params, cv=5)
+param_grid = {
+    'C': [0.1, 1, 10, 100],
+    'gamma': [1, 0.1, 0.01, 0.001],
+    'kernel': ['rbf', 'poly', 'linear']
+}
+
+grid = GridSearchCV(SVC(), param_grid, refit=True, verbose=2)
 grid.fit(X_train, y_train)
 
-print(f'Best score: {grid.best_score_}')
-print(f'Best params: {grid.best_params_}')
+print(f"Best Parameters: {grid.best_params_}")
+print(f"Best Estimator: {grid.best_estimator_}")
 ```
