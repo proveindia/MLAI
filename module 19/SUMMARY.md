@@ -71,6 +71,7 @@ A weighted hybrid model combines predictions from multiple algorithms (e.g., SVD
 $$ \hat{r}_{ui} = \alpha \cdot \hat{r}_{\text{SVD}} + (1-\alpha) \cdot \hat{r}_{\text{SlopeOne}} $$
 
 In the assignment, an equal weight ($\alpha = 0.5$) was used:
+
 $$ \hat{r}_{\text{hybrid}} = 0.5 \cdot \hat{r}_{\text{SVD}} + 0.5 \cdot \hat{r}_{\text{SlopeOne}} $$
 
 ### 3. Similarity Measures (KNN)
@@ -119,6 +120,18 @@ coefs = lr.coef_
 
 ### 2. Using the Surprise Library
 We used `surpriselib` to streamline the recommendation process.
+
+**Setup:**
+To use the library, install it via pip:
+```bash
+pip install scikit-surprise
+```
+
+**Imports:**
+```python
+from surprise import Dataset, Reader, SVD, SlopeOne, KNNBasic, NMF, CoClustering, NormalPredictor
+from surprise.model_selection import cross_validate, RandomizedSearchCV
+```
 
 **Loading Data:**
 ```python
