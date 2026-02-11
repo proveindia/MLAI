@@ -77,6 +77,8 @@ $$ \hat{r}_{ui} = \alpha \cdot \hat{r}_{\text{SVD}} + (1-\alpha) \cdot \hat{r}_{
 *   **$\hat{r}_{\text{SlopeOne}}$** (Pronounced: *r hat Slope One*): The predicted rating from the SlopeOne algorithm.
 
 In the assignment, an equal weight ($\alpha = 0.5$) was used:
+
+
 $$ \hat{r}_{\text{hybrid}} = 0.5 \cdot \hat{r}_{\text{SVD}} + 0.5 \cdot \hat{r}_{\text{SlopeOne}} $$
 
 ### 3. Similarity Measures (KNN)
