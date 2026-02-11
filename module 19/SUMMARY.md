@@ -6,8 +6,16 @@ This module explored Recommendation Systems, focusing on Collaborative Filtering
 ## Key Concepts
 *   **Collaborative Filtering:** Making predictions about the interests of a user by collecting preferences from many users.
 *   **Latent Features:** Hidden features that explain the relationship between users and items.
+
+![Collaborative Filtering Types](images/cf_types.png)
+*Figure 1: Comparison of User-Based, Item-Based, and Model-Based Collaborative Filtering.*
+
 *   **Alternating Least Squares (ALS):** Iterative optimization to find user and item factors.
 *   **Matrix Factorization (SVD):** Decomposing the user-item interaction matrix into lower-dimensional matrices.
+
+![User-Item Matrix](images/user_item_matrix.png)
+*Figure 2: A sparse User-Item Matrix where 0 represents missing ratings.*
+
 *   **Surprise Library:** A Python scikit for building and analyzing recommender systems.
 *   **Hybrid Recommendations:** Combining multiple algorithms (e.g., SVD + SlopeOne) to improve prediction accuracy.
 
@@ -56,15 +64,28 @@ The following parameters were tuned for the `SVD` algorithm:
 ## Key Formulas
 
 ### 1. Matrix Factorization (ALS Update Rule)
+Matrix factorization decomposes the rating matrix $R$ into two lower-rank matrices $P$ and $Q^T$, such that $R \approx P \times Q^T$.
+
+$$ R \approx P \times Q^T $$
+
+*   **$R$** (Pronounced: *R*): The User-Item rating matrix.
+*   **$P$** (Pronounced: *P*): The User-Factor matrix.
+*   **$Q^T$** (Pronounced: *Q transpose*): The Factor-Item matrix.
+
+![Matrix Factorization](images/matrix_factorization.png)
+*Figure 3: Visualizing the decomposition of the rating matrix into latent factors.*
+
+**ALS Update Rule:**
 For Alternating Least Squares (ALS), the user factors $P$ are updated iteratively to minimize the error between predicted and actual ratings.
 
-$$P_{a,b} := P_{a,b} - \alpha \sum_{j \in R_a}^N e_{a,j}Q_{b,j}$$
+$$ P_{a,b} := P_{a,b} - \alpha \sum_{j \in R_a}^N e_{a,j}Q_{b,j} $$
 
 *   **$P_{a,b}$** (Pronounced: *P sub a, b*): The value in the user factor matrix for user $a$ and latent factor $b$.
 *   **$\alpha$** (Pronounced: *alpha*): The learning rate, controlling the step size of the update.
 *   **$e_{a,j}$** (Pronounced: *e sub a, j*): The error term, representing the difference between the actual rating and the predicted rating for user $a$ on item $j$.
 *   **$Q_{b,j}$** (Pronounced: *Q sub b, j*): The value in the item factor matrix for latent factor $b$ and item $j$.
 *   **$R_a$** (Pronounced: *R sub a*): The set of items rated by user $a$.
+*   **$\sum$** (Pronounced: *sum*): Summation over all items $j$ rated by user $a$.
 
 ### 2. Weighted Hybrid Prediction
 A weighted hybrid model combines predictions from multiple algorithms (e.g., SVD and SlopeOne) using a linear combination.
@@ -89,6 +110,7 @@ Memory-based collaborative filtering relies on similarity measures like Cosine S
 $$ \text{sim}(u, v) = \frac{\sum_{i} r_{ui} r_{vi}}{\sqrt{\sum_{i} r_{ui}^2} \sqrt{\sum_{i} r_{vi}^2}} $$
 
 *   **$\text{sim}(u, v)$** (Pronounced: *similarity of u and v*): The cosine similarity score between user $u$ and user $v$.
+*   **$\sum$** (Pronounced: *sum*): Summation over all co-rated items $i$.
 *   **$r_{ui}$** (Pronounced: *r sub u, i*): The rating given by user $u$ to item $i$.
 *   **$r_{vi}$** (Pronounced: *r sub v, i*): The rating given by user $v$ to item $i$.
 
