@@ -1,103 +1,98 @@
-# Module 1: Python Fundamentals Summary
+# Module 1: Machine Learning Fundamentals Summary
 
-This module covers the core building blocks of Python programming, essential for data science and machine learning.
+## Overview
+This module lays the groundwork for Machine Learning, covering the Python ecosystem (**Pandas, NumPy**) and the fundamental concepts of ML workflows.
 
-## ⏱️ Quick Review (20 Mins)
+## Key Concepts
 
-### 1. Basic Data Types
-Understanding the fundamental types of data in Python.
+### 1. Types of Machine Learning
+*   **Supervised Learning:** Training on labeled data (Input $X$ $\rightarrow$ Output $y$).
+    *   *Examples:* Regression (Price prediction), Classification (Spam detection).
+*   **Unsupervised Learning:** Finding patterns in unlabeled data.
+    *   *Examples:* Clustering (Customer segmentation), Dimensionality Reduction (PCA).
+*   **Reinforcement Learning:** Agents learning through trial and error (Rewards/Penalties).
 
-| Type | Description | Example |
-| :--- | :--- | :--- |
-| `int` | Integer numbers | `x = 10` |
-| `float` | Decimal numbers | `y = 10.5` |
-| `str` | Text strings | `s = "Hello"` |
-| `bool` | Boolean values | `True`, `False` |
+### 2. The Python Ecosystem
+*   **NumPy:** Numerical computing, Vectors, Matrices.
+*   **Pandas:** Tabular data manipulation (DataFrames).
+*   **Matplotlib/Seaborn:** Visualization.
 
-**Type Inspection & Conversion:**
-```python
-x = 10
-print(type(x))  # <class 'int'>
+## Key Formulas & Pronunciation
 
-y = float(x)    # Convert int to float -> 10.0
-z = str(x)      # Convert int to string -> "10"
+### 1. The Mean ($\mu$)
+The average value of a dataset.
+
+$$ \mu = \frac{1}{n} \sum_{i=1}^{n} x_i $$
+
+*   **Pronunciation:** "Mu equals one over n times the sum of x-sub-i from i equals 1 to n."
+
+### 2. Euclidean Distance
+The straight-line distance between two points ($p$ and $q$) in space.
+
+$$ d(p, q) = \sqrt{\sum_{i=1}^{n} (q_i - p_i)^2} $$
+
+*   **Pronunciation:** "Distance d equals the square root of the sum of squared differences between q-sub-i and p-sub-i."
+
+### 3. Dot Product
+Foundational operation in Neural Networks and Linear Algebra.
+
+$$ \vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_i b_i $$
+
+*   **Pronunciation:** "Vector a dot Vector b equals the sum of the products of their corresponding components."
+
+## ML Workflow Visualization
+
+```mermaid
+graph LR
+    A[Raw Data] --> B(Data Cleaning)
+    B --> C(Feature Engineering)
+    C --> D{Split Data}
+    D -->|Training Set| E[Train Model]
+    D -->|Test Set| F[Evaluate Model]
+    E --> F
+    F --> G[Deploy]
 ```
 
-### 2. Lists & Indexing
-Lists are ordered, mutable collections of items.
+## Code for Learning
+
+### 1. Installation & Imports
+Run this in your terminal or notebook to set up the environment.
 
 ```python
-# Creating a list
-temperatures = [20, 22, 21, 19]
+# Installation
+# !pip install numpy pandas matplotlib seaborn scikit-learn
 
-# Indexing (0-based)
-first = temperatures[0]  # 20
-last = temperatures[-1]  # 19
-
-# Mixed types allowed
-mixed_list = ["Dec 10", 20, True]
+# Standard Imports
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 ```
 
-### 3. Dictionaries
-Key-value pairs for storing data values. Keys must be unique and immutable.
-
+### 2. NumPy Basics (Vectors)
 ```python
-# Creating a dictionary
-daily_temps = {
-    "Dec 10": 20,
-    "Dec 11": 22
+# Create Vectors
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+# Element-wise operations
+print(a + b)      # [5 7 9]
+
+# Dot Product (Key for ML)
+dot_prod = np.dot(a, b)
+print(f"Dot Product: {dot_prod}") # 1*4 + 2*5 + 3*6 = 32
+```
+
+### 3. Pandas Basics (DataFrames)
+```python
+# Create DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'City': ['NY', 'LA', 'SF']
 }
+df = pd.DataFrame(data)
 
-# Accessing values
-print(daily_temps["Dec 10"])  # Output: 20
+# Basic Inspection
+print(df.head())
+print(df.describe()) # Summary statistics
 ```
-
-### 4. Control Flow: Loops
-Iterating over sequences (lists, strings, ranges).
-
-**For Loop:**
-```python
-test_scores = [40, 65, 91]
-
-# Iterate over list
-for score in test_scores:
-    print(score)
-
-# Iterate with range()
-for i in range(5):  # 0, 1, 2, 3, 4
-    print(i)
-```
-
-**Conditional Logic inside Loop:**
-```python
-# Curve scores only if they are below 80
-for score in test_scores:
-    if score < 80:
-        score += 7
-    print(score)
-```
-
-### 5. Functions
-Reusable blocks of code.
-
-**Built-in Functions:**
-- `print()`, `type()`, `len()`, `max()`, `min()`, `abs()`, `round()`
-
-**User-Defined Functions:**
-```python
-def score_curve(scores):
-    """Adds 7 points to scores below 80"""
-    updated_scores = []
-    for score in scores:
-        if score < 80:
-            updated_scores.append(score + 7)
-        else:
-            updated_scores.append(score)
-    return updated_scores
-
-new_scores = score_curve([70, 85, 90])
-print(new_scores)  # [77, 85, 90]
-```
-
----
-*Reference: Module 1 Notebooks (Basic Data Types, Lists, Dictionaries, Loops, Functions)*
