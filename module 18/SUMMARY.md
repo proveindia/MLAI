@@ -18,8 +18,9 @@ A measure of the richness of the vocabulary used in a text, defined as the ratio
 
 $$ L_d = \frac{|V|}{N} $$
 
-*   $|V|$: Size of the vocabulary (count of unique tokens).
-*   $N$: Total number of tokens in the text.
+*   **$L_d$** (Pronounced: *L sub d*): Lexical diversity score.
+*   **$|V|$** (Pronounced: *cardinality of V*): Size of the vocabulary (count of unique tokens).
+*   **$N$** (Pronounced: *N*): Total number of tokens in the text.
 
 ## Assignment Highlights
 *   **Data:** Excerpt from Isaac Newton's *Principia* and WhatsApp status dataset.
