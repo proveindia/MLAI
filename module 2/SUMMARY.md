@@ -48,7 +48,7 @@ graph TD
 ### 1. Measures of Central Tendency
 *   **Mean ($\mu$):** The arithmetic average. Sensitive to outliers.
 
-    $$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$
+$$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$
 
 *   **Median:** The middle value when data is sorted. Robust to outliers.
 *   **Mode:** The most frequent value. Can be multimodal.
@@ -56,7 +56,7 @@ graph TD
 ### 2. Measures of Dispersion
 *   **Standard Deviation ($\sigma$):** The average distance from the mean.
 
-    $$ \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2} $$
+$$ \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2} $$
 
     *   **$\sigma$** (Pronounced: *Sigma*): Population standard deviation.
     *   **$\sigma^2$** (Pronounced: *Sigma squared*): Variance.
