@@ -22,6 +22,32 @@ $$ L_d = \frac{|V|}{N} $$
 *   **$|V|$** (Pronounced: *cardinality of V*): Size of the vocabulary (count of unique tokens).
 *   **$N$** (Pronounced: *N*): Total number of tokens in the text.
 
+### Naive Bayes & Laplace Smoothing
+Naive Bayes is a probabilistic classifier based on Bayes' theorem, often used for text classification (e.g., spam detection). Laplace smoothing is used to handle the problem of zero probabilities for unseen words.
+
+**Naive Bayes (Multinomial):**
+
+$$ P(c|d) \propto P(c) \prod_{w \in d} P(w|c) $$
+
+*   **$P(c|d)$** (Pronounced: *probability of c given d*): The posterior probability of class $c$ given document $d$.
+*   **$P(c)$** (Pronounced: *probability of c*): The prior probability of class $c$.
+*   **$P(w|c)$** (Pronounced: *probability of w given c*): The likelihood of word $w$ occurring in class $c$.
+
+**Laplace Smoothing:**
+
+$$ P(w|c) = \frac{\text{count}(w, c) + 1}{\text{count}(c) + |V|} $$
+
+*   **$\text{count}(w, c)$** (Pronounced: *count of w in c*): The number of times word $w$ appears in class $c$.
+*   **$\text{count}(c)$** (Pronounced: *count of c*): The total count of all words in class $c$.
+*   **$|V|$** (Pronounced: *cardinality of V*): The vocabulary size (total number of unique words).
+
+### Bag-of-Words (BoW)
+A representation of text that describes the occurrence of words within a document. It involves two things:
+1.  A vocabulary of known words.
+2.  A measure of the presence of known words (often a count).
+
+It disregards grammar and word order but keeps multiplicity. Using `CountVectorizer` in sklearn creates this representation.
+
 ## Assignment Highlights
 *   **Data:** Excerpt from Isaac Newton's *Principia* and WhatsApp status dataset.
 *   **Goal:** Tokenize text and analyze basic statistics.
