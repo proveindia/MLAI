@@ -1,63 +1,298 @@
 # Module 12: K-Nearest Neighbors (KNN) and Model Selection
 
 ## Overview
-This module focused on the K-Nearest Neighbors (KNN) algorithm and the process of selecting the optimal hyperparameters using Grid Search and Cross-Validation.
+This module focused on the K-Nearest Neighbors (KNN) algorithm, a versatile distance-based method for classification and regression. The module also emphasized robust model selection techniques, including the use of Pipelines to prevent data leakage and GridSearchCV for hyperparameter tuning.
 
 ## Key Concepts
-*   **K-Nearest Neighbors (KNN):** A distance-based algorithm used for classification (and regression). It classifies a data point based on the majority class of its 'K' nearest neighbors.
-*   **Pipelines:** Using `sklearn.pipeline.Pipeline` to chain preprocessing steps (like scaling and encoding) with the estimator. This ensures that validation data is processed exactly like training data and prevents data leakage.
-*   **ColumnTransformer:** Applying different preprocessing steps to different subsets of features (e.g., scaling numeric features, one-hot encoding categorical features).
-*   **Grid Search (GridSearchCV):** systematically working through multiple combinations of parameter tunes, cross-validating as it goes
-    *   **Grid Search:** Exhaustive search over specified parameter values for an estimator.
-    *   **Cross Validation:** Evaluating estimator performance by splitting data into train/test sets multiple times (e.g., K-Fold).
+*   **K-Nearest Neighbors (KNN):** A non-parametric, lazy learning algorithm that classifies a data point based on the majority class of its 'K' nearest neighbors in the feature space.
+*   **Distance Metrics:** Mathematical formulas used to calculate the similarity (or dissimilarity) between data points (e.g., Euclidean, Manhattan).
+*   **Feature Scaling:** The process of normalizing the range of independent variables. Crucial for distance-based algorithms like KNN.
+*   **Pipelines:** A mechanism to chain preprocessing steps (like scaling) with the estimator, ensuring consistent transformation of training and test data.
+*   **Data Leakage:** A common error where information from the test set influences the training process (e.g., scaling before splitting). Pipelines prevent this.
+*   **Grid Search (GridSearchCV):** An exhaustive search over specified parameter values to find the optimal model configuration.
+*   **Cross-Validation:** Evaluating model performance by splitting data into multiple train/test folds to ensure robustness.
 
 ## Key Formulas
 
-### Euclidean Distance
-The distance between two points $p$ and $q$ in n-dimensional space, used to find nearest neighbors:
+### 1. Euclidean Distance (L2 Norm)
+
+The straight-line distance between two points $p$ and $q$ in n-dimensional space. This is the default metric for many KNN implementations.
 
 $$ d(p, q) = \sqrt{\sum_{i=1}^{n} (q_i - p_i)^2} $$
 
-## Assignment Highlights
-*   **Dataset:** Credit card default dataset (or similar).
-*   **Goal:** Identify the best 'K' (n_neighbors) for the KNN model.
-*   **Process:** Built a pipeline with scaling and KNN, then used GridSearchCV to find the optimal number of neighbors that maximizes model accuracy.
+*   **$d(p, q)$** (Pronounced: *distance between p and q*): The Euclidean distance.
+*   **$q_i$** (Pronounced: *q sub i*): The value of the $i$-th feature for point $q$.
+*   **$p_i$** (Pronounced: *p sub i*): The value of the $i$-th feature for point $p$.
+*   **$n$** (Pronounced: *n*): The total number of features (dimensions).
+*   **$\sum$** (Pronounced: *sum*): Summation over all $n$ features.
 
-## Implementation Details
+### 2. Manhattan Distance (L1 Norm)
 
-### 1. K-Nearest Neighbors (KNN)
-We initialized and trained a KNN classifier.
+The sum of absolute differences between points across all dimensions. Also known as City Block distance.
 
-```python
-from sklearn.neighbors import KNeighborsClassifier
+$$ d(p, q) = \sum_{i=1}^{n} |q_i - p_i| $$
 
-# Initialize the model with K=1
-model = KNeighborsClassifier(n_neighbors=1)
+*   **$|q_i - p_i|$** (Pronounced: *absolute value of q sub i minus p sub i*): The absolute difference for the $i$-th feature.
 
-# Fit the model (using 'Income' and 'Debt' to predict 'Status')
-model.fit(df[['Income', 'Debt']], df['Status'])
+**Use Case:** Preferred for high-dimensional data or when features are discrete.
+
+### 3. Minkowski Distance (Lp Norm)
+
+A generalization of both Euclidean and Manhattan distances.
+
+$$ d(p, q) = \left( \sum_{i=1}^{n} |q_i - p_i|^p \right)^{1/p} $$
+
+*   **$p$** (Pronounced: *p*): The power parameter.
+    *   If $p=1$, it becomes Manhattan distance.
+    *   If $p=2$, it becomes Euclidean distance.
+
+### 4. Classification Rule (Majority Vote)
+
+For a classification task, the predicted class $\hat{y}$ given a new point $x$:
+
+$$ \hat{y} = \text{mode}(\{y_i : x_i \in N_k(x)\}) $$
+
+*   **$\hat{y}$** (Pronounced: *y hat*): The predicted class label.
+*   **$N_k(x)$** (Pronounced: *N sub k of x*): The set of $k$ nearest neighbors to point $x$.
+*   **$y_i$** (Pronounced: *y sub i*): The class label of the $i$-th neighbor.
+*   **$\text{mode}$** (Pronounced: *mode*): The most frequent value (majority vote).
+
+![Distance Metrics](images/distance_metrics.png)
+*Figure 1: Visual comparison of Euclidean, Manhattan, and Chebyshev distance metrics.*
+
+## Hyperparameters
+
+KNN has several key hyperparameters that significantly affect model performance:
+
+### Model Configuration
+*   **`n_neighbors` (K)**: Number of neighbors to use.
+    *   **Small K** (e.g., 1): High variance, low bias (overfitting). Decision boundaries are jagged.
+    *   **Large K**: Low variance, high bias (underfitting). Decision boundaries are smooth.
+    *   *Optimal K:* Usually found via Grid Search (often $\sqrt{N}$ is a starting point).
+
+*   **`weights`**: Weight function used in prediction.
+    *   `'uniform'` (default): All points in each neighborhood are weighted equally.
+    *   `'distance'`: Weight points by the inverse of their distance. Closer neighbors have a greater influence.
+
+*   **`metric`**: The distance metric to use.
+    *   Options: `'minkowski'` (default), `'euclidean'`, `'manhattan'`, `'chebyshev'`.
+    *   *Note:* Need to set `p` parameter when using `'minkowski'`.
+
+*   **`p`**: Power parameter for the Minkowski metric.
+    *   `p=1`: Manhattan distance.
+    *   `p=2`: Euclidean distance.
+
+### Optimization
+*   **`algorithm`**: Algorithm used to compute the nearest neighbors.
+    *   Options: `'auto'`, `'ball_tree'`, `'kd_tree'`, `'brute'`.
+    *   *Effect:* Affects speed of training/prediction but not the outcome. `'kd_tree'` is efficient for low-dimensional data.
+
+## Code for Learning
+
+This section demonstrates the correct workflow for KNN, emphasizing Pipelines and Hyperparameter Tuning.
+
+### Setup and Imports
+
+**Installation:**
+```bash
+pip install numpy pandas matplotlib seaborn scikit-learn
 ```
 
-### 2. Hyperparameter Tuning with GridSearchCV
-We used `GridSearchCV` to find the optimal number of neighbors.
+**Imports:**
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import accuracy_score, classification_report
+```
+
+### 1. The Importance of Scaling and Pipelines
+
+KNN calculates distances, so features with larger ranges (e.g., Salary) will dominate features with smaller ranges (e.g., Age) if not scaled.
+
+**Incorrect Approach (Data Leakage):**
+```python
+# BAD: Scaling entire dataset before splitting
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X) # Leaks test data info into training!
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y)
+```
+
+**Correct Approach (Pipeline):**
+```python
+# GOOD: Scaling happens inside the pipeline, fitting only on training folds
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('knn', KNeighborsClassifier())
+])
+
+# Fit pipeline
+pipeline.fit(X_train, y_train)
+```
+
+### 2. Complete Classification Pipeline
+
+Building a robust pipeline that handles categorical and numerical data.
 
 ```python
-from sklearn.model_selection import GridSearchCV
+# Load simple dataset
+from sklearn.datasets import load_iris
+data = load_iris()
+X, y = pd.DataFrame(data.data, columns=data.feature_names), data.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Define limits for K
-model = KNeighborsClassifier()
-parameters_to_try = {'n_neighbors': range(1, len(df))}
+# Define column transformer (if we had mixed types)
+# For iris (all numeric), we just need a scaler
+# But here is the generic pattern:
+numeric_features = X.columns
+categorical_features = [] # List your categorical columns here
 
-# Setup GridSearchCV
-model_finder = GridSearchCV(
-    estimator=model,
-    param_grid=parameters_to_try,
-    scoring="accuracy",
-    cv=5
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', StandardScaler(), numeric_features),
+        # ('cat', OneHotEncoder(), categorical_features) 
+    ])
+
+# Create Pipeline
+knn_pipe = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('classifier', KNeighborsClassifier(n_neighbors=5))
+])
+
+# Train and Predict
+knn_pipe.fit(X_train, y_train)
+print(f"Test Accuracy: {knn_pipe.score(X_test, y_test):.3f}")
+```
+
+### 3. Finding Optimal K with GridSearchCV
+
+Systematically searching for the best hyperparameters.
+
+```python
+# Define parameter grid
+param_grid = {
+    'classifier__n_neighbors': range(1, 31, 2), # Odd numbers 1 to 29
+    'classifier__weights': ['uniform', 'distance'],
+    'classifier__p': [1, 2] # Manhattan vs Euclidean
+}
+
+# Grid Search
+grid_search = GridSearchCV(
+    estimator=knn_pipe,
+    param_grid=param_grid,
+    scoring='accuracy',
+    cv=5,
+    n_jobs=-1,
+    verbose=1
 )
 
-# Fit the grid search
-model_finder.fit(df[['Income', 'Debt']], df["Status"])
+# Fit
+grid_search.fit(X_train, y_train)
 
-# Best K and score will be stored in model_finder.best_params_ and model_finder.best_score_
+# Results
+print(f"Best Parameters: {grid_search.best_params_}")
+print(f"Best CV Accuracy: {grid_search.best_score_:.3f}")
+
+# Evaluate best model
+best_model = grid_search.best_estimator_
+print(f"Test Accuracy: {best_model.score(X_test, y_test):.3f}")
 ```
+
+### 4. Visualizing the "Elbow Method"
+
+Plotting accuracy vs K to visually select the best parameter.
+
+```python
+k_values = range(1, 31)
+train_scores = []
+test_scores = []
+
+# Simplified loop for visualization (using scaled data directly)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+for k in k_values:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train_scaled, y_train)
+    train_scores.append(knn.score(X_train_scaled, y_train))
+    test_scores.append(knn.score(X_test_scaled, y_test))
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.plot(k_values, train_scores, marker='o', label='Train Accuracy')
+plt.plot(k_values, test_scores, marker='s', label='Test Accuracy')
+plt.xlabel('Number of Neighbors (K)')
+plt.ylabel('Accuracy')
+plt.title('KNN: Accuracy vs K')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+### 5. Visualizing Decision Boundaries
+
+![Decision Boundaries](images/dbounds.png)
+*Figure 2: Decision boundaries for KNN with K=1 (Left) vs K=15 (Right). Note how K=1 overfits with island-like regions, while K=15 creates smoother boundaries.*
+
+```python
+def plot_knn_boundary(n_neighbors, X, y):
+    # Train model on first 2 features
+    clf = KNeighborsClassifier(n_neighbors=n_neighbors)
+    clf.fit(X.iloc[:, :2], y)
+    
+    # Create mesh
+    h = .02
+    x_min, x_max = X.iloc[:, 0].min() - 1, X.iloc[:, 0].max() + 1
+    y_min, y_max = X.iloc[:, 1].min() - 1, X.iloc[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+    
+    # Predict
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    
+    # Plot
+    plt.contourf(xx, yy, Z, alpha=0.4, cmap='viridis')
+    plt.scatter(X.iloc[:, 0], X.iloc[:, 1], c=y, edgecolor='k', s=20, cmap='viridis')
+    plt.title(f'KNN Boundary (K={n_neighbors})')
+
+# Example usage
+plt.figure(figsize=(12, 5))
+plt.subplot(1, 2, 1)
+plot_knn_boundary(1, X_train, y_train)
+plt.subplot(1, 2, 2)
+plot_knn_boundary(15, X_train, y_train)
+plt.show()
+```
+
+## Assignment Highlights
+*   **Dataset:** Credit card default dataset.
+*   **Goal:** Predict whether a customer will default (classification).
+*   **Process:**
+    *   **Preprocessing:** Used `make_column_transformer` to Apply `StandardScaler` to numeric features and `OneHotEncoder` to categorical features (like 'Student').
+    *   **Modeling:** Built a `Pipeline` incorporating the preprocessor and `KNeighborsClassifier`.
+    *   **Tuning:** Performed `GridSearchCV` to find the optimal `n_neighbors`.
+    *   **Analysis:** Observed that optimal K balances bias and variance (avoiding K=1 which overfits).
+
+## Advantages and Limitations
+
+**Advantages:**
+- Simple and intuitive algorithm
+- Non-parametric (makes no assumptions about data distribution)
+- No training phase (lazy learning), so adding new data is easy
+- Works for both classification and regression
+
+**Limitations:**
+- Computationally expensive at prediction time (must calculate distance to all training points)
+- Sensitive to outliers
+- Sensitive to irrelevant features and scale (requires scaling)
+- Performance degrades with high dimensionality (Curse of Dimensionality)
+- Requires large memory to store training data
