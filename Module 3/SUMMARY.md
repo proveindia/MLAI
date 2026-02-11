@@ -65,13 +65,26 @@ graph TD
 ![Common Data Visualization Types](images/data_viz_types.png)
 
 *   **Univariate (One Variable):**
-    *   *Histogram / KDE:* Distribution of numerical data.
+    *   *Histogram:* Distribution of numerical data.
+        ![Histogram](images/histogram.png)
+    *   *KDE:* Kernel Density Estimate - smooth distribution.
+        ![KDE](images/kde.png)
     *   *Boxplot:* Outliers and quartiles.
+        ![Boxplot](images/boxplot.png)
     *   *Countplot:* Frequency of categorical data.
+        ![Countplot](images/countplot.png)
 *   **Bivariate (Two Variables):**
     *   *Scatterplot:* Relationship between two numbers.
+        ![Scatterplot](images/scatterplot.png)
     *   *Barplot:* Comparison of category vs number.
+        ![Barplot](images/barplot.png)
     *   *Heatmap:* Correlation matrix.
+        ![Heatmap](images/heatmap.png)
+*   **Advanced:**
+    *   *Pairplot:* Pairwise relationships.
+        ![Pairplot](images/pairplot.png)
+    *   *Violinplot:* Boxplot + KDE.
+        ![Violinplot](images/violinplot.png)
 
 ### 2. Visualization Libraries
 *   **Matplotlib:** The foundation. Good for precise customization.
