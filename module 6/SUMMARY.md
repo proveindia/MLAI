@@ -11,9 +11,15 @@ A technique to reduce the number of features (dimensions) while retaining the mo
 *   **Eigenvectors:** The direction of the Principal Component in the original feature space.
 *   **Use Cases:** Visualization (high dimensional -> 2D/3D), Noise Reduction, Feature Extraction.
 
+![PCA 2D Projection](images/pca_2d_projection.png)
+
+
 ### 2. Clustering
 Grouping similar data points together.
 *   **K-Means:** Partitioning data into $K$ distinct clusters based on distance to centroids. Fast but assumes spherical clusters.
+
+![K-Means Iterations](images/kmeans_iterations.png)
+
 *   **DBSCAN:** Density-based clustering. Good for arbitrary shapes and outlier detection. Does not require specifying $K$.
 
 ## Key Formulas
@@ -22,14 +28,20 @@ Grouping similar data points together.
 Projecting data $X$ onto the Principal Components (Eigenvectors $W$).
 
 $$ Z = X \cdot W $$
+
 *   $Z$: Transformed data (Principal Components).
 *   $W$: Matrix of Top-$k$ Eigenvectors.
 
+![PCA Variance Explained](images/pca_variance_explained.png)
+
+
 ### 2. SVD (Singular Value Decomposition)
 PCA is often implemented using SVD.
+
 $$ X = U \Sigma V^T $$
 
-![Singular Value Decomposition Visualization](images/svd_decomposition.png)
+![SVD Matrix Decomposition](images/svd_matrix_decomposition.png)
+
 
 *   $X$: Data Matrix.
 *   $U$: Left Singular Vectors.
@@ -42,6 +54,7 @@ Essential before PCA to ensure all features have the same scale.
 ![Feature Normalization Comparison](images/feature_normalization.png)
 
 $$ x_{norm} = \frac{x - \mu}{\sigma} $$
+
 *   $\mu$: Mean of the feature.
 *   $\sigma$: Standard deviation of the feature.
 
@@ -138,10 +151,16 @@ plt.show()
 ```
 *   **Interpretation:** Look for the "elbow" where the inertia drop creates an angle. That is the optimal $K$.
 
+![Elbow Method Detailed](images/elbow_method_detailed.png)
+
+
 ### 3. DBSCAN (for specific shapes)
 Ignores outliers naturally (-1 label).
 
+![DBSCAN Epsilon Effect](images/dbscan_epsilon_effect.png)
+
 ```python
+
 # Epsilon (radius) and Min_Samples are key hyperparameters
 dbscan = DBSCAN(eps=2.5, min_samples=5)
 clusters = dbscan.fit_predict(X_scaled)

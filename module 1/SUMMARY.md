@@ -16,8 +16,15 @@ This module lays the groundwork for Machine Learning, covering the Python ecosys
 
 ### 2. The Python Ecosystem
 *   **NumPy:** Numerical computing, Vectors, Matrices.
+
+![NumPy Array Operations](images/numpy_array_operations.png)
+
 *   **Pandas:** Tabular data manipulation (DataFrames).
+
+![Pandas DataFrame Structure](images/pandas_dataframe_structure.png)
+
 *   **Matplotlib/Seaborn:** Visualization.
+
 
 ## Key Formulas & Pronunciation
 
@@ -43,6 +50,11 @@ $$ \vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_i b_i $$
 *   **Pronunciation:** "Vector a dot Vector b equals the sum of the products of their corresponding components."
 
 ## ML Workflow Visualization
+
+![ML Workflow Detailed](images/ml_workflow_detailed.png)
+
+### Original Diagram
+
 
 ```mermaid
 graph LR
@@ -84,7 +96,42 @@ dot_prod = np.dot(a, b)
 print(f"Dot Product: {dot_prod}") # 1*4 + 2*5 + 3*6 = 32
 ```
 
-### 3. Pandas Basics (DataFrames)
+### 3. Essential NumPy Commands for ML/AI
+Here are the most frequently used NumPy operations you will encounter in Machine Learning.
+
+#### Creation & Initialization
+*   `np.array([1, 2, 3])`: Create array from list.
+*   `np.zeros((3, 3))`: Create 3x3 array of zeros (good for initializing weights).
+*   `np.ones((2, 2))`: Create 2x2 array of ones.
+*   `np.eye(3)`: Create 3x3 Identity matrix.
+*   `np.random.rand(3, 2)`: Random values from uniform distribution [0, 1].
+*   `np.random.randn(3, 2)`: Random values from Standard Normal distribution ($\mu=0, \sigma=1$).
+*   `np.arange(0, 10, 2)`: Range with step [0, 2, 4, 6, 8].
+*   `np.linspace(0, 1, 5)`: 5 equally spaced points between 0 and 1.
+
+#### Inspection & Shape Manipulation
+*   `arr.shape`: Dimensions of the array (rows, cols).
+*   `arr.ndim`: Number of dimensions.
+*   `arr.dtype`: Data type of elements (e.g., float64, int32).
+*   `arr.reshape(2, 3)`: Change shape without changing data.
+*   `arr.flatten()`: Collapse into 1D array.
+*   `arr.T`: Transpose (swap rows and columns).
+
+#### Mathematical Operations
+*   `np.sum(arr, axis=0)`: Sum columns (axis=0) or rows (axis=1).
+*   `np.mean(arr)`: Average value.
+*   `np.std(arr)`: Standard Deviation.
+*   `np.min(arr)`, `np.max(arr)`: Min/Max values.
+*   `np.argmax(arr)`: Index of the maximum value (crucial for classification outputs).
+*   `np.dot(a, b)`: Dot product (Matrix multiplication).
+*   `np.exp(arr)`: Exponential (used in Softmax).
+
+#### Indexing & Slicing
+*   `arr[0, 1]`: Row 0, Column 1.
+*   `arr[:, 0]`: All rows, Column 0.
+*   `arr[arr > 5]`: Boolean masking (Filter values > 5).
+
+### 4. Pandas Basics (DataFrames)
 ```python
 # Create DataFrame
 data = {

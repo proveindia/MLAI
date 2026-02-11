@@ -36,6 +36,9 @@ graph LR
 ### 1. Z-Score (Standardization)
 Measures how many standard deviations a data point is from the mean.
 
+![Normalization Comparison](images/normalization_comparison.png)
+
+
 $$ z = \frac{x - \mu}{\sigma} $$
 
 *   If $|z| > 3$, the point is typically considered an **outlier**.
@@ -84,7 +87,10 @@ df.drop(columns=['deck'], inplace=True)
 ```
 
 ### 2. Analyzing Relationships (Groupby)
+![Pandas Merge Types](images/pandas_merge_types.png)
+
 ```python
+
 # Average survival rate by Class and Sex
 survival_stats = df.groupby(['pclass', 'sex'])['survived'].mean().reset_index()
 print(survival_stats)
@@ -116,3 +122,6 @@ sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
 plt.title("Correlation Matrix")
 plt.show()
 ```
+
+![Correlation Heatmap Example](images/correlation_heatmap_example.png)
+

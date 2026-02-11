@@ -34,6 +34,12 @@ graph TD
 *   **Matplotlib:** The foundation. Good for precise customization.
 *   **Seaborn:** Built on top. Good for beautiful default styles and statistical aggregation.
 
+### 3. Anatomy of a Plot
+Understanding the components of a Matplotlib figure is crucial for customization.
+
+![Anatomy of a Matplotlib Plot](images/anatomy_of_a_plot.png)
+
+
 ## Code for Learning
 
 ### Setup and Import

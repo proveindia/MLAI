@@ -9,6 +9,9 @@ Understanding probability distributions is key to statistical inference. This mo
 *   **Uniform Distribution:** All outcomes are equally likely. (e.g., Rolling a fair die).
 *   **Normal (Gaussian) Distribution:** The "Bell Curve". Most natural phenomena follow this. Defined by Mean ($\mu$) and Standard Deviation ($\sigma$).
 
+![Probability Distributions](images/distribution_types.png)
+
+
 ### 2. Properties of Distributions
 *   **PDF (Probability Density Function):** The height of the curve at point $x$. Likelihood of a value.
 *   **CDF (Cumulative Distribution Function):** The area under the curve up to point $x$. Probability of being $\le x$.
@@ -64,6 +67,9 @@ Percentage of data within standard deviations from the mean:
 *   $\mu \pm 1\sigma$: **68%**
 *   $\mu \pm 2\sigma$: **95%**
 *   $\mu \pm 3\sigma$: **99.7%**
+
+![Normal Distribution Rule](images/normal_distribution_rules.png)
+
 
 ### 4. Standard Score (Z-Score)
 Normalizing a value to standard deviation units.
