@@ -103,6 +103,19 @@ $$ R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = 1 - \frac{\sum_{i=1}^{m} (y_i - \hat{y}
 *   **$SS_{tot}$** (Pronounced: *Total Sum of Squares*): The total variance of the data (from the mean).
 *   **Range:** $-\infty$ to $1$. ($1.0$ is perfect prediction).
 
+### 9. Convexity
+A function $f$ is **convex** if a line segment between any two points on the graph lies above or on the graph:
+
+$$ t f(a) + (1-t)f(b) \ge f(t a + (1-t)b) $$
+
+**Significance:** Convex functions (like MSE for Linear Regression) have a single global minimum, guaranteeing Gradient Descent will find the optimal solution (given small enough $\alpha$).
+
+## Convergence Criteria
+
+Instead of fixed iterations, stop when:
+
+$$ |J(\theta^{(t+1)}) - J(\theta^{(t)})| < \epsilon $$
+
 ## Hyperparameters
 
 ### 1. Learning Rate (α)
@@ -141,6 +154,17 @@ $$ R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = 1 - \frac{\sum_{i=1}^{m} (y_i - \hat{y}
 *   Uses **small random batches** (e.g., 32-256 examples).
 *   **Pros:** Balances speed and stability; efficient use of vectorization.
 *   **Cons:** Introduces hyperparameter (batch size).
+
+## 4. Modern Machine Learning Concepts
+
+### Double Descent Phenomenon
+In classical ML, increasing complexity eventually leads to overfitting (high variance). In modern Deep Learning (over-parameterized regime), test error can **decrease again** after the interpolation threshold (zero training error).
+*   **Classical Regime:** U-shaped test error curve (Bias-Variance Tradeoff).
+*   **Validation:** Error spikes at the interpolation point.
+*   **Modern Regime:** Error drops as model becomes massive (Double Descent).
+
+### Implicit Regularization of SGD
+Stochastic Gradient Descent (SGD) doesn't just find *any* minimum. It tends to find "flat" minima which generalize better. Among infinite solutions with zero training error, SGD naturally selects simpler solutions, acting as **implicit regularization**.
 
 ## Library Installation
 

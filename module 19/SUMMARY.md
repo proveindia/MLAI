@@ -14,13 +14,21 @@ This module explored Recommendation Systems, focusing on Collaborative Filtering
 
 ```mermaid
 graph TD
-    A[Recommendation Systems] --> B{Collaborative Filtering}
-    B --> C[Memory Based]
-    B --> D[Model Based]
-    C --> E[User-Based KNN]
-    C --> F[Item-Based KNN]
-    D --> G[Matrix Factorization SVD/ALS]
-    D --> H[Deep Learning]
+    A[Recommendation Systems] --> B{Strategy}
+    B --> C[Content-Based Filtering]
+    B --> D[Collaborative Filtering]
+    D --> E[Memory Based]
+    D --> F[Model Based]
+    E --> G[User-Based KNN]
+    E --> H[Item-Based KNN]
+    F --> I[Matrix Factorization]
+    I --> J[Funk SVD]
+    I --> K[SVD++]
+    I --> L[ALS]
+
+*   **Content-Based Filtering:** Recommends items similar to those a user liked in the past, based on item attributes (e.g., genre, director).
+*   **Collaborative Filtering:** Relies on past interactions (ratings) of many users.
+*   **Funk SVD:** A specific matrix factorization technique using Gradient Descent to handle sparse matrices (missing ratings). Distinct from mathematical SVD which requires a full matrix.
 ```
 
 *   **Alternating Least Squares (ALS):** Iterative optimization to find user and item factors.
@@ -111,7 +119,6 @@ $$ \hat{r}_{ui} = \alpha \cdot \hat{r}_{\text{SVD}} + (1-\alpha) \cdot \hat{r}_{
 *   **$\hat{r}_{\text{SlopeOne}}$** (Pronounced: *r hat Slope One*): The predicted rating from the SlopeOne algorithm.
 
 In the assignment, an equal weight ($\alpha = 0.5$) was used:
-
 
 $$ \hat{r}_{\text{hybrid}} = 0.5 \cdot \hat{r}_{\text{SVD}} + 0.5 \cdot \hat{r}_{\text{SlopeOne}} $$
 

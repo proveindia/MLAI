@@ -24,6 +24,14 @@ This module introduced Natural Language Processing (NLP) techniques, specificall
 
 ## NLP Preprocessing Pipeline
 
+### 8. Real-World Application
+**Case Study: Twitter Sentiment Analysis**
+*   **Goal:** Classify tweets as positive or negative.
+*   **Method:** Naive Bayes/Logistic Regression on Bag-of-Words features.
+*   **Key Insight:** Emoticons (e.g., `:)`, `:(`) were the most predictive features. Eliminating all text except emoticons still yielded ~99% accuracy.
+
+## NLP Preprocessing Pipeline
+
 ```mermaid
 graph LR
     A[Raw Text] --> B(Sentence Tokenization)
@@ -54,19 +62,14 @@ Naive Bayes is a probabilistic classifier based on Bayes' theorem, often used fo
 
 $$ P(c|d) \propto P(c) \prod_{w \in d} P(w|c) $$
 
-*   **$P(c|d)$** (Pronounced: *probability of c given d*): The posterior probability of class $c$ given document $d$.
-*   **$\propto$** (Pronounced: *proportional to*): Indicates relationship.
-*   **$P(c)$** (Pronounced: *probability of c*): The prior probability of class $c$.
-*   **$\prod$** (Pronounced: *product*): Product over all words $w$ in document $d$.
-*   **$P(w|c)$** (Pronounced: *probability of w given c*): The likelihood of word $w$ occurring in class $c$.
+**Log-Probability:**
+To avoid underflow (multiplying many small probabilities results in zero), we maximize the sum of logarithms:
+
+$$ \log P(c|d) \propto \log P(c) + \sum_{w \in d} \log P(w|c) $$
 
 **Laplace Smoothing:**
 
 $$ P(w|c) = \frac{\text{count}(w, c) + 1}{\text{count}(c) + |V|} $$
-
-*   **$\text{count}(w, c)$** (Pronounced: *count of w in c*): The number of times word $w$ appears in class $c$.
-*   **$\text{count}(c)$** (Pronounced: *count of c*): The total count of all words in class $c$.
-*   **$|V|$** (Pronounced: *cardinality of V*): The vocabulary size (total number of unique words).
 
 ### Bag-of-Words (BoW)
 A representation of text that describes the occurrence of words within a document. It involves two things:

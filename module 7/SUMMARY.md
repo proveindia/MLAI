@@ -18,13 +18,23 @@ graph TD
     F -->|Yes| G[Stop]
 ```
 
-### 1. The Loss Function ($J(\theta)$)
-A mathematical function that quantifies the error between the model's predictions and the actual data.
-*   **$J(\theta)$** (Pronounced: *J of Theta*): The cost function parameterized by weights $\theta$.
-*   **Goal:** Minimize $J(\theta)$.
-*   **Convexity:** A convex function is bowl-shaped, guaranteeing that any local minimum is also the global minimum. This is ideal for optimization.
+### 1. Linear Regression Models
+*   **Simple Linear Regression:** One feature.
+    *   $\hat{y} = \theta_0 + \theta_1 x$
+*   **Multiple Linear Regression:** Multiple features.
+    *   $\hat{y} = \theta_0 + \theta_1 x_1 + ... + \theta_n x_n$
+    *   *Interpreting Coefficients:* $\theta_i$ represents the change in $y$ for a one-unit change in $x_i$, holding other variables constant.
 
-### 2. Gradient Descent
+### 2. Feature Engineering
+*   **One-Hot Encoding:** Converting categorical data (e.g., "Day of Week") into numerical dummy variables (0s and 1s).
+*   **Interaction Terms:** combining features to capture non-linear effects.
+
+### 3. The Loss Function ($J(\theta)$)
+Quantifies error.
+*   **L2 Loss (MSE):** Squared difference. Penalizes outliers heavily. Differentiable (good for Gradient Descent).
+*   **L1 Loss (MAE):** Absolute difference. More robust to outliers but harder to optimize (not differentiable at 0).
+
+### 4. Gradient Descent
 An iterative algorithm that moves parameters in the opposite direction of the gradient (slope) to find the minimum.
 
 ![Gradient Descent Convergence](images/gradient_descent_contour.png)
@@ -39,14 +49,14 @@ An iterative algorithm that moves parameters in the opposite direction of the gr
 
 $$ J(\theta) = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2 $$
 
-### 2. The Gradient ($\nabla J$)
+### 5. The Gradient ($\nabla J$)
 The derivative of the loss function with respect to the weights. It points "uphill".
 
 $$ \nabla J(\theta) = -\frac{2}{n} \sum_{i=1}^n (y_i - \hat{y}_i) \cdot x_i $$
 
 *   **$\nabla$** (Pronounced: *Nabla* or *Del*): Symbol for the Gradient (vector of partial derivatives).
 
-### 3. Update Rule (The "Learning" Step)
+### 6. Update Rule (The "Learning" Step)
 We move "downhill" by subtracting the gradient.
 
 $$ \theta_{new} = \theta_{old} - \alpha \cdot \nabla J(\theta) $$

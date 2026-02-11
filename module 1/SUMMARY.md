@@ -28,21 +28,29 @@ This module lays the groundwork for Machine Learning, covering the Python ecosys
 
 ## Key Formulas & Pronunciation
 
-### 1. The Mean ($\mu$)
-The average value of a dataset.
+### 1. The Mystery Box (Model)
+Input vector $\mathbf{x}$ goes into a model $f$ to predict output $y$.
+$$ \hat{y} = f(\mathbf{x}) $$
+
+### 2. Loss Function (Quadratic)
+Measures the penalty for incorrect predictions.
+$$ L(y, \hat{y}) = (y - \hat{y})^2 $$
+
+### 3. The Mean ($\mu$) / Expected Value $E[Y]$
+The center of gravity of a distribution.
 
 $$ \mu = \frac{1}{n} \sum_{i=1}^{n} x_i $$
 
 *   **Pronunciation:** "Mu equals one over n times the sum of x-sub-i from i equals 1 to n."
 
-### 2. Euclidean Distance
+### 4. Euclidean Distance
 The straight-line distance between two points ($p$ and $q$) in space.
 
 $$ d(p, q) = \sqrt{\sum_{i=1}^{n} (q_i - p_i)^2} $$
 
 *   **Pronunciation:** "Distance d equals the square root of the sum of squared differences between q-sub-i and p-sub-i."
 
-### 3. Dot Product
+### 5. Dot Product
 Foundational operation in Neural Networks and Linear Algebra.
 
 $$ \vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_i b_i $$
@@ -144,4 +152,11 @@ df = pd.DataFrame(data)
 # Basic Inspection
 print(df.head())
 print(df.describe()) # Summary statistics
+
+# Data Selection (Indexing)
+# .loc[]: Label-based
+print(df.loc[0, 'Name'])  # Row 0, Column 'Name' -> 'Alice'
+
+# .iloc[]: Integer-based
+print(df.iloc[0, 1])      # Row 0, Column 1 (Age) -> 25
 ```

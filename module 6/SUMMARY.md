@@ -16,11 +16,12 @@ A technique to reduce the number of features (dimensions) while retaining the mo
 
 ### 2. Clustering
 Grouping similar data points together.
-*   **K-Means:** Partitioning data into $K$ distinct clusters based on distance to centroids. Fast but assumes spherical clusters.
-
-![K-Means Iterations](images/kmeans_iterations.png)
-
-*   **DBSCAN:** Density-based clustering. Good for arbitrary shapes and outlier detection. Does not require specifying $K$.
+*   **K-Means:** Partitioning data into $K$ distinct clusters based on distance to centroids.
+    *   **K-Means++:** Smart initialization strategy to spread centroids apart, improving convergence speed and result quality.
+*   **DBSCAN:** Density-based clustering.
+    *   **Core Points:** Having at least `min_samples` neighbors within `eps` radius.
+    *   **Boundary Points:** Reachable from a core point but not core themselves.
+    *   **Noise (Outliers):** Not reachable from any core point.
 
 ## Key Formulas
 
@@ -36,17 +37,18 @@ $$ Z = X \cdot W $$
 
 
 ### 2. SVD (Singular Value Decomposition)
-PCA is often implemented using SVD.
+PCA is often implemented using SVD. $X$ (Tall Matrix, $N \times D$) is decomposed into:
 
 $$ X = U \Sigma V^T $$
 
-![SVD Matrix Decomposition](images/svd_matrix_decomposition.png)
-
-
 *   $X$: Data Matrix.
-*   $U$: Left Singular Vectors.
-*   $\Sigma$: Diagonal matrix of Singular Values.
-*   $V^T$: Right Singular Vectors (Principal Components).
+*   $U$: Left Singular Vectors ($N \times N$, orthogonal).
+*   $\Sigma$: Diagonal matrix of Singular Values ($\sigma_i$) sorted descending ($N \times D$).
+*   $V^T$: Right Singular Vectors ($D \times D$, Principal Components).
+
+**PCA Approximation (Reconstruction):**
+We can approximate the original data using only the top $r$ components:
+$$ \tilde{X}_r = U_r \Sigma_r V_r^T $$
 
 ### 3. Feature Normalization ($X_{norm}$)
 Essential before PCA to ensure all features have the same scale.
@@ -58,7 +60,7 @@ $$ x_{norm} = \frac{x - \mu}{\sigma} $$
 *   $\mu$: Mean of the feature.
 *   $\sigma$: Standard deviation of the feature.
 
-### 4. K-Means Inertia (Within-Cluster Sum of Squares)
+### 4. K-Means Inertia
 The goal of K-Means is to minimize this value.
 
 $$ \text{Inertia} = \sum_{j=1}^k \sum_{i \in C_j} ||x_i - \mu_j||^2 $$

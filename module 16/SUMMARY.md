@@ -13,6 +13,15 @@ This module focused on Support Vector Machines (SVM), specifically the Maximum M
     *   `kernel='rbf'`: Radial Basis Function (infinite dimensions).
 *   **Decision Function:** A function that returns the distance of samples to the separating hyperplane.
 
+*   **Soft Margin:** Allows some misclassification to achieve a better overall boundary. Controlled by parameter `C` and slack variables ($\xi$).
+*   **Slack Variable ($\xi$):** A variable added to the constraints to allow a data point to violate the margin.
+
+### 7. Real-World Application
+**Case Study: Restaurant Health Inspections (Yelp)**
+*   **Goal:** Target health inspectors to restaurants most likely to have violations.
+*   **Method:** SVM trained on Yelp reviews (text features like "gross", "sticky") and metadata (ZIP, cuisine).
+*   **Result:** 82% accuracy in distinguishing severe offenders, allowing efficient allocation of inspector resources.
+
 ## SVM Classification Workflow
 
 ```mermaid
@@ -50,6 +59,7 @@ $$ \text{Margin} = \frac{2}{||w||} $$
 *Figure 1: Maximum Margin Hyperplane showing support vectors (circled) and the decision boundary.*
 
 ### 3. Cost Function (Hinge Loss)
+
 SVM minimizes the Hinge Loss function to find the maximum margin. It penalizes misclassifications:
 
 $$ L(y, f(x)) = \max(0, 1 - y \cdot f(x)) $$
@@ -72,16 +82,17 @@ Instead of explicitly calculating the coordinates of data points in a high-dimen
 *Figure 2: The Kernel Trick conceptualized. Left: Non-separable 2D data. Right: Mapping to 3D makes it linearly separable.*
 
 **Common Kernels:**
+
 *   **Linear Kernel:** For linearly separable data.
 
-    $$ K(x, x') = x^T x' $$
+$$ K(x, x') = x^T x' $$
 
     *   **$K(x, x')$** (Pronounced: *K of x and x prime*): The kernel function value representing similarity.
     *   **$x'$** (Pronounced: *x prime*): Another data point (support vector) we are comparing against.
 
 *   **Polynomial Kernel:** Maps data into a polynomial feature space.
 
-    $$ K(x, x') = (\gamma x^T x' + r)^d $$
+$$ K(x, x') = (\gamma x^T x' + r)^d $$
 
     *   **$\gamma$** (Pronounced: *gamma*): A coefficient scaling the input data.
     *   **$r$** (Pronounced: *r*): A constant term (coefficient 0).
@@ -89,13 +100,14 @@ Instead of explicitly calculating the coordinates of data points in a high-dimen
 
 *   **Radial Basis Function (RBF) Kernel:** (Default) Maps data into an infinite-dimensional space. Effective for complex, non-linear boundaries.
 
-    $$ K(x, x') = \exp(-\gamma ||x - x'||^2) $$
+$$ K(x, x') = \exp(-\gamma ||x - x'||^2) $$
 
     *   **$\gamma$** (Pronounced: *gamma*): Controls the reach of a single training example's influence.
     *   **$\exp$** (Pronounced: *exponential*): The exponential function ($e$ raised to the power of...).
     *   **$||x - x'||^2$** (Pronounced: *squared Euclidean distance*): The squared distance between two data points.
 
 ### 5. Kernel Matrix (Gram Matrix)
+
 **Definition:** A square matrix ($n \times n$) containing the pairwise similarity scores between all training data points.
 
 $$ K_{ij} = K(x_i, x_j) $$

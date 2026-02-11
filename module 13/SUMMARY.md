@@ -10,7 +10,14 @@ This module introduced Logistic Regression, a fundamental algorithm for classifi
 *   **Log Loss (Binary Cross-Entropy):** The cost function minimized during training to find optimal parameters.
 *   **Odds and Odds Ratio:** Alternative ways to interpret logistic regression coefficients.
 *   **Regularization:** Techniques (L1, L2) to prevent overfitting by penalizing large coefficients.
-*   **Multiclass Classification:** Extending binary logistic regression to handle multiple classes using softmax.
+*   **Multiclass Classification:** Extending binary logistic regression to handle multiple classes using softmax (Multinomial), One-vs-Rest (OVR), or One-vs-One (OVO).
+*   **Maximum Likelihood Estimation (MLE):** The statistical framework used to derive the Log Loss cost function.
+*   **Cleanly Separable Data:** If classes are perfectly separable, MLE causes coefficients to grow to infinity (overfitting). Regularization (L2) prevents this.
+
+### 8. Multiclass Strategies
+*   **One-vs-Rest (OVR):** Fits $K$ classifiers. Good for large $K$.
+*   **One-vs-One (OVO):** Fits $\frac{K(K-1)}{2}$ classifiers (every pair). Good for small $K$ or algorithms that don't scale well.
+*   **Multinomial (Softmax):** Direct probability estimation for all classes at once. Preferred if solver supports it.
 
 ## Key Formulas
 

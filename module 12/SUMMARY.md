@@ -13,6 +13,19 @@ This module focused on the K-Nearest Neighbors (KNN) algorithm, a versatile dist
 *   **Curse of Dimensionality:** In high dimensions, all points become equidistant, reducing KNN effectiveness. Requires dimensionality reduction (PCA).
 *   **Cross-Validation:** Evaluating model performance by splitting data into multiple train/test folds to ensure robustness.
 
+### 5. Classification Metrics & Trade-offs
+*   **Accuracy:** $(TP+TN)/(TP+TN+FP+FN)$
+*   **Precision:** $TP/(TP+FP)$. "Pessimistic Classifier" (High Precision) is cautious, only predicting positive when certain.
+*   **Recall (Sensitivity):** $TP/(TP+FN)$. "Optimistic Classifier" (High Recall) tries to find all positives, risking false alarms.
+*   **Specificity:** $TN/(TN+FP)$. Ability to find true negatives.
+*   **Thresholding:** Adjusting the probability cutoff (default 0.5) from `predict_proba` to trade off Precision vs Recall.
+
+### 6. Real-World Application: Matching
+**Case Study: Refugee Resettlement**
+*   **Goal:** Maximize refugee employment success.
+*   **Method:** Use supervised learning to predict employment probability for a refugee in different locations based on their characteristics.
+*   **Result:** Algorithmic assignment could increase employment by 41-73% compared to random assignment.
+
 ## KNN Algorithm Steps
 
 ```mermaid

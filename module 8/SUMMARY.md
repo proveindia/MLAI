@@ -40,7 +40,21 @@ graph LR
 
 ### 3. Numerical Transformations
 *   **Scaling:** Adjusting range (MinMax) or distribution (StandardScaler).
-*   **Interaction Terms:** Creating new features by multiplying existing ones ($x_1 \times x_2$) to capture non-linear effects.
+*   **Interaction Terms:** Creating new features by multiplying existing ones.
+
+### 4. Overfitting & Generalization
+*   **Overfitting:** Model learns noise instead of signal. High Variance. Captures too many details (e.g., high-degree polynomial).
+*   **Underfitting:** Model is too simple to capture patterns. High Bias.
+*   **Generalization:** Ability to perform well on unseen data.
+
+#### Train / Validation / Test Split
+*   **Training Set:** Used to fit the model parameters.
+*   **Validation (Dev) Set:** Used to tune hyperparameters (e.g., degree of polynomial).
+*   **Test Set:** Used *once* for final evaluation.
+
+### 5. Scikit-Learn Pipelines
+Chaining transformers and estimators ensures no data leakage and simplifies code.
+`Pipeline([('scaler', StandardScaler()), ('model', LinearRegression())])`
 
 ## Key Formulas
 
@@ -136,4 +150,28 @@ X_poly = poly.fit_transform(X)
 
 print("Original:\n", X)
 print("Polynomial (a, b, a^2, ab, b^2):\n", X_poly)
+```
+
+### 4. Pipeline with Cross-Validation
+Best practice for preventing data leakage.
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+
+# Split Data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create Pipeline
+pipeline = Pipeline([
+    ('poly', PolynomialFeatures(degree=2)),
+    ('scaler', StandardScaler()),
+    ('model', LinearRegression())
+])
+
+# Fit and Predict
+pipeline.fit(X_train, y_train)
+score = pipeline.score(X_test, y_test)
+print(f"R^2 Score on Test Set: {score:.4f}")
 ```

@@ -18,9 +18,11 @@ Breaking a series into its constituent parts to understand it better:
 
 ![Time Series Decomposition](images/ts_decomposition_visual.png)
 
-1.  **Trend:** The long-term direction (increasing/decreasing).
-2.  **Seasonality:** Repeating patterns at fixed intervals (e.g., weekly, yearly).
-3.  **Residuals (Noise):** The random variation left after extracting trend and seasonality.
+*   **Additive Model:** $y_t = \text{Trend} + \text{Seasonality} + \text{Residue}$
+    *   Use when magnitude of seasonality is constant.
+*   **Multiplicative Model:** $y_t = \text{Trend} \times \text{Seasonality} \times \text{Residue}$
+    *   Use when magnitude of seasonality changes with the trend (e.g., grows as valus grow).
+*   **Smoothing:** A common way to extract trend is using a **convolution filter** (moving average).
 
 ### 3. Autocorrelation (ACF & PACF)
 *   **ACF (Autocorrelation Function):** Correlation between $y_t$ and its lags ($y_{t-1}, y_{t-2}, ...$). Shows direct and indirect effects.
@@ -56,11 +58,11 @@ Combines AR, Integration (Differencing), and MA. Notation: **ARIMA(p, d, q)**.
 ### 5. Error Metrics (Evaluation)
 *   **MAE (Mean Absolute Error):** Average magnitude of errors.
 
-    $$ \text{MAE} = \frac{1}{n} \sum |y_i - \hat{y}_i| $$
+$$ \text{MAE} = \frac{1}{n} \sum |y_i - \hat{y}_i| $$
 
 *   **RMSE (Root Mean Square Error):** Penalizes large errors heavily.
 
-    $$ \text{RMSE} = \sqrt{\frac{1}{n} \sum (y_i - \hat{y}_i)^2} $$
+$$ \text{RMSE} = \sqrt{\frac{1}{n} \sum (y_i - \hat{y}_i)^2} $$
 
 ## Code for Learning
 

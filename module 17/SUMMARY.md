@@ -4,7 +4,13 @@
 This module involved a comprehensive project applying the CRISP-DM methodology to predict whether a bank client will subscribe to a term deposit.
 
 ## Key Concepts
-*   **CRISP-DM Application:** End-to-end process from Business Understanding to Evaluation.
+*   **CRISP-DM Phases:**
+    1.  **Business Understanding:** Defining the goal (e.g., increase deposit subscriptions).
+    2.  **Data Understanding:** Collecting and exploring data (visualizations, quality check).
+    3.  **Data Preparation:** Cleaning, selecting, and transforming data (the most time-consuming phase).
+    4.  **Modeling:** Selecting and tuning algorithms (LR, SVM, DT, KNN).
+    5.  **Evaluation:** Assessing model performance against business objectives (Lift, AUC).
+    6.  **Deployment:** Implementing the model in a production environment.
 *   **Imbalanced Data:** Handling datasets where one class (non-subscribers) significantly outnumbers the other.
 *   **Model Comparison:** Evaluating multiple classifiers (Logistic Regression, KNN, SVM, Decision Tree) to find the best performer.
 
@@ -65,16 +71,9 @@ $$ \text{Recall} = \frac{TP}{TP + FN} $$
 $$ F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} $$
 
 **Cumulative Lift:**
-A measure of how much better the model is at identifying positive cases compared to a random selection.
+A measure of how much better the model is at identifying positive cases compared to a random selection. The population is divided into deciles based on predicted probability.
 
 $$ \text{Lift} = \frac{\text{Response Rate in Decile}}{\text{Overall Response Rate}} $$
-
-*   **Decile:** Population divided into 10 equal groups based on predicted probability.
-
-**ALIFT (Area Under the Lift Curve):**
-Similar to AUC, but for the Lift curve.
-*   **Baseline:** 0.5 (Random model).
-*   **Perfect:** 1.0.
 
 ### Logistic Regression (Sigmoid Function)
 Logistic regression uses the sigmoid function to map predictions to probabilities between 0 and 1.

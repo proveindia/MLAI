@@ -10,8 +10,14 @@ This module covered Decision Trees, a versatile non-parametric supervised learni
 *   **Entropy:** Measures the randomness or disorder in the information being processed.
 *   **Information Gain:** Measures the reduction in entropy after splitting on an attribute.
 *   **Overfitting:** Creating a tree that is too complex and matches training data too closely, leading to poor generalization.
-*   **Pruning:** Reducing tree complexity by removing sections that provide little predictive power.
-*   **Feature Importance:** Quantifies the contribution of each feature to the model's predictions.
+*   **Weighted Entropy (WS):** Entropy of a node scaled by the fraction of samples in it. Split decisions maximize the reduction in Weighted Entropy ($\Delta WS$).
+*   **Pruning:** Reducing complexity by removing branches. One strategy: compare validation error with and without a branch; if no significant difference, prune it.
+
+### 8. Real-World Application
+**Case Study: Bail Applications (Kleinberg et al.)**
+*   **Goal:** Predict if a defendant will re-offend if released on bail.
+*   **Findings:** Algorithms could reduce crime rates (by jailing high-risk) or incarceration rates (by releasing low-risk) compared to judges.
+*   **Ethical Consideration:** Bias in prior offense data can propagate to the model.
 
 ## Decision Tree Decision Process
 

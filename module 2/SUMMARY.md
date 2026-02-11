@@ -6,7 +6,9 @@ Understanding probability distributions is key to statistical inference. This mo
 ## Key Concepts
 
 ### 1. Probability Distributions
-*   **Uniform Distribution:** All outcomes are equally likely. (e.g., Rolling a fair die).
+*   **Uniform Distribution:** All outcomes are between $a$ and $b$ are equally likely.
+    *   **Discrete:** $n$ possible outcomes. Mean $= \frac{a+b}{2}$, Variance $= \frac{n^2-1}{12}$.
+    *   **Continuous:** Any value in $[a, b]$. Mean $= \frac{a+b}{2}$, Variance $= \frac{(b-a)^2}{12}$.
 *   **Normal (Gaussian) Distribution:** The "Bell Curve". Most natural phenomena follow this. Defined by Mean ($\mu$) and Standard Deviation ($\sigma$).
 
 ![Probability Distributions](images/distribution_types.png)
@@ -78,6 +80,17 @@ $$ z = \frac{x - \mu}{\sigma} $$
 
 *   **$z$** (Pronounced: *z-score*): The number of standard deviations a data point is from the mean.
 
+### 5. Central Limit Theorem (CLT)
+The distribution of the sample mean approaches a **Normal Distribution** as the sample size increases, regardless of the population's distribution.
+*   *Implication:* Allows us to make statistical inferences about the population mean.
+
+### 6. Multivariate Distributions
+Distributions involving multiple random variables ($X, Y$).
+*   **Covariance:** Measure of joint variability. Positive value $\rightarrow$ variables move together.
+*   **Correlation:** Normalized covariance (between -1 and 1).
+    *   **Independence:** Knowing $X$ gives no info about $Y$. $P(Y|X) = P(Y)$.
+
+
 ## Code for Learning
 
 ### Setup and Import
@@ -94,6 +107,13 @@ import seaborn as sns
 
 ### 1. Analyzing Distributions (Skew & Kurtosis)
 ```python
+from scipy.stats import uniform
+
+# Uniform Distribution (Continuous)
+# loc = start, scale = width
+u = uniform(loc=10, scale=5) # Range [10, 15]
+print(f"Mean: {u.mean()}, Variance: {u.var()}")
+
 # Generate skewed data
 data = np.random.exponential(scale=2, size=1000)
 
