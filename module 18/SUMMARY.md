@@ -113,3 +113,44 @@ def stemmer(text):
     stem = PorterStemmer()
     return ' '.join([stem.stem(w) for w in word_tokenize(text)])
 ```
+
+### Text Classification with Naive Bayes
+Using `CountVectorizer` to create a Bag-of-Words representation and `MultinomialNB` for classification.
+
+**Bag-of-Words (CountVectorizer):**
+```python
+from sklearn.feature_extraction.text import CountVectorizer
+
+# Create instance
+cvect = CountVectorizer()
+# Fit and transform text data
+X_counts = cvect.fit_transform(text_data)
+```
+
+**Naive Bayes Classifier:**
+```python
+from sklearn.naive_bayes import MultinomialNB
+
+# Create instance
+nb = MultinomialNB()
+# Fit model
+nb.fit(X_train, y_train)
+# Score
+acc = nb.score(X_test, y_test)
+```
+
+**Pipeline:**
+Combining vectorization and classification.
+```python
+from sklearn.pipeline import Pipeline
+
+# Build pipeline
+pipe = Pipeline([
+    ('cvect', CountVectorizer()),
+    ('bayes', MultinomialNB())
+])
+
+# Fit and evaluate
+pipe.fit(X_train, y_train)
+acc = pipe.score(X_test, y_test)
+```
