@@ -58,6 +58,38 @@ $$ \nabla_\theta J(\theta) = \frac{1}{m} X^T (X\theta - y) $$
 *   **$X$** (Pronounced: *X*): The feature matrix (m × n).
 *   **$y$** (Pronounced: *y*): The target vector (m × 1).
 
+### 6. Mathematical Derivation of Gradient (Chain Rule)
+
+To understand *why* the update rule works, we derive the gradient of the MSE cost function with respect to a single parameter $\theta_j$.
+
+$$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{\partial}{\partial \theta_j} \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 $$
+
+Using the **Chain Rule**:
+$$ \frac{\partial J}{\partial \theta_j} = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot \frac{\partial}{\partial \theta_j} (h_\theta(x^{(i)}) - y^{(i)}) $$
+
+Since $h_\theta(x^{(i)}) = \sum_{k=0}^{n} \theta_k x_k^{(i)}$, the partial derivative with respect to $\theta_j$ is simply $x_j^{(i)}$:
+$$ \frac{\partial J}{\partial \theta_j} = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x_j^{(i)} $$
+
+### 7. Normal Equation (Analytical Solution)
+
+Instead of iterating with Gradient Descent, we can solve for $\theta$ directly by setting the gradient to zero:
+
+$$ \theta = (X^T X)^{-1} X^T y $$
+
+*   **$(X^T X)^{-1}$** (Pronounced: *inverse of X transpose times X*): The inverse matrix.
+*   **Pros:** No need to choose $\alpha$ (learning rate); no iterations.
+*   **Cons:** Computationally expensive for large $n$ ($O(n^3)$); matrix must be invertible.
+
+### 8. R-squared ($R^2$) Evaluation Metric
+
+Measures the proportion of variance in the dependent variable explained by the model:
+
+$$ R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = 1 - \frac{\sum_{i=1}^{m} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{m} (y_i - \bar{y})^2} $$
+
+*   **$SS_{res}$** (Pronounced: *Sum of Squared Residuals*): The sum of squared errors of the model.
+*   **$SS_{tot}$** (Pronounced: *Total Sum of Squares*): The total variance of the data (from the mean).
+*   **Range:** $-\infty$ to $1$. ($1.0$ is perfect prediction).
+
 ## Hyperparameters
 
 ### 1. Learning Rate (α)
@@ -327,6 +359,14 @@ print(f"sklearn SGDRegressor - Intercept: {sgd.intercept_[0]:.2f}, Coefficient: 
 
 # Compare results
 print(f"Manual GD - Intercept: {optimal_theta[0]:.2f}, Coefficient: {optimal_theta[1]:.2f}")
+
+# Method 4: Normal Equation (Analytical Solution)
+def normal_equation(X, y):
+    X_b = np.c_[np.ones((len(X), 1)), X] # Add intercept term
+    return np.linalg.inv(X_b.T @ X_b) @ X_b.T @ y
+
+theta_normal = normal_equation(X_train, y_train) 
+print(f"Normal Equation - Intercept: {theta_normal[0]:.2f}, Coefficient: {theta_normal[1]:.2f}")
 ```
 
 ## Assignment Highlights
