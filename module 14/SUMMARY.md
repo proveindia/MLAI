@@ -55,7 +55,40 @@ $$ IG(D, A) = H(D) - \sum_{v \in \text{values}(A)} \frac{|D_v|}{|D|} H(D_v) $$
 *   **$|D_v|$** (Pronounced: *cardinality of D sub v*): Number of samples in subset $D_v$.
 *   **$|D|$** (Pronounced: *cardinality of D*): Total number of samples in dataset $D$.
 
-### 4. Cost Complexity Pruning
+### 4. Gain Ratio
+
+Information Gain is biased towards attributes with many values. Gain Ratio corrects this by normalizing Information Gain with Split Information.
+
+$$ \text{GainRatio}(D, A) = \frac{IG(D, A)}{SplitInfo_A(D)} $$
+
+Where:
+
+$$ SplitInfo_A(D) = - \sum_{j=1}^{v} \frac{|D_j|}{|D|} \log_2 \left( \frac{|D_j|}{|D|} \right) $$
+
+*   **$SplitInfo_A(D)$** (Pronounced: *Split Info of A on D*): The entropy of the split itself.
+*   **$v$** (Pronounced: *v*): The number of distinct values (branches) for attribute $A$.
+
+### 5. Regression Tree Criteria (MSE & MAE)
+
+For regression tasks, the impurity measure is typically the variance or absolute error of the target variable within the node.
+
+**Mean Squared Error (MSE) Reduction:**
+
+$$ H(Q_m) = \frac{1}{N_m} \sum_{y \in Q_m} (y - \bar{y}_m)^2 $$
+
+*   **$H(Q_m)$** (Pronounced: *H of Q sub m*): Impurity of node $m$.
+*   **$N_m$** (Pronounced: *N sub m*): Number of samples in node $m$.
+*   **$Q_m$** (Pronounced: *Q sub m*): The set of samples in node $m$.
+*   **$y$** (Pronounced: *y*): The target value for a sample.
+*   **$\bar{y}_m$** (Pronounced: *y bar sub m*): The mean target value in node $m$.
+
+**Mean Absolute Error (MAE):**
+
+$$ H(Q_m) = \frac{1}{N_m} \sum_{y \in Q_m} |y - \text{median}(y)_m| $$
+
+*   **$\text{median}(y)_m$** (Pronounced: *median of y in m*): The median target value in node $m$.
+
+### 6. Cost Complexity Pruning
 
 Cost Complexity Pruning (also known as weakest link pruning) finds the optimal balance between tree complexity and accuracy by penalizing the number of terminal nodes. The cost complexity of a tree is:
 
@@ -68,7 +101,9 @@ $$ R_\alpha(T) = R(T) + \alpha |T| $$
 
 **How it works:** For each value of $\alpha$, we find the subtree that minimizes $R_\alpha(T)$. As $\alpha$ increases, the optimal tree becomes smaller.
 
-### 5. Feature Importance
+**1-SE Rule:** A common strategy in cross-validation is to select the smallest tree whose error is within one standard error of the minimum error tree. This favors simpler models when performance is comparable.
+
+### 7. Feature Importance
 
 Feature importance quantifies how much each feature contributes to reducing impurity across all splits in the tree. Features used in splits closer to the root and affecting more samples have higher importance.
 
@@ -254,6 +289,18 @@ best_idx = np.argmax(test_scores)
 best_alpha = ccp_alphas[best_idx]
 print(f"Best Alpha: {best_alpha:.5f}")
 print(f"Best Test Accuracy: {test_scores[best_idx]:.3f}")
+
+# Optional: 1-SE Rule Implementation
+# Calculate standard error of accuracy (approximate)
+n = len(y_test)
+se = np.sqrt(test_scores[best_idx] * (1 - test_scores[best_idx]) / n)
+target_accuracy = test_scores[best_idx] - se
+
+# Find simplest model (highest alpha) within 1 SE of best accuracy
+compatible_alphas = [ccp_alphas[i] for i in range(len(test_scores)) 
+                     if test_scores[i] >= target_accuracy]
+best_alpha_1se = max(compatible_alphas)
+print(f"Best Alpha (1-SE Rule): {best_alpha_1se:.5f}")
 ```
 
 ### 4. Feature Importance Visualization
