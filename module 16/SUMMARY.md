@@ -43,6 +43,14 @@ Instead of explicitly calculating the coordinates of data points in a high-dimen
     $$ K(x, x') = \exp(-\gamma ||x - x'||^2) $$
     *   $\gamma$ (gamma): Controls the influence of a single training example.
 
+### 5. Kernel Matrix (Gram Matrix)
+**Definition:** A square matrix ($n \times n$) containing the pairwise similarity scores between all training data points.
+
+$$ K_{ij} = K(x_i, x_j) $$
+
+*   **Role:** During training, SVM doesn't look at the data points directly; it looks at this matrix of relationships. It tells the algorithm "how similar is point $i$ to point $j$?" in the high-dimensional space.
+*   **Properties:** It must be symmetric and positive semi-definite (Mercer's Theorem).
+
 ## Hyperparameters
 
 ### 1. Regularization (`C`)
