@@ -58,8 +58,8 @@ $$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$
 
 $$ \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2} $$
 
-    *   **$\sigma$** (Pronounced: *Sigma*): Population standard deviation.
-    *   **$\sigma^2$** (Pronounced: *Sigma squared*): Variance.
+*   **$\sigma$** (Pronounced: *Sigma*): Population standard deviation.
+*   **$\sigma^2$** (Pronounced: *Sigma squared*): Variance.
 
 ### 3. Normal Distribution Rule (68-95-99.7)
 Percentage of data within standard deviations from the mean:
