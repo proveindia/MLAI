@@ -24,15 +24,22 @@ $$ L(y, f(x)) = \max(0, 1 - y \cdot f(x)) $$
 *   **$f(x)$**: Predicted score ($w^T x + b$).
 *   **$L$**: Loss is 0 if correctly classified with sufficient margin ($y \cdot f(x) \geq 1$), otherwise increases linearly.
 
-### 4. Kernel Functions
-Kernels calculate the dot product in a higher-dimensional space without explicitly transforming the data ("Kernel Trick").
+### 4. Kernel Functions & The Kernel Trick
+**The Problem:** Many datasets are not linearly separable in their original dimensions (e.g., concentric circles).
 
-*   **Linear Kernel:**
+**The Solution (The Kernel Trick):**
+Instead of explicitly calculating the coordinates of data points in a high-dimensional space (which is computationally expensive), SVM uses a **Kernel Function** to compute the dot product between two vectors as if they were in that higher-dimensional space.
+
+*   **Concept:** Like lifting the data into a 3D space where a flat sheet (hyperplane) can separate points that were mixed together on a 2D table.
+*   **Efficiency:** It avoids the "Curse of Dimensionality" by operating in the original input space while benefiting from high-dimensional separability.
+
+**Common Kernels:**
+*   **Linear Kernel:** For linearly separable data.
     $$ K(x, x') = x^T x' $$
-*   **Polynomial Kernel:**
+*   **Polynomial Kernel:** Maps data into a polynomial feature space.
     $$ K(x, x') = (\gamma x^T x' + r)^d $$
     *   $d$: Degree of the polynomial.
-*   **Radial Basis Function (RBF) Kernel:**
+*   **Radial Basis Function (RBF) Kernel:** (Default) Maps data into an infinite-dimensional space. Effective for complex, non-linear boundaries.
     $$ K(x, x') = \exp(-\gamma ||x - x'||^2) $$
     *   $\gamma$ (gamma): Controls the influence of a single training example.
 
