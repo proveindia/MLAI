@@ -212,3 +212,39 @@ Combines a boxplot with a kernel density estimate (KDE). Shows distribution shap
 sns.violinplot(data=df, x="day", y="total_bill", palette="muted")
 plt.show()
 ```
+
+### 5. Plotly Usage (Interactive Plots)
+Plotly allows for interactive visualizations (zoom, hover, pan) which are excellent for data exploration.
+
+**Installation:**
+```bash
+pip install plotly
+```
+
+**Common Plot Types using `plotly.express` (`px`):**
+
+#### Interactive Bar Chart
+```python
+import plotly.express as px
+
+# Create interactive bar chart
+fig = px.bar(df, x='day', y='total_bill', color='sex', barmode='group',
+             title='Total Bill by Day and Sex (Interactive)')
+fig.show()
+```
+
+#### Interactive Scatter Plot
+```python
+# Scatter plot with hover data
+fig = px.scatter(df, x='total_bill', y='tip', color='time',
+                 size='size', hover_data=['sex'])
+fig.show()
+```
+
+#### Interactive Line Chart
+```python
+# Line chart (ideal for time series)
+# Assuming a time-series dataframe 'df_ts'
+# fig = px.line(df_ts, x='date', y='value', title='Time Series Trend')
+# fig.show()
+```

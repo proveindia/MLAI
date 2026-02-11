@@ -86,17 +86,39 @@ df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
 df.drop(columns=['deck'], inplace=True)
 ```
 
-### 2. Analyzing Relationships (Groupby)
+### 2. Analyzing Relationships (Groupby & Merge)
 ![Pandas Merge Types](images/pandas_merge_types.png)
 
 ```python
-
-# Average survival rate by Class and Sex
+# Groupby: Average survival rate by Class and Sex
 survival_stats = df.groupby(['pclass', 'sex'])['survived'].mean().reset_index()
 print(survival_stats)
+
+# Merge (Joins)
+# inner: intersection of keys
+# outer: union of keys
+# left: use keys from left frame only
+# right: use keys from right frame only
+# merged_df = pd.merge(df1, df2, on='common_column', how='inner')
 ```
 
-### 3. Outlier Detection (Boxplot)
+### 3. String Operations
+Pandas provides vectorized string functions via the `.str` accessor.
+
+```python
+# Create a sample dataframe
+data = {'Name': ['Alice Smith', 'Bob Jones', 'Charlie Brown'], 'Email': ['alice@gmail.com', 'bob@yahoo.com', 'charlie@gmail.com']}
+df_str = pd.DataFrame(data)
+
+# String methods
+df_str['Upper_Name'] = df_str['Name'].str.upper()
+df_str['Gmail_User'] = df_str['Email'].str.contains('gmail')
+df_str['First_Name'] = df_str['Name'].str.split(' ').str[0]
+
+print(df_str)
+```
+
+### 4. Outlier Detection (Boxplot)
 Using Boxplots to visualize the spread and identify outliers.
 
 ```python
@@ -106,7 +128,7 @@ plt.title("Fare Distribution by Class (Detecting Outliers)")
 plt.show()
 ```
 
-### 4. Correlation Matrix
+### 5. Correlation Matrix
 Understanding feature relationships.
 
 ```python
@@ -124,4 +146,33 @@ plt.show()
 ```
 
 ![Correlation Heatmap Example](images/correlation_heatmap_example.png)
+
+### 6. Advanced Visualization with Plotly
+Interactive plots for deeper analysis.
+
+```python
+import plotly.express as px
+
+# 1. Scatterplot with Size and Color dimensions
+# log_x=True is useful for skewed data like GDP
+fig_scatter = px.scatter(df, x='age', y='fare', color='sex', size='pclass',
+                         hover_data=['embarked'], title='Titanic Age vs Fare (Multidimensional)')
+fig_scatter.show()
+
+# 2. Violin Plot (Distribution + Boxplot)
+# points='all' shows the underlying data points
+fig_violin = px.violin(df, y="age", x="pclass", color="sex", box=True, points="all",
+                       title='Age Distribution by Class')
+fig_violin.show()
+
+# 3. Density Heatmap
+# Good for visualizing density of points avoiding overplotting
+fig_density = px.density_heatmap(df, x="age", y="fare", marginal_x="histogram", marginal_y="histogram")
+fig_density.show()
+
+# 4. Marginals
+# Adding distribution plots to the axes of a scatter plot
+fig_marginal = px.scatter(df, x="age", y="fare", marginal_x="box", marginal_y="violin")
+fig_marginal.show()
+```
 
