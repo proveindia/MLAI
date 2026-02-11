@@ -60,18 +60,23 @@ For Alternating Least Squares (ALS), the user factors $P$ are updated iterativel
 
 $$P_{a,b} := P_{a,b} - \alpha \sum_{j \in R_a}^N e_{a,j}Q_{b,j}$$
 
-*   $P_{a,b}$: User factor matrix value.
-*   $\alpha$: Learning rate.
-*   $e_{a,j}$: Error term (difference between actual and predicted rating).
-*   $Q_{b,j}$: Item factor matrix value.
+*   **$P_{a,b}$** (Pronounced: *P sub a, b*): The value in the user factor matrix for user $a$ and latent factor $b$.
+*   **$\alpha$** (Pronounced: *alpha*): The learning rate, controlling the step size of the update.
+*   **$e_{a,j}$** (Pronounced: *e sub a, j*): The error term, representing the difference between the actual rating and the predicted rating for user $a$ on item $j$.
+*   **$Q_{b,j}$** (Pronounced: *Q sub b, j*): The value in the item factor matrix for latent factor $b$ and item $j$.
+*   **$R_a$** (Pronounced: *R sub a*): The set of items rated by user $a$.
 
 ### 2. Weighted Hybrid Prediction
 A weighted hybrid model combines predictions from multiple algorithms (e.g., SVD and SlopeOne) using a linear combination.
 
 $$ \hat{r}_{ui} = \alpha \cdot \hat{r}_{\text{SVD}} + (1-\alpha) \cdot \hat{r}_{\text{SlopeOne}} $$
 
-In the assignment, an equal weight ($\alpha = 0.5$) was used:
+*   **$\hat{r}_{ui}$** (Pronounced: *r hat sub u, i*): The predicted rating for user $u$ on item $i$ by the hybrid model.
+*   **$\alpha$** (Pronounced: *alpha*): The weight assigned to the first model (SVD).
+*   **$\hat{r}_{\text{SVD}}$** (Pronounced: *r hat SVD*): The predicted rating from the SVD algorithm.
+*   **$\hat{r}_{\text{SlopeOne}}$** (Pronounced: *r hat Slope One*): The predicted rating from the SlopeOne algorithm.
 
+In the assignment, an equal weight ($\alpha = 0.5$) was used:
 $$ \hat{r}_{\text{hybrid}} = 0.5 \cdot \hat{r}_{\text{SVD}} + 0.5 \cdot \hat{r}_{\text{SlopeOne}} $$
 
 ### 3. Similarity Measures (KNN)
@@ -81,9 +86,16 @@ Memory-based collaborative filtering relies on similarity measures like Cosine S
 
 $$ \text{sim}(u, v) = \frac{\sum_{i} r_{ui} r_{vi}}{\sqrt{\sum_{i} r_{ui}^2} \sqrt{\sum_{i} r_{vi}^2}} $$
 
+*   **$\text{sim}(u, v)$** (Pronounced: *similarity of u and v*): The cosine similarity score between user $u$ and user $v$.
+*   **$r_{ui}$** (Pronounced: *r sub u, i*): The rating given by user $u$ to item $i$.
+*   **$r_{vi}$** (Pronounced: *r sub v, i*): The rating given by user $v$ to item $i$.
+
 **Pearson Correlation:**
 
 $$ \text{sim}(u, v) = \frac{\sum_{i \in I_{uv}} (r_{ui} - \bar{r}_u)(r_{vi} - \bar{r}_v)}{\sqrt{\sum_{i \in I_{uv}} (r_{ui} - \bar{r}_u)^2} \sqrt{\sum_{i \in I_{uv}} (r_{vi} - \bar{r}_v)^2}} $$
+
+*   **$\bar{r}_u$** (Pronounced: *r bar sub u*): The average rating given by user $u$.
+*   **$I_{uv}$** (Pronounced: *I sub u, v*): The set of items rated by both user $u$ and user $v$ (co-rated items).
 
 **Mean Squared Difference (MSD) Similarity:**
 
@@ -91,10 +103,17 @@ $$ \text{msd}(u, v) = \frac{1}{|I_{uv}|} \sum_{i \in I_{uv}} (r_{ui} - r_{vi})^2
 
 $$ \text{sim}(u, v) = \frac{1}{\text{msd}(u, v) + 1} $$
 
+*   **$|I_{uv}|$** (Pronounced: *cardinality of I sub u, v*): The number of items rated by both user $u$ and user $v$.
+
 ### 4. Evaluation Metric (RMSE)
 Root Mean Squared Error is the standard metric for evaluating rating predictions.
 
 $$ \text{RMSE} = \sqrt{\frac{1}{|\hat{R}|} \sum_{\hat{r}_{ui} \in \hat{R}} (r_{ui} - \hat{r}_{ui})^2} $$
+
+*   **$\hat{R}$** (Pronounced: *R hat*): The set of all predicted ratings.
+*   **$|\hat{R}|$** (Pronounced: *cardinality of R hat*): The total number of predictions made.
+*   **$r_{ui}$** (Pronounced: *r sub u, i*): The actual rating.
+*   **$\hat{r}_{ui}$** (Pronounced: *r hat sub u, i*): The predicted rating.
 
 ## Types of Hybrid Recommendation
 
