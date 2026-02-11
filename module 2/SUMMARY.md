@@ -1,65 +1,82 @@
 # Module 2: Probability & Distributions Summary
 
-This module focuses on continuous probability distributions, specifically Uniform and Gaussian (Normal) distributions, and how to analyze them using Python.
+## Overview
+Understanding probability distributions is key to statistical inference. This module covers **Continuous Distributions** (Normal, Uniform) and **Descriptive Statistics** (Skewness, Kurtosis).
 
-## ⏱️ Quick Review (20 Mins)
+## Key Concepts
 
-### 1. Continuous Uniform Distribution
-A distribution where all outcomes are equally likely within a range.
+### 1. Probability Distributions
+*   **Uniform Distribution:** All outcomes are equally likely. (e.g., Rolling a fair die).
+*   **Normal (Gaussian) Distribution:** The "Bell Curve". Most natural phenomena follow this. Defined by Mean ($\mu$) and Standard Deviation ($\sigma$).
 
-**Key Concepts:**
-- **PDF (Probability Density Function)**: Likelihood of a specific value (height of curve).
-- **CDF (Cumulative Distribution Function)**: Probability that a variable takes a value less than or equal to $x$.
+### 2. Properties of Distributions
+*   **PDF (Probability Density Function):** The height of the curve at point $x$. Likelihood of a value.
+*   **CDF (Cumulative Distribution Function):** The area under the curve up to point $x$. Probability of being $\le x$.
 
+### 3. Shape Statistics
+*   **Skewness:** Measure of asymmetry.
+    *   *Positive Skew:* Tail on the right.
+    *   *Negative Skew:* Tail on the left.
+*   **Kurtosis:** Measure of "tailedness" (outliers).
+    *   *Leptokurtic:* Heavy tails (more outliers).
+    *   *Platykurtic:* Light tails (fewer outliers).
+
+## Key Formulas
+
+### 1. Normal Distribution Rule (68-95-99.7)
+Percentage of data within standard deviations from the mean:
+
+*   $\mu \pm 1\sigma$: **68%**
+*   $\mu \pm 2\sigma$: **95%**
+*   $\mu \pm 3\sigma$: **99.7%**
+
+### 2. Standard Score (Z-Score)
+
+$$ z = \frac{x - \mu}{\sigma} $$
+
+## Code for Learning
+
+### Setup and Import
 ```python
-from scipy.stats import uniform
-
-# Create a uniform distribution starting at 10 with width 3 (range 10-13)
-dist = uniform(loc=10, scale=3)
-
-# Statistics
-mean = dist.mean()
-std = dist.std()
-
-# Probability P(x < 12)
-prob = dist.cdf(12)
-```
-
-### 2. Gaussian (Normal) Distribution
-The bell curve distribution, defined by its mean ($\mu$) and standard deviation ($\sigma$).
-
-**Key Concepts:**
-- **Central Tendency**: Mean, Median, Mode.
-- **Dispersion**: Variance, Standard Deviation.
-- **68-95-99.7 Rule**: 99.7% of data lies within 3 standard deviations of the mean.
-
-```python
-from scipy.stats import norm
 import numpy as np
 import matplotlib.pyplot as plt
-
-# Create Normal Distribution (mean=5, std=2)
-gauss = norm(loc=5, scale=2)
-
-# Generate Random Samples
-samples = gauss.rvs(size=100, random_state=12)
-
-# Calculate Sample Statistics
-sample_mean = np.mean(samples)
-sample_std = np.std(samples)
+from scipy.stats import norm, skew, kurtosis
+import seaborn as sns
 ```
 
-### 3. Visualizing Distributions
-Comparing theoretical distributions with sample data.
-
+### 1. Analyzing Distributions (Skew & Kurtosis)
 ```python
-# Plotting
-x = np.linspace(-1, 11, 1000)
-plt.plot(x, gauss.pdf(x), label='Theoretical PDF')
-plt.hist(samples, density=True, alpha=0.5, label='Sample Histogram')
-plt.legend()
+# Generate skewed data
+data = np.random.exponential(scale=2, size=1000)
+
+# Calculate Stats
+data_mean = np.mean(data)
+data_skew = skew(data)
+data_kurt = kurtosis(data)
+
+print(f"Mean: {data_mean:.2f}")
+print(f"Skewness: {data_skew:.2f} (Expected > 0 for exponential)")
+print(f"Kurtosis: {data_kurt:.2f}")
+
+# Plot
+sns.histplot(data, kde=True, color='purple')
+plt.title(f"Skewed Distribution (Skew={data_skew:.2f})")
 plt.show()
 ```
 
----
-*Reference: Assignment 2.1 (Uniform), Self Study 2.1 (Gaussian)*
+### 2. The Normal Distribution (CDF & PDF)
+Calculating probabilities.
+
+```python
+# Define a Normal Dist: Mean=0, Std=1
+mu, sigma = 0, 1
+dist = norm(mu, sigma)
+
+# Question: What is probability of x < 1.96?
+prob = dist.cdf(1.96)
+print(f"P(x < 1.96) = {prob:.4f} (Approx 97.5%)")
+
+# Question: Limit for top 5%? (Inverse CDF)
+top_5 = dist.ppf(0.95)
+print(f"Top 5% threshold: {top_5:.4f}")
+```
