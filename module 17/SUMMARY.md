@@ -25,16 +25,42 @@ This module involved a comprehensive project applying the CRISP-DM methodology t
 ### Classification Metrics
 
 **Accuracy:**
-$$ \frac{TP + TN}{TP + TN + FP + FN} $$
+
+$$ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $$
+
+*   **$TP$** (Pronounced: *True Positive*): Correctly predicted positive instances (e.g., successful subscription).
+*   **$TN$** (Pronounced: *True Negative*): Correctly predicted negative instances.
+*   **$FP$** (Pronounced: *False Positive*): Incorrectly predicted as positive (Type I error).
+*   **$FN$** (Pronounced: *False Negative*): Incorrectly predicted as negative (Type II error).
 
 **Precision:**
-$$ \frac{TP}{TP + FP} $$
+
+$$ \text{Precision} = \frac{TP}{TP + FP} $$
 
 **Recall (Sensitivity):**
-$$ \frac{TP}{TP + FN} $$
+
+$$ \text{Recall} = \frac{TP}{TP + FN} $$
 
 **F1-Score:**
-$$ 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} $$
+
+$$ F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} $$
+
+### Logistic Regression (Sigmoid Function)
+Logistic regression uses the sigmoid function to map predictions to probabilities between 0 and 1.
+
+$$ \sigma(z) = \frac{1}{1 + e^{-z}} $$
+
+*   **$\sigma(z)$** (Pronounced: *sigma of z*): The predicted probability.
+*   **$z$** (Pronounced: *z*): The linear combination of input features and weights ($z = w^T x + b$).
+*   **$e$** (Pronounced: *e*): Euler's number (approx. 2.718).
+
+### Decision Tree (Gini Impurity)
+Decision trees split data to minimize impurity. Gini impurity measures the frequency of incorrect labeling if a label was chosen randomly according to the distribution.
+
+$$ G = 1 - \sum_{k=1}^{n} p_k^2 $$
+
+*   **$G$** (Pronounced: *Gini*): The Gini impurity score.
+*   **$p_k$** (Pronounced: *p sub k*): The probability of an item belonging to class $k$.
 
 ## Recommendations
 *   Target specific demographics (Students, Retired) and time campaigns during high-conversion months.
