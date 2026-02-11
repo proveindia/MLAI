@@ -25,12 +25,16 @@ $$ w^T x + b = 0 $$
 *   **$b$** (Pronounced: *b*): The bias term (intercept).
 *   **$T$** (Pronounced: *transpose*): Operation flipping the vector to a row vector.
 
+
 ### 2. Margin
 The distance between the hyperplane and the nearest data point (support vector). SVM maximizes this margin:
 
 $$ \text{Margin} = \frac{2}{||w||} $$
 
 *   **$||w||$** (Pronounced: *norm of w*): The Euclidean length (magnitude) of the weight vector.
+
+![SVM Margin Visualization](images/svm_margin.png)
+*Figure 1: Maximum Margin Hyperplane showing support vectors (circled) and the decision boundary.*
 
 ### 3. Cost Function (Hinge Loss)
 SVM minimizes the Hinge Loss function to find the maximum margin. It penalizes misclassifications:
@@ -50,6 +54,9 @@ Instead of explicitly calculating the coordinates of data points in a high-dimen
 
 *   **Concept:** Like lifting the data into a 3D space where a flat sheet (hyperplane) can separate points that were mixed together on a 2D table.
 *   **Efficiency:** It avoids the "Curse of Dimensionality" by operating in the original input space while benefiting from high-dimensional separability.
+
+![Kernel Trick Visualization](images/kernel_trick.png)
+*Figure 2: The Kernel Trick conceptualized. Left: Non-separable 2D data. Right: Mapping to 3D makes it linearly separable.*
 
 **Common Kernels:**
 *   **Linear Kernel:** For linearly separable data.
@@ -85,6 +92,9 @@ $$ K_{ij} = K(x_i, x_j) $$
 
 *   **Role:** During training, SVM doesn't look at the data points directly; it looks at this matrix of relationships. It tells the algorithm "how similar is point $i$ to point $j$?" in the high-dimensional space.
 *   **Properties:** It must be symmetric and positive semi-definite (Mercer's Theorem).
+
+![Kernel Matrix Heatmap](images/kernel_matrix.png)
+*Figure 3: Heatmap of a Kernel Matrix. Darker colors on the diagonal indicate high self-similarity.*
 
 
 ### 6. Basis Function Expansion
