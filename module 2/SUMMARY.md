@@ -1,4 +1,4 @@
-# Module 2: Probability & Distributions Summary
+# Module 2: Probability & Distributions
 
 ## Overview
 Understanding probability distributions is key to statistical inference. This module covers **Continuous Distributions** (Normal, Uniform) and **Descriptive Statistics** (Skewness, Kurtosis).
@@ -7,9 +7,10 @@ Understanding probability distributions is key to statistical inference. This mo
 
 ### 1. Probability Distributions
 *   **Uniform Distribution:** All outcomes are between $a$ and $b$ are equally likely.
-    *   **Discrete:** $n$ possible outcomes. Mean $= \frac{a+b}{2}$, Variance $= \frac{n^2-1}{12}$.
-    *   **Continuous:** Any value in $[a, b]$. Mean $= \frac{a+b}{2}$, Variance $= \frac{(b-a)^2}{12}$.
+    *   **Discrete (Uniform):** $n$ outcomes ($n=b-a+1$). Mean $\mu = \frac{a+b}{2}$, Variance $\sigma^2 = \frac{n^2-1}{12}$.
+    *   **Continuous (Uniform):** Interval $[a, b]$. Mean $\mu = \frac{a+b}{2}$, Variance $\sigma^2 = \frac{(b-a)^2}{12}$.
 *   **Normal (Gaussian) Distribution:** The "Bell Curve". Most natural phenomena follow this. Defined by Mean ($\mu$) and Standard Deviation ($\sigma$).
+    $$ f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2} $$
 
 ![Probability Distributions](images/distribution_types.png)
 

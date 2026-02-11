@@ -1,4 +1,4 @@
-# Module 1: Machine Learning Fundamentals Summary
+# Module 1: Machine Learning Fundamentals
 
 ## Overview
 This module lays the groundwork for Machine Learning, covering the Python ecosystem (**Pandas, NumPy**) and the fundamental concepts of ML workflows.
@@ -24,9 +24,10 @@ This module lays the groundwork for Machine Learning, covering the Python ecosys
 ![Pandas DataFrame Structure](images/pandas_dataframe_structure.png)
 
 *   **Matplotlib/Seaborn:** Visualization.
+*   **SciPy:** Scientific computing (Optimization, Stats, Linear Algebra).
 
 
-## Key Formulas & Pronunciation
+## Key Formulas
 
 ### 1. The Mystery Box (Model)
 Input vector $\mathbf{x}$ goes into a model $f$ to predict output $y$.
@@ -36,21 +37,27 @@ $$ \hat{y} = f(\mathbf{x}) $$
 Measures the penalty for incorrect predictions.
 $$ L(y, \hat{y}) = (y - \hat{y})^2 $$
 
-### 3. The Mean ($\mu$) / Expected Value $E[Y]$
+### 3. Cost Function vs Loss Function
+While often used interchangeably, there is a technical distinction:
+*   **Loss Function:** Error for a **single** training example (e.g., $(y^{(i)} - \hat{y}^{(i)})^2$).
+*   **Cost Function ($J$):** Average of the loss functions for the **entire** training set.
+    $$ J(\theta) = \frac{1}{m} \sum_{i=1}^{m} L(y^{(i)}, \hat{y}^{(i)}) $$
+
+### 4. The Mean ($\mu$) / Expected Value $E[Y]$
 The center of gravity of a distribution.
 
 $$ \mu = \frac{1}{n} \sum_{i=1}^{n} x_i $$
 
 *   **Pronunciation:** "Mu equals one over n times the sum of x-sub-i from i equals 1 to n."
 
-### 4. Euclidean Distance
+### 5. Euclidean Distance
 The straight-line distance between two points ($p$ and $q$) in space.
 
 $$ d(p, q) = \sqrt{\sum_{i=1}^{n} (q_i - p_i)^2} $$
 
 *   **Pronunciation:** "Distance d equals the square root of the sum of squared differences between q-sub-i and p-sub-i."
 
-### 5. Dot Product
+### 6. Dot Product
 Foundational operation in Neural Networks and Linear Algebra.
 
 $$ \vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_i b_i $$
@@ -82,7 +89,7 @@ Run this in your terminal or notebook to set up the environment.
 
 ```python
 # Installation
-# !pip install numpy pandas matplotlib seaborn scikit-learn
+# !pip install numpy pandas matplotlib seaborn scikit-learn scipy
 
 # Standard Imports
 import numpy as np

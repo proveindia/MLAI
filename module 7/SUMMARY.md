@@ -1,9 +1,25 @@
-# Module 7: Optimization Summary
+# Module 7: Optimization
 
 ## Overview
 Optimization is the engine of Machine Learning. It involves finding the best parameters ($\theta$) that minimize a **Loss Function**. The most common algorithm for this is **Gradient Descent**.
 
 ## Key Concepts
+
+### 1. Calculus in Machine Learning
+Calculus provides the mathematical framework for understanding how models learn and how we measure their performance.
+
+#### Differential Calculus (The Engine of Learning)
+*   **Focus:** Rates of change and slopes.
+*   **Role in ML:** Optimization.
+*   **Key Application:** **Gradient Descent**. We use derivatives (gradients) to find the direction in which the error (loss) increases, and then move in the opposite direction to minimize it.
+    *   *Analogy:* Finding the way down a mountain by feeling the steepness of the slope under your feet.
+
+#### Integral Calculus (The Measure of Performance)
+*   **Focus:** Accumulation and area under curves.
+*   **Role in ML:** Probability and Aggregation.
+*   **Key Application:** **ROC-AUC (Area Under the Curve)** & **Probability Distributions**.
+    *   *CDF (Cumulative Distribution Function):* Integrating the Probability Density Function (PDF) gives us the total probability up to a certain point.
+    *   *Expectation:* Calculating the expected value (mean) involves integration (for continuous variables).
 
 ### Optimization Loop
 
@@ -48,6 +64,10 @@ An iterative algorithm that moves parameters in the opposite direction of the gr
 ### 1. Mean Squared Error (MSE) - The Loss Function
 
 $$ J(\theta) = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2 $$
+
+*   **$J(\theta)$** (Pronounced: *J of theta*): The cost function value.
+*   **$\hat{y}_i$** (Pronounced: *y hat sub i*): The predicted value for the $i$-th example.
+*   **$\sum$** (Pronounced: *sum*): Summation over all $n$ examples.
 
 ### 5. The Gradient ($\nabla J$)
 The derivative of the loss function with respect to the weights. It points "uphill".

@@ -98,7 +98,7 @@ $$ G = 1 - \sum_{k=1}^{n} p_k^2 $$
 *   Target specific demographics (Students, Retired) and time campaigns during high-conversion months.
 *   Focus on quality of conversation (duration) rather than just quantity.
 
-## Implementation Details
+## Code for Learning
 
 ### Model Comparison Pipeline
 The project evaluated multiple classifiers (Logistic Regression, KNN, SVC, Decision Tree) using `GridSearchCV` related to key hyperparameters.

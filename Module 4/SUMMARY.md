@@ -1,4 +1,4 @@
-# Module 4: Data Analytics Primer Summary
+# Module 4: Data Analytics Primer
 
 ## Overview
 Data Analytics is the foundation of Machine Learning. It involves **Exploratory Data Analysis (EDA)**, **Data Cleaning**, and **Visualization** to understand the dataset before modeling.

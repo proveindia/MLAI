@@ -1,4 +1,4 @@
-# Module 8: Feature Engineering Summary
+# Module 8: Feature Engineering
 
 ## Overview
 Feature Engineering is the art and science of transforming raw data into features that better represent the underlying problem to the predictive models, resulting in improved model accuracy on unseen data.
@@ -63,6 +63,10 @@ For features $a, b$:
 
 $$ \text{Features} \rightarrow 1, a, b, a^2, ab, b^2 $$
 (Includes Bias $1$, original terms, squares, and interaction $ab$)
+
+*   **$a, b$** (Pronounced: *a, b*): Represents individual input features.
+*   **$a^2$** (Pronounced: *a squared*): Polynomial term of degree 2.
+*   **$ab$** (Pronounced: *a times b*): Interaction term.
 
 ## Code for Learning
 

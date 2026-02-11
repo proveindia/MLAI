@@ -62,7 +62,25 @@ $$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_
 
 *   **$x_j^{(i)}$** (Pronounced: *x j of i*): The $j$-th feature value of the $i$-th training example.
 
-### 5. Vectorized Gradient Computation
+### 5. Deep Dive: Coefficients vs. Residuals
+How do these elements actually influence the model?
+
+#### Coefficients ($\theta$ or $\beta$) - The "Drivers"
+Coefficients determine the **Prediction**. They represent the sensitivity of the output to a specific feature.
+*   **Influence on Prediction:**
+    *   **Positive Coefficient:** As feature $x$ increases, prediction $\hat{y}$ increases.
+    *   **Negative Coefficient:** As feature $x$ increases, prediction $\hat{y}$ decreases.
+    *   **Magnitude:** Larger absolute value means the feature has a strictly stronger impact on the outcome.
+*   **Influence on Probability (Logistic):** Coefficients shift the "Log-Odds". A positive coefficient pushes the probability toward 1; a negative one pushes it toward 0.
+
+#### Residuals ($y - \hat{y}$) - The "Feedback"
+Residuals represent the **Error**. They measure the discrepancy between the Truth ($y$) and the Model's opinion ($\hat{y}$).
+*   **Influence on Learning:** Residuals drive the **Gradient Descent** updates.
+    *   **Large Residual:** The model is far off $\rightarrow$ Large gradient $\rightarrow$ Big change to Coefficients.
+    *   **Small Residual:** The model is close $\rightarrow$ Small gradient $\rightarrow$ Fine-tuning.
+*   **Formula Connection:** Notice the term $(h_\theta(x) - y)$ in the gradient equation? That *is* the residual! The learning process is literally "Error $\times$ Input".
+
+### 6. Vectorized Gradient Computation
 For efficient computation with matrices:
 
 $$ \nabla_\theta J(\theta) = \frac{1}{m} X^T (X\theta - y) $$
@@ -71,7 +89,7 @@ $$ \nabla_\theta J(\theta) = \frac{1}{m} X^T (X\theta - y) $$
 *   **$X$** (Pronounced: *X*): The feature matrix (m × n).
 *   **$y$** (Pronounced: *y*): The target vector (m × 1).
 
-### 6. Mathematical Derivation of Gradient (Chain Rule)
+### 7. Mathematical Derivation of Gradient (Chain Rule)
 
 To understand *why* the update rule works, we derive the gradient of the MSE cost function with respect to a single parameter $\theta_j$.
 
@@ -83,7 +101,7 @@ $$ \frac{\partial J}{\partial \theta_j} = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x
 Since $h_\theta(x^{(i)}) = \sum_{k=0}^{n} \theta_k x_k^{(i)}$, the partial derivative with respect to $\theta_j$ is simply $x_j^{(i)}$:
 $$ \frac{\partial J}{\partial \theta_j} = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x_j^{(i)} $$
 
-### 7. Normal Equation (Analytical Solution)
+### 8. Normal Equation (Analytical Solution)
 
 Instead of iterating with Gradient Descent, we can solve for $\theta$ directly by setting the gradient to zero:
 
@@ -93,7 +111,7 @@ $$ \theta = (X^T X)^{-1} X^T y $$
 *   **Pros:** No need to choose $\alpha$ (learning rate); no iterations.
 *   **Cons:** Computationally expensive for large $n$ ($O(n^3)$); matrix must be invertible.
 
-### 8. R-squared ($R^2$) Evaluation Metric
+### 9. R-squared ($R^2$) Evaluation Metric
 
 Measures the proportion of variance in the dependent variable explained by the model:
 
@@ -103,7 +121,7 @@ $$ R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = 1 - \frac{\sum_{i=1}^{m} (y_i - \hat{y}
 *   **$SS_{tot}$** (Pronounced: *Total Sum of Squares*): The total variance of the data (from the mean).
 *   **Range:** $-\infty$ to $1$. ($1.0$ is perfect prediction).
 
-### 9. Convexity
+### 10. Convexity
 A function $f$ is **convex** if a line segment between any two points on the graph lies above or on the graph:
 
 $$ t f(a) + (1-t)f(b) \ge f(t a + (1-t)b) $$

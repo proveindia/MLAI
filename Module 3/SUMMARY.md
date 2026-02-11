@@ -1,4 +1,4 @@
-# Module 3: Data Visualization Summary
+# Module 3: Data Visualization
 
 ## Overview
 Data Visualization is the art of communicating data insights effectively. We use **Matplotlib** for low-level control and **Seaborn** for high-level statistical plots.
@@ -60,7 +60,14 @@ graph TD
     D --> G[Barplot / Countplot]
 ```
 
-### 1. Types of Plots
+### 3. Data Storytelling Principles
+To effectively communicate insights, move beyond just making charts.
+*   **Context:** Know your audience and the "What".
+*   **Clutter:** Remove everything that doesn't add value (gridlines, borders).
+*   **Attention:** Use color and size to focus the eye on the key insight.
+*   **Narrative:** Structure the analysis with a beginning (context), middle (analysis), and end (recommendation).
+
+### 4. Types of Plots
 
 ![Common Data Visualization Types](images/data_viz_types.png)
 
@@ -86,17 +93,17 @@ graph TD
     *   *Violinplot:* Boxplot + KDE.
         ![Violinplot](images/violinplot.png)
 
-### 2. Visualization Libraries
+### 5. Visualization Libraries
 *   **Matplotlib:** The foundation. Good for precise customization.
 *   **Seaborn:** Built on top of Matplotlib. Excellent for statistical plots and color accessibility.
 *   **Plotly:** Powerful for **interactive** graphs (zoom, hover). Using `px.bar`, `px.line`.
 
-### 3. Anatomy of a Plot
+### 6. Anatomy of a Plot
 Understanding the components of a Matplotlib figure is crucial for customization.
 
 ![Anatomy of a Matplotlib Plot](images/anatomy_of_a_plot.png)
 
-### 4. Advanced Pandas Operations
+### 7. Advanced Pandas Operations
 Crucial for data preprocessing in the lifecycle.
 
 *   **GroupBy & Aggregation:** Splitting data into groups and computing summary stats.

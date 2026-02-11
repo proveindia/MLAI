@@ -1,4 +1,4 @@
-# Module 10: Time Series Analysis Summary
+# Module 10: Time Series Analysis
 
 ## Overview
 This module explores **Time Series Analysis (TSA)**, the process of analyzing data points collected at regular time intervals to uncover underlying structures and predict future values. TSA is fundamental in finance, demand forecasting, and econometrics.

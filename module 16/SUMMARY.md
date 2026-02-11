@@ -22,6 +22,31 @@ This module focused on Support Vector Machines (SVM), specifically the Maximum M
 *   **Method:** SVM trained on Yelp reviews (text features like "gross", "sticky") and metadata (ZIP, cuisine).
 *   **Result:** 82% accuracy in distinguishing severe offenders, allowing efficient allocation of inspector resources.
 
+## Hard Margin vs. Soft Margin
+
+### 1. Hard Margin SVM
+*   **Definition:** Strictly enforces that **ALL** data points must be correctly classified and lie outside the margin.
+*   **Condition:** Data must be linearly separable (no noise/overlap).
+*   **Pros:** Works perfectly on clean, separable data.
+*   **Cons:** Highly sensitive to outliers. A single outlier can dramatically shift the boundary or make the problem unsolvable.
+*   **Equation:** Minimize $||w||^2$ subject to $y_i(w^T x_i + b) \ge 1$ for all $i$.
+    *   **$||w||^2$** (Pronounced: *norm of w squared*): The term we minimize to maximize the margin.
+    *   **$\ge 1$** (Pronounced: *greater than or equal to 1*): The constraint forcing correct classification.
+
+### 2. Soft Margin SVM
+*   **Definition:** Allows some data points to be misclassified or violate the margin to achieve a more robust decision boundary.
+*   **Condition:** Handles non-linearly separable data and noise.
+*   **Mechanism:** Introduces **Slack Variables** ($\xi_i$) for each point.
+*   **Role of C:** The hyperparameter `C` controls the penalty for misclassification.
+    *   **Large C:** Strict (Hard Margin behavior). Low bias, high variance. Risk of overfitting.
+    *   **Small C:** Flexible (Soft Margin behavior). Higher bias, lower variance. Smoother boundary.
+*   **Equation:** Minimize $||w||^2 + C \sum \xi_i$ subject to $y_i(w^T x_i + b) \ge 1 - \xi_i$.
+    *   **$\xi_i$** (Pronounced: *zeta sub i* or *slack variable*): Measure of how much the $i$-th point violates the margin.
+    *   **$C$** (Pronounced: *C*): Regularization parameter balancing margin width and error.
+
+![Hard vs Soft Margin](images/hard_soft_margin.png)
+*Figure: Hard Margin (Left) forces all points to be correct, potentially overfitting outliers. Soft Margin (Right) ignores some points to find a better general trend.*
+
 ## SVM Classification Workflow
 
 ```mermaid

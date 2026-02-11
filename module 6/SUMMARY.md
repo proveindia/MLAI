@@ -1,4 +1,4 @@
-# Module 6: Unsupervised Learning Summary
+# Module 6: Unsupervised Learning
 
 ## Overview
 Unsupervised Learning finds hidden patterns in unlabeled data. The two main techniques are **Dimensionality Reduction (PCA)** and **Clustering**.
@@ -40,6 +40,10 @@ $$ Z = X \cdot W $$
 PCA is often implemented using SVD. $X$ (Tall Matrix, $N \times D$) is decomposed into:
 
 $$ X = U \Sigma V^T $$
+
+*   **$U$** (Pronounced: *U*): Left singular vectors.
+*   **$\Sigma$** (Pronounced: *Sigma*): Diagonal matrix of singular values.
+*   **$V^T$** (Pronounced: *V transpose*): Transpose of the right singular vectors (Principal Components).
 
 *   $X$: Data Matrix.
 *   $U$: Left Singular Vectors ($N \times N$, orthogonal).

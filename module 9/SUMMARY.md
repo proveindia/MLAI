@@ -1,4 +1,4 @@
-# Module 9: Feature Selection, Regularization & Model Optimization Summary
+# Module 9: Feature Selection, Regularization & Model Optimization
 
 ## Overview
 Feature Selection is the process of reducing the number of input variables when developing a predictive model. It is desirable to reduce the number of input variables to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model. This module also covers regularization techniques, hyperparameter tuning, and model optimization strategies.
@@ -40,6 +40,10 @@ For a single feature $x$, polynomial regression of degree $d$:
 
 $$ y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \cdots + \beta_d x^d + \epsilon $$
 
+*   **$\beta_i$** (Pronounced: *beta sub i*): The coefficients (weights) for each polynomial term.
+*   **$d$** (Pronounced: *d*): The degree of the polynomial.
+*   **$\epsilon$** (Pronounced: *epsilon*): The error term.
+
 ### Polynomial Features Transform
 For multiple features, polynomial features include:
 - **Original features**: $x_1, x_2, \ldots, x_n$
@@ -59,8 +63,14 @@ For hyperparameter set $\theta$:
 
 $$ \theta^* = \arg\max_{\theta} \text{CV-Score}(\theta) $$
 
+*   **$\theta^*$** (Pronounced: *theta star*): The optimal set of hyperparameters.
+*   **$\arg\max$** (Pronounced: *argument of the maximum*): The input value that produces the maximum output.
+
 ### Standardization (Z-score Normalization)
 $$ x_{\text{scaled}} = \frac{x - \mu}{\sigma} $$
+
+*   **$\mu$** (Pronounced: *mu*): Mean of the feature.
+*   **$\sigma$** (Pronounced: *sigma*): Standard deviation.
 
 ### Min-Max Normalization
 $$ x_{\text{scaled}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}} $$
@@ -81,6 +91,10 @@ $$ J(\beta) = -\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \log(\hat{y}_i) + (1-y_i) \
 Iterative optimization algorithm:
 
 $$ \beta_{t+1} = \beta_t - \eta \nabla J(\beta_t) $$
+
+*   **$\beta_{t+1}$** (Pronounced: *beta sub t plus 1*): The updated parameter vector.
+*   **$\eta$** (Pronounced: *eta*): The learning rate (step size).
+*   **$\nabla J$** (Pronounced: *nabla J* or *gradient of J*): The direction of steepest ascent (we subtract it to go down).
 
 ### Ridge Regression Formula
 $$ J(\beta) = \text{MSE} + \lambda \sum_{j=1}^p \beta_j^2 $$
@@ -104,6 +118,11 @@ Or equivalently:
 $$ J(\beta) = \text{MSE} + \lambda \left[ \alpha \sum_{j=1}^p |\beta_j| + (1-\alpha) \sum_{j=1}^p \beta_j^2 \right] $$
 
 Where $\alpha \in [0, 1]$ controls the L1/L2 ratio.
+
+*   **$\lambda$** (Pronounced: *lambda*): Verification of the regularization strength.
+*   **$\sum$** (Pronounced: *sum* or *sigma*): Summation operator.
+*   **$|\beta_j|$** (Pronounced: *absolute value of beta j*): L1 norm component.
+*   **$\beta_j^2$** (Pronounced: *beta j squared*): L2 norm component.
 
 ### Visualization
 ![Ridge vs Lasso](images/ridge_vs_lasso.png)

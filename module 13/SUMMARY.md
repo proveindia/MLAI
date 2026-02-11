@@ -88,6 +88,7 @@ $$ J(\beta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(\hat{y}^{(i)}) + (
 *   **$y^{(i)}$** (Pronounced: *y super i*): The actual label for sample $i$ (0 or 1).
 *   **$\hat{y}^{(i)}$** (Pronounced: *y hat super i*): The predicted probability for sample $i$.
 *   **$\log$** (Pronounced: *log* or *natural logarithm*): The natural logarithm.
+*   **$\sum$** (Pronounced: *sum*): Summation over all training examples.
 
 **Intuition:** Log loss penalizes confident wrong predictions heavily. Predicting high probability for the wrong class results in large loss.
 
@@ -97,11 +98,14 @@ To minimize the cost function using Gradient Descent, we need its partial deriva
 
 $$ \frac{\partial}{\partial \beta_j} J(\beta) = \frac{1}{m} \sum_{i=1}^{m} (\sigma(z^{(i)}) - y^{(i)}) x_j^{(i)} $$
 
+*   **$\frac{\partial}{\partial \beta_j}$** (Pronounced: *partial derivative with respect to beta j*): The rate of change of the cost function as just $\beta_j$ changes.
+
 Vectorized form:
 
 $$ \nabla J(\beta) = \frac{1}{m} X^T (\hat{y} - y) $$
 
 *   **$\nabla J(\beta)$** (Pronounced: *Nabla J of beta*): The gradient vector.
+*   **$X^T$** (Pronounced: *X transpose*): The transpose of the feature matrix.
 *   **$\hat{y}$**: The vector of predicted probabilities $\sigma(X\beta)$.
 
 ### 6. Newton-Raphson Method (Second-Order Optimization)
@@ -111,6 +115,7 @@ Advanced solvers like `newton-cg` and `lbfgs` use second-order derivative inform
 $$ \beta^{(t+1)} = \beta^{(t)} - H^{-1} \nabla J(\beta^{(t)}) $$
 
 *   **$H$** (Pronounced: *Hessian matrix*): Matrix of second partial derivatives.
+*   **$H^{-1}$** (Pronounced: *H inverse*): The inverse of the Hessian matrix.
 *   **Pros:** Much faster convergence near the minimum.
 *   **Cons:** Expensive to compute $H^{-1}$ for large numbers of features.
 
