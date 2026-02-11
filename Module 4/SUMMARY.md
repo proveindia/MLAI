@@ -1,66 +1,105 @@
 # Module 4: Data Analytics Primer Summary
 
-This module introduces essential data cleaning and exploratory data analysis (EDA) techniques using Pandas.
+## Overview
+Data Analytics is the foundation of Machine Learning. It involves **Exploratory Data Analysis (EDA)**, **Data Cleaning**, and **Visualization** to understand the dataset before modeling.
 
-## ⏱️ Quick Review (20 Mins)
+## Key Concepts
 
-### 1. Data Cleaning
-Preparing raw data for analysis by handling missing values and inconsistent formatting.
+### 1. The EDA Process
+1.  **Inspect:** Check shape, data types, and missing values.
+2.  **Clean:** Handle nulls, duplicates, and incorrect types.
+3.  **Visualize:** Plot distributions and relationships.
 
-**Cleaning Column Names:**
+### 2. Data Types
+*   **Quantitative (Numerical):**
+    *   *Continuous:* Height, Price, Temperature.
+    *   *Discrete:* Number of children, Units sold.
+*   **Qualitative (Categorical):**
+    *   *Nominal:* Names, Colors (No order).
+    *   *Ordinal:* Rankings, Ratings (Ordered).
+
+## Key Formulas
+
+### 1. Z-Score (Standardization)
+Measures how many standard deviations a data point is from the mean.
+
+$$ z = \frac{x - \mu}{\sigma} $$
+
+*   If $|z| > 3$, the point is typically considered an **outlier**.
+
+### 2. Interquartile Range (IQR)
+Used for outlier detection in boxplots.
+
+$$ IQR = Q3 - Q1 $$
+
+*   **Lower Bound:** $Q1 - 1.5 \times IQR$
+*   **Upper Bound:** $Q3 + 1.5 \times IQR$
+
+## Code for Learning
+
+### Setup and Import
 ```python
-# Normalize column names (lowercase, remove special chars, replace spaces)
-df.columns = (df.columns
-              .str.replace(r'[^\w\s-]', '', regex=True)
-              .str.replace(r'[\n\s]+', '_', regex=True)
-              .str.lower())
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load sample dataset
+df = sns.load_dataset('titanic')
 ```
 
-**Converting Data Types:**
+### 1. Advanced Data Inspection & Cleaning
 ```python
-# Convert string numbers with commas to integers
-df['population'] = df['population'].str.replace(',', '').astype(int)
+# 1. Inspect Missing Values
+print(df.isnull().sum())
 
-# Convert to datetime
-df['date'] = pd.to_datetime(df['date'], format="%d %B %Y")
+# Visualizing Missing Data (Heatmap)
+plt.figure(figsize=(10, 6))
+sns.heatmap(df.isnull(), cbar=False, cmap='viridis')
+plt.title("Missing Data Heatmap")
+plt.show()
+
+# 2. Impute Missing Values (Fillna)
+# Fill Age with Median
+df['age'] = df['age'].fillna(df['age'].median())
+
+# Fill Embarked with Mode (Most common value)
+df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
+
+# 3. Drop Columns with too many missing values
+df.drop(columns=['deck'], inplace=True)
 ```
 
-### 2. Handling Missing Data
-Identifying and treating NaNs.
-
+### 2. Analyzing Relationships (Groupby)
 ```python
-# Check for missing values
-missing_pct = (df.isna().sum() / len(df) * 100).round(2)
-
-# Handling strategies (drop or fill)
-df_clean = df.dropna()  # Drop rows with missing values
-# OR
-df['col'] = df['col'].fillna(df['col'].mean()) # Impute with mean
+# Average survival rate by Class and Sex
+survival_stats = df.groupby(['pclass', 'sex'])['survived'].mean().reset_index()
+print(survival_stats)
 ```
 
-### 3. Summary Statistics
-Generating a "status report" of the dataset.
+### 3. Outlier Detection (Boxplot)
+Using Boxplots to visualize the spread and identify outliers.
 
 ```python
-# Custom summary stats function approach
-stats = pd.DataFrame()
-stats['mean'] = df.mean(numeric_only=True)
-stats['null_pct'] = df.isna().mean() * 100
-stats['skew'] = df.skew(numeric_only=True)
+plt.figure(figsize=(8, 5))
+sns.boxplot(x='pclass', y='fare', data=df)
+plt.title("Fare Distribution by Class (Detecting Outliers)")
+plt.show()
 ```
 
-### 4. Outlier Detection
-Identifying anomalies using statistical methods.
+### 4. Correlation Matrix
+Understanding feature relationships.
 
-**Z-Score Method:**
-Points lying more than 3 standard deviations from the mean.
 ```python
-# Calculate Z-scores
-z_scores = (df[num_cols] - df[num_cols].mean()) / df[num_cols].std()
+# Select only numeric columns
+numeric_df = df.select_dtypes(include=[np.number])
 
-# Filter outliers (keep rows within 3 std devs)
-df_no_outliers = df[(z_scores.abs() <= 3).all(axis=1)]
+# Compute correlation
+corr_matrix = numeric_df.corr()
+
+# Plot Heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title("Correlation Matrix")
+plt.show()
 ```
-
----
-*Reference: Mod4_Data_Analytics.ipynb*
