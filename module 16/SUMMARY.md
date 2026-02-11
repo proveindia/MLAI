@@ -86,6 +86,16 @@ $$ K_{ij} = K(x_i, x_j) $$
 *   **Role:** During training, SVM doesn't look at the data points directly; it looks at this matrix of relationships. It tells the algorithm "how similar is point $i$ to point $j$?" in the high-dimensional space.
 *   **Properties:** It must be symmetric and positive semi-definite (Mercer's Theorem).
 
+
+### 6. Basis Function Expansion
+The formula $y(x) = \beta_0 + \beta_1 \Phi_1(x) + \beta_2 \Phi_2(x) + \dots$ represents a linear model acting on transformed data.
+
+*   **$y(x)$**: The predicted output.
+*   **$\beta_i$** (Pronounced: *beta*): The weights (coefficients) learned by the model.
+*   **$\Phi_i(x)$** (Pronounced: *Phi of x*): The **Basis Functions** that transform the original input $x$ into a new feature.
+    *   *Example:* If $\Phi_1(x) = x$ and $\Phi_2(x) = x^2$, this becomes polynomial regression.
+*   **Significance:** SVMs with kernels effectively perform this expansion into an infinite number of $\Phi$ functions without calculating them explicitly.
+
 ## Hyperparameters
 
 ### 1. Regularization (`C`)
