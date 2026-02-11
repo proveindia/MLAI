@@ -1,60 +1,116 @@
 # Module 6: Unsupervised Learning Summary
 
-This module focuses on techniques to find hidden patterns in unlabeled data: Dimensionality Reduction (PCA) and Clustering.
+## Overview
+Unsupervised Learning finds hidden patterns in unlabeled data. The two main techniques are **Dimensionality Reduction (PCA)** and **Clustering**.
 
-## ⏱️ Quick Review (20 Mins)
+## Key Concepts
 
 ### 1. Principal Component Analysis (PCA)
-Reduces the number of features (dimensions) while retaining the most important information (variance).
-
-**Why use it?**
-- To reduce noise.
-- To visualize high-dimensional data.
-- To simplify datasets with many correlated variables.
-
-```python
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-
-# 1. Standardize the data (Vital for PCA!)
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(df)
-
-# 2. Apply PCA
-pca = PCA(n_components=2) # Reduce to 2 dimensions
-principal_components = pca.fit_transform(X_scaled)
-
-# 3. Variance Explained
-print(pca.explained_variance_ratio_) 
-# Output: [0.45, 0.30] -> PC1 explains 45%, PC2 explains 30%
-```
+A technique to reduce the number of features (dimensions) while retaining the most important information (variance).
+*   **Eigenvalues:** Represent the amount of variance explained by each Principal Component.
+*   **Eigenvectors:** The direction of the Principal Component in the original feature space.
+*   **Use Cases:** Visualization (high dimensional -> 2D/3D), Noise Reduction, Feature Extraction.
 
 ### 2. Clustering
 Grouping similar data points together.
+*   **K-Means:** Partitioning data into $K$ distinct clusters based on distance to centroids. Fast but assumes spherical clusters.
+*   **DBSCAN:** Density-based clustering. Good for arbitrary shapes and outlier detection. Does not require specifying $K$.
 
-**K-Means Clustering:**
-Partitions data into $K$ distinct clusters based on distance to centroids.
+## Key Formulas
+
+### 1. PCA Transformation
+Projecting data $X$ onto the Principal Components (Eigenvectors $W$).
+$$ Z = X \cdot W $$
+*   $Z$: Transformed data (Principal Components).
+*   $W$: Matrix of Top-$k$ Eigenvectors.
+
+### 2. K-Means Inertia (Within-Cluster Sum of Squares)
+The goal of K-Means is to minimize this value.
+$$ \text{Inertia} = \sum_{j=1}^k \sum_{i \in C_j} ||x_i - \mu_j||^2 $$
+*   $\mu_j$: Centroid of cluster $j$.
+
+## Visualizing PCA Flow
+```mermaid
+graph LR
+    A[Raw Data (100 Features)] --> B[StandardScaler]
+    B --> C[PCA Calculation]
+    C --> D{Variance Ratio}
+    D -->|Keep 95% Var| E[Transformed Data (10 Components)]
+```
+
+## Code for Learning
+
+### Setup and Import
 ```python
-from sklearn.cluster import KMeans
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans, DBSCAN
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_wine
+```
 
-# Fit K-Means
-kmeans = KMeans(n_clusters=3, random_state=42)
-df['cluster'] = kmeans.fit_predict(X_scaled)
+### 1. PCA for Visualization
+Reducing 13 features to 2 for plotting.
 
-# Visualize
-sns.scatterplot(data=df, x='PC1', y='PC2', hue='cluster')
+```python
+# Load Data
+data = load_wine()
+df = pd.DataFrame(data.data, columns=data.feature_names)
+
+# 1. Standardize (Crucial for PCA)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(df)
+
+# 2. PCA
+pca = PCA(n_components=2)
+principal_components = pca.fit_transform(X_scaled)
+
+# 3. Variance Explained
+print(f"Variance Explained: {pca.explained_variance_ratio_}")
+# Example: [0.36, 0.19] -> First 2 PCs explain 55% of the data
+
+# 4. Plot
+plt.figure(figsize=(8, 6))
+plt.scatter(principal_components[:, 0], principal_components[:, 1], c=data.target, cmap='viridis')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('PCA of Wine Dataset')
+plt.colorbar(label='Target Class')
 plt.show()
 ```
 
-**DBSCAN:**
-Density-based clustering. Good for arbitrary shapes and outlier detection.
+### 2. K-Means and the Elbow Method
+Finding the optimal $K$.
+
 ```python
-from sklearn.cluster import DBSCAN
+inertia = []
+K_range = range(1, 11)
 
-# Fit DBSCAN
-dbscan = DBSCAN(eps=0.5, min_samples=5)
-clusters = dbscan.fit_predict(X_scaled)
+for k in K_range:
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(X_scaled)
+    inertia.append(kmeans.inertia_)
+
+# Plot Elbow Curve
+plt.plot(K_range, inertia, 'bx-')
+plt.xlabel('k (Number of clusters)')
+plt.ylabel('Inertia')
+plt.title('Elbow Method For Optimal k')
+plt.show()
 ```
+*   **Interpretation:** Look for the "elbow" where the inertia drop creates an angle. That is the optimal $K$.
 
----
-*Reference: Mod6_PCA_Clustering.ipynb*
+### 3. DBSCAN (for specific shapes)
+Ignores outliers naturally (-1 label).
+
+```python
+# Epsilon (radius) and Min_Samples are key hyperparameters
+dbscan = DBSCAN(eps=2.5, min_samples=5)
+clusters = dbscan.fit_predict(X_scaled)
+
+# Count clusters (Label -1 is noise)
+print(pd.Series(clusters).value_counts())
+```
