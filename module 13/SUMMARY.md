@@ -73,7 +73,42 @@ $$ J(\beta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(\hat{y}^{(i)}) + (
 
 **Intuition:** Log loss penalizes confident wrong predictions heavily. Predicting high probability for the wrong class results in large loss.
 
-### 5. Evaluation Metrics
+### 5. Gradient of Log Loss
+
+To minimize the cost function using Gradient Descent, we need its partial derivatives. Surprisingly, it has the **exact same form** as Linear Regression:
+
+$$ \frac{\partial}{\partial \beta_j} J(\beta) = \frac{1}{m} \sum_{i=1}^{m} (\sigma(z^{(i)}) - y^{(i)}) x_j^{(i)} $$
+
+Vectorized form:
+
+$$ \nabla J(\beta) = \frac{1}{m} X^T (\hat{y} - y) $$
+
+*   **$\nabla J(\beta)$** (Pronounced: *Nabla J of beta*): The gradient vector.
+*   **$\hat{y}$**: The vector of predicted probabilities $\sigma(X\beta)$.
+
+### 6. Newton-Raphson Method (Second-Order Optimization)
+
+Advanced solvers like `newton-cg` and `lbfgs` use second-order derivative information (the Hessian matrix) for faster convergence:
+
+$$ \beta^{(t+1)} = \beta^{(t)} - H^{-1} \nabla J(\beta^{(t)}) $$
+
+*   **$H$** (Pronounced: *Hessian matrix*): Matrix of second partial derivatives.
+*   **Pros:** Much faster convergence near the minimum.
+*   **Cons:** Expensive to compute $H^{-1}$ for large numbers of features.
+
+### 7. Regularized Cost Functions
+
+To prevent overfitting, we add a penalty term to the cost function:
+
+**L2 Regularization (Ridge) - Default:**
+$$ J_{reg}(\beta) = J(\beta) + \frac{\lambda}{2m} \sum_{j=1}^{n} \beta_j^2 $$
+
+**L1 Regularization (Lasso):**
+$$ J_{reg}(\beta) = J(\beta) + \frac{\lambda}{m} \sum_{j=1}^{n} |\beta_j| $$
+
+*   **$\lambda$** (Pronounced: *lambda*): Regularization strength (inverse of parameter `C`).
+
+### 8. Evaluation Metrics
 
 **Confusion Matrix Components:**
 - **TP** (True Positive): Correctly predicted positive
