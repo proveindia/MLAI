@@ -113,7 +113,10 @@ The **Decision Tree (max_depth=5)** was selected as the best model based on:
 3.  **Interpretability:** The decision logic (e.g., checking `nr.employed` or `euribor3m`) is easily visualized and explained to stakeholders.
 
 ### Feature Importance
-Feature importance was analyzed using Logistic Regression coefficients.
+Feature importance was analyzed using Logistic Regression coefficients and Decision Tree feature importances. Key drivers include employment rates and consumer confidence.
+
+![Feature Importance](images/feature_importance.png)
+*Figure 1: Feature Importance ranking showing `nr.employed` and `euribor3m` as top predictors.*
 
 ```python
 coeffs = lr_model.named_steps['classifier'].coef_[0]
@@ -124,6 +127,9 @@ sns.barplot(x='Coefficient', y='Feature', data=coeff_df.head(10))
 ### Decision Tree Visualization
 The Decision Tree structure was visualized to understand the decision rules.
 
+![Decision Tree Visualization](images/decision_tree.png)
+*Figure 2: Simplified visualization of the Decision Tree structure showing key split logic.*
+
 ```python
 decision_tree = DecisionTreeClassifier(max_depth=3, random_state=42, min_samples_split=5)
 plot_tree(decision_tree, feature_names=X.columns, class_names=['no', 'yes'], filled=True)
@@ -131,6 +137,12 @@ plot_tree(decision_tree, feature_names=X.columns, class_names=['no', 'yes'], fil
 
 ### Performance Evaluation
 Models were evaluated using Accuracy, Precision, Recall, F1-Score, and ROC-AUC.
+
+![Confusion Matrix](images/confusion_matrix.png)
+*Figure 3: Confusion Matrix showing True Positives vs False Positives.*
+
+![ROC Curve](images/roc_curve.png)
+*Figure 4: ROC Curve illustrating the trade-off between True Positive Rate and False Positive Rate.*
 
 ```python
 for name, model in best_models.items():
