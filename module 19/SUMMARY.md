@@ -77,13 +77,17 @@ $$ \hat{r}_{\text{hybrid}} = 0.5 \cdot \hat{r}_{\text{SVD}} + 0.5 \cdot \hat{r}_
 Memory-based collaborative filtering relies on similarity measures like Cosine Similarity or Pearson Correlation.
 
 **Cosine Similarity:**
+
 $$ \text{sim}(u, v) = \frac{\sum_{i} r_{ui} r_{vi}}{\sqrt{\sum_{i} r_{ui}^2} \sqrt{\sum_{i} r_{vi}^2}} $$
 
 **Pearson Correlation:**
+
 $$ \text{sim}(u, v) = \frac{\sum_{i \in I_{uv}} (r_{ui} - \bar{r}_u)(r_{vi} - \bar{r}_v)}{\sqrt{\sum_{i \in I_{uv}} (r_{ui} - \bar{r}_u)^2} \sqrt{\sum_{i \in I_{uv}} (r_{vi} - \bar{r}_v)^2}} $$
 
 **Mean Squared Difference (MSD) Similarity:**
+
 $$ \text{msd}(u, v) = \frac{1}{|I_{uv}|} \sum_{i \in I_{uv}} (r_{ui} - r_{vi})^2 $$
+
 $$ \text{sim}(u, v) = \frac{1}{\text{msd}(u, v) + 1} $$
 
 ### 4. Evaluation Metric (RMSE)
