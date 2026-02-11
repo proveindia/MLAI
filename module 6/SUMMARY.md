@@ -27,7 +27,8 @@ $$ Z = X \cdot W $$
 ### 2. K-Means Inertia (Within-Cluster Sum of Squares)
 The goal of K-Means is to minimize this value.
 $$ \text{Inertia} = \sum_{j=1}^k \sum_{i \in C_j} ||x_i - \mu_j||^2 $$
-*   $\mu_j$: Centroid of cluster $j$.
+*   **$\mu_j$** (Pronounced: *Mu sub j*): Centroid of cluster $j$.
+*   **$\sum$** (Pronounced: *Sum*): Summation of distances.
 
 ## Visualizing PCA Flow
 ```mermaid

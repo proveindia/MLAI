@@ -20,11 +20,13 @@ As the number of features (dimensions) increases, the amount of data needed to g
 ### 1. Lasso Regression (L1 Regularization)
 Lasso adds a penalty equal to the absolute value of the magnitude of coefficients. This can shrink some coefficients to exactly **zero**, effectively performing feature selection.
 $$ J(\beta) = \text{MSE} + \lambda \sum_{j=1}^p |\beta_j| $$
-*   **$\lambda$** (Lambda): Penalty term. Higher $\lambda$ $\rightarrow$ More coefficients become zero.
+*   **$\lambda$** (Pronounced: *Lambda*): Penalty term. Higher $\lambda$ $\rightarrow$ More coefficients become zero.
+*   **$\beta$** (Pronounced: *Beta*): The model coefficients (weights).
 
 ### 2. Ridge Regression (L2 Regularization)
 Adds a penalty equal to the square of the magnitude of coefficients. Shrinks coefficients but rarely to zero.
 $$ J(\beta) = \text{MSE} + \lambda \sum_{j=1}^p \beta_j^2 $$
+*   **$\beta^2$** (Pronounced: *Beta squared*): The squared magnitude of the coefficients.
 
 ## Code for Learning
 
