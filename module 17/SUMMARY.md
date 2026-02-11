@@ -15,6 +15,10 @@ This module involved a comprehensive project applying the CRISP-DM methodology t
 *   **Economic Indicators:** Employment variation rate and Euribor rates are strong predictors.
 *   **Call Duration:** Long calls are strongly correlated with success (though a lagging indicator).
 
+## Key Concepts (Advanced)
+*   **Sensitivity Analysis:** A method used to determine how different values of an independent variable impact a particular dependent variable under a given set of assumptions.
+    *   *Application:* Used to measure feature importance for the SVM model (identifying that `nr.employed` and `euribor3m` were critical).
+
 ## Model Performance
 *   **Decision Tree:** Achieved the highest accuracy (~91.62%) after hyperparameter tuning (max_depth=5).
 *   **Logistic Regression & SVM:** Strong baselines with similar accuracy (~91.20%).
@@ -45,6 +49,18 @@ $$ \text{Recall} = \frac{TP}{TP + FN} $$
 
 $$ F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} $$
 
+**Cumulative Lift:**
+A measure of how much better the model is at identifying positive cases compared to a random selection.
+
+$$ \text{Lift} = \frac{\text{Response Rate in Decile}}{\text{Overall Response Rate}} $$
+
+*   **Decile:** Population divided into 10 equal groups based on predicted probability.
+
+**ALIFT (Area Under the Lift Curve):**
+Similar to AUC, but for the Lift curve.
+*   **Baseline:** 0.5 (Random model).
+*   **Perfect:** 1.0.
+
 ### Logistic Regression (Sigmoid Function)
 Logistic regression uses the sigmoid function to map predictions to probabilities between 0 and 1.
 
@@ -60,7 +76,9 @@ Decision trees split data to minimize impurity. Gini impurity measures the frequ
 $$ G = 1 - \sum_{k=1}^{n} p_k^2 $$
 
 *   **$G$** (Pronounced: *Gini*): The Gini impurity score.
+*   **$\sum$** (Pronounced: *sum*): Summation symbol.
 *   **$p_k$** (Pronounced: *p sub k*): The probability of an item belonging to class $k$.
+*   **$n$** (Pronounced: *n*): Total number of classes.
 
 ## Recommendations
 *   Target specific demographics (Students, Retired) and time campaigns during high-conversion months.
