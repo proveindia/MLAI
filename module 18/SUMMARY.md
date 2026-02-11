@@ -36,9 +36,24 @@ $$ L_d = \frac{|V|}{N} $$
 ### Tokenization
 Tokenization is performed using `nltk.word_tokenize` and `nltk.sent_tokenize`.
 
-```python
-from nltk import word_tokenize, sent_tokenize
+**Setup:**
+```bash
+pip install nltk
+```
 
+**Imports and Downloads:**
+```python
+import nltk
+from nltk import word_tokenize, sent_tokenize
+from nltk.stem import PorterStemmer
+import pandas as pd
+
+# Download necessary NLTK data
+nltk.download('punkt')
+```
+
+### Word and Sentence Tokenization
+```python
 # Word Tokenization
 ans1 = word_tokenize(principia)
 
