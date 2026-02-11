@@ -89,6 +89,24 @@ for name, (model, param_grid) in models.items():
     grid_search.fit(X_train, y_train)
 ```
 
+### Hyperparameter Tuning Details
+The following hyperparameters were tuned to optimize model performance:
+
+*   **Logistic Regression (`C`):** Inverse of regularization strength. Smaller values specify stronger regularization, helping to prevent overfitting.
+    *   *Grid:* `[0.1, 1, 10]`
+*   **K-Nearest Neighbors (`n_neighbors`):** Number of neighbors to use for classification. Affects the smoothness of the decision boundary.
+    *   *Grid:* `[3, 5, 7]`
+*   **Support Vector Machine (`C`, `kernel`):** `C` controls the trade-off between smooth decision boundary and classifying training points correctly. `kernel` determines the non-linear mapping (linear vs. radial basis function).
+    *   *Grid:* `C=[0.1, 1, 10]`, `kernel=['linear', 'rbf']`
+*   **Decision Tree (`max_depth`):** The maximum depth of the tree. Controls model complexity; deeper trees capture more details but risk overfitting.
+    *   *Grid:* `[3, 5, 10]`
+
+### Best Model Selection
+The **Decision Tree (max_depth=5)** was selected as the best model based on:
+1.  **Metric:** Highest Test Accuracy (**91.62%**).
+2.  **Efficiency:** Fast training and inference time compared to SVM and KNN.
+3.  **Interpretability:** The decision logic (e.g., checking `nr.employed` or `euribor3m`) is easily visualized and explained to stakeholders.
+
 ### Feature Importance
 Feature importance was analyzed using Logistic Regression coefficients.
 
