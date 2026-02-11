@@ -1,53 +1,148 @@
 # Module 15: Gradient Descent for Linear Regression
 
 ## Overview
-This module explored the optimization algorithm Gradient Descent and its application to Linear Regression.
+This module explored the optimization algorithm **Gradient Descent** and its application to Linear Regression. Gradient Descent is a fundamental optimization technique used throughout machine learning to minimize cost functions and find optimal model parameters.
 
 ## Key Concepts
-*   **Gradient Descent:** An optimization algorithm used to minimize some function by iteratively moving in the direction of steepest descent as defined by the negative of the gradient.
-*   **Linear Regression (Optimization perspective):** Finding the coefficients (weights) that minimize the error term.
-*   **Cost Function (MSE):** Mean Squared Error. The function we want to minimize. It measures the average of the squares of the errors—that is, the average squared difference between the estimated values and the actual value.
-*   **Learning Rate (Alpha):** A hyperparameter that controls how much to change the model in response to the estimated error each time the model weights are updated.
-    *   Too small: Convergence is slow.
-    *   Too large: Can overshoot the minimum and fail to converge.
-*   **Epochs:** The number of times the algorithm iterates through the entire training dataset.
-
-## Assignment Highlights
-*   **Dataset:** Credit dataset.
-*   **Goal:** Implement Gradient Descent to predict 'Balance' based on another feature (e.g., 'Rating' or 'Limit').
-*   **Process:**
-    *   Defined the MSE cost function.
-    *   Implemented the gradient descent update rule manually.
-    *   Visualized the cost reduction over iterations.
-    *   Compared the Manual implementation results with Scikit-Learn's `LinearRegression` or `SGDRegressor`.
-    *   **Stochastic Gradient Descent (SGD):** Updating parameters based on a single training example at a time, which is faster but noisier.
+*   **Gradient Descent:** An iterative optimization algorithm that finds the minimum of a function by moving in the direction of steepest descent (negative gradient).
+*   **Linear Regression (Optimization perspective):** Finding the coefficients (weights) that minimize the prediction error.
+*   **Cost Function (MSE):** Mean Squared Error - the objective function we minimize to fit the model.
+*   **Learning Rate (α):** A hyperparameter controlling the step size in each iteration.
+*   **Convergence:** The process of gradient descent reaching the optimal parameters where the cost function is minimized.
+*   **Epochs:** The number of complete passes through the entire training dataset.
 
 ## Key Formulas
 
-### Gradient Descent Update Rule
-To minimize a cost function $J(\theta)$, parameters are updated iteratively:
+### 1. Mean Squared Error (MSE) Cost Function
+The function we want to minimize:
+
+$$ J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 $$
+
+*   **$J(\theta)$** (Pronounced: *J of theta*): The cost function value.
+*   **$\theta$** (Pronounced: *theta*): The parameter vector (weights).
+*   **$m$** (Pronounced: *m*): The number of training examples.
+*   **$h_\theta(x^{(i)})$** (Pronounced: *h theta of x i*): The hypothesis function (prediction) for the $i$-th example.
+*   **$y^{(i)}$** (Pronounced: *y i*): The actual target value for the $i$-th example.
+
+### 2. Linear Hypothesis Function
+For linear regression with $n$ features:
+
+$$ h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + ... + \theta_n x_n = \theta^T x $$
+
+*   **$\theta_0$** (Pronounced: *theta zero* or *theta naught*): The bias term (intercept).
+*   **$\theta_j$** (Pronounced: *theta j*): The weight for feature $j$.
+*   **$T$** (Pronounced: *transpose*): Matrix transpose operation.
+
+### 3. Gradient Descent Update Rule
+Parameters are updated iteratively to minimize the cost function:
 
 $$ \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta) $$
 
-*   $\alpha$: Learning rate (step size).
-*   $\frac{\partial}{\partial \theta_j} J(\theta)$: Gradient of the cost function.
+*   **$:=$** (Pronounced: *is assigned*): Assignment operator (update in place).
+*   **$\alpha$** (Pronounced: *alpha*): The learning rate (step size).
+*   **$\frac{\partial}{\partial \theta_j} J(\theta)$** (Pronounced: *partial derivative of J with respect to theta j*): The gradient of the cost function.
 
-For Linear Regression (with MSE), the update for weight $\theta_j$ is:
-$$ \theta_j := \theta_j - \alpha \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)} $$
+### 4. Gradient for Linear Regression
+The gradient (partial derivative) of MSE with respect to each parameter:
+
+$$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) x_j^{(i)} $$
+
+*   **$x_j^{(i)}$** (Pronounced: *x j of i*): The $j$-th feature value of the $i$-th training example.
+
+### 5. Vectorized Gradient Computation
+For efficient computation with matrices:
+
+$$ \nabla_\theta J(\theta) = \frac{1}{m} X^T (X\theta - y) $$
+
+*   **$\nabla_\theta$** (Pronounced: *nabla theta* or *gradient with respect to theta*): The gradient vector.
+*   **$X$** (Pronounced: *X*): The feature matrix (m × n).
+*   **$y$** (Pronounced: *y*): The target vector (m × 1).
+
+## Hyperparameters
+
+### 1. Learning Rate (α)
+*   **Definition:** Controls how much to change the model parameters in response to the estimated error.
+*   **Typical Range:** 0.001 to 0.3
+*   **Too Small:** Convergence is very slow; may require many iterations.
+*   **Too Large:** Can overshoot the minimum and fail to converge (divergence).
+*   **Optimal:** Should be tuned experimentally; try values like 0.001, 0.01, 0.1.
+
+### 2. Number of Iterations (Epochs)
+*   **Definition:** How many times the algorithm iterates through the training data.
+*   **Typical Range:** 100 to 10,000+ depending on dataset and learning rate.
+*   **Too Few:** Model may not converge to optimal parameters.
+*   **Too Many:** Wastes computation time without improvement.
+*   **Strategy:** Monitor cost function; stop when change becomes negligible.
+
+### 3. Batch Size (for Mini-Batch/Stochastic GD)
+*   **Definition:** Number of training examples used in each iteration.
+*   **Batch GD:** Uses entire dataset (batch size = m).
+*   **Stochastic GD:** Uses one example at a time (batch size = 1).
+*   **Mini-Batch GD:** Uses a small batch (typical: 32, 64, 128, 256).
+
+## Gradient Descent Variants
+
+### Batch Gradient Descent
+*   Uses the **entire training set** to compute the gradient at each step.
+*   **Pros:** Stable convergence, guaranteed to converge to global minimum for convex functions.
+*   **Cons:** Slow for large datasets; requires fitting entire dataset in memory.
+
+### Stochastic Gradient Descent (SGD)
+*   Uses **one random training example** at each step.
+*   **Pros:** Faster updates; can escape local minima; works with large datasets.
+*   **Cons:** Noisy updates; convergence path oscillates; may not reach exact minimum.
+
+### Mini-Batch Gradient Descent
+*   Uses **small random batches** (e.g., 32-256 examples).
+*   **Pros:** Balances speed and stability; efficient use of vectorization.
+*   **Cons:** Introduces hyperparameter (batch size).
+
+## Library Installation
+
+```bash
+# Install required libraries
+pip install numpy pandas matplotlib scikit-learn scipy
+```
 
 ## Implementation Details
 
-### 1. Manual Gradient Descent
-We implemented the gradient descent algorithm from scratch to understand how it iteratively updates weights to minimize the cost function.
+### 1. Required Imports
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression, SGDRegressor
+from scipy.optimize import minimize
+```
+
+### 2. Basic Gradient Descent Implementation
 
 ```python
 def gradient_descent(df, initial_guess, alpha, n):
     """
-    Performs n steps of gradient descent on df using learning rate alpha.
+    Performs n steps of gradient descent.
+    
+    Parameters:
+    -----------
+    df : function
+        The derivative (gradient) function to minimize
+    initial_guess : array
+        Starting parameter values
+    alpha : float
+        Learning rate
+    n : int
+        Number of iterations
+        
+    Returns:
+    --------
+    guesses : array
+        History of parameter values at each iteration
     """
     guesses = [initial_guess]
     current_guess = initial_guess
-    while len(guesses) < n:
+    
+    for i in range(n - 1):
         # Update rule: theta = theta - alpha * gradient
         current_guess = current_guess - alpha * df(current_guess)
         guesses.append(current_guess)
@@ -55,34 +150,254 @@ def gradient_descent(df, initial_guess, alpha, n):
     return np.array(guesses)
 ```
 
-### 2. MSE Gradient Calculation
-We calculated the gradient of the Mean Squared Error (MSE) with respect to the parameters ($\theta_0$, $\theta_1$).
+### 3. MSE Cost Function
+
+```python
+def mse_cost(theta, X, y):
+    """
+    Calculate the Mean Squared Error cost function.
+    
+    Parameters:
+    -----------
+    theta : array
+        Parameter vector [theta_0, theta_1, ...]
+    X : DataFrame or array
+        Feature matrix
+    y : array
+        Target values
+        
+    Returns:
+    --------
+    cost : float
+        The MSE cost
+    """
+    m = len(y)
+    predictions = X @ theta  # Matrix multiplication
+    errors = predictions - y
+    cost = (1 / (2 * m)) * np.sum(errors ** 2)
+    return cost
+```
+
+### 4. Gradient Calculation for Linear Regression
 
 ```python
 def mse_gradient(theta, X, y_obs):
-    """Returns the gradient of the MSE on our data for the given theta"""    
-    x0 = X.iloc[:, 0]
-    x1 = X.iloc[:, 1]
-    # Partial derivatives
+    """
+    Calculate the gradient of MSE with respect to parameters.
+    
+    Parameters:
+    -----------
+    theta : array
+        Current parameter values [theta_0, theta_1]
+    X : DataFrame
+        Feature matrix (should include column of 1s for intercept)
+    y_obs : array
+        Observed target values
+        
+    Returns:
+    --------
+    gradient : array
+        Gradient vector [dJ/dtheta_0, dJ/dtheta_1]
+    """
+    x0 = X.iloc[:, 0]  # First feature (or intercept column)
+    x1 = X.iloc[:, 1]  # Second feature
+    
+    # Compute partial derivatives
+    # dJ/dtheta_0 = (1/m) * sum((h(x) - y) * x_0)
     dth0 = np.mean(-2 * (y_obs - theta[0]*x0 - theta[1]*x1) * x0)
     dth1 = np.mean(-2 * (y_obs - theta[0]*x0 - theta[1]*x1) * x1)
+    
     return np.array([dth0, dth1])
 
-# Running Gradient Descent
-guesses = gradient_descent(mse_gradient_single_arg, np.array([0, 0]), 0.001, 10000)
+# Example usage
+X = credit[['Rating', 'Age']]  # Features
+X.insert(0, 'Intercept', 1)    # Add column of 1s for intercept
+y = credit['Balance']          # Target
+
+# Create lambda for use with gradient_descent
+mse_grad_func = lambda theta: mse_gradient(theta, X, y)
+
+# Run gradient descent
+initial_theta = np.array([0, 0, 0])
+learning_rate = 0.0001
+iterations = 10000
+
+theta_history = gradient_descent(mse_grad_func, initial_theta, learning_rate, iterations)
+optimal_theta = theta_history[-1]
+
+print(f"Optimal parameters: {optimal_theta}")
 ```
 
-### 3. Stochastic Gradient Descent (SGD)
-We also implemented SGD, which updates weights using a random subset (batch) of data at each step, making it more efficient for large datasets.
+### 5. Stochastic Gradient Descent (SGD)
 
 ```python
-def stochastic_gradient_descent(df, initial_guess, alpha, n, num_dps, number_of_batches):
+def stochastic_gradient_descent(gradient_func, initial_guess, alpha, n_iterations, 
+                                num_datapoints, num_batches):
+    """
+    Performs Stochastic Gradient Descent with mini-batches.
+    
+    Parameters:
+    -----------
+    gradient_func : function
+        Function that computes gradient for given batch
+    initial_guess : array
+        Starting parameter values
+    alpha : float
+        Learning rate
+    n_iterations : int
+        Number of iterations
+    num_datapoints : int
+        Total number of training examples
+    num_batches : int
+        Number of batches to split data into
+        
+    Returns:
+    --------
+    guesses : array
+        History of parameter values
+    """
     guesses = [initial_guess]
     guess = initial_guess
-    while len(guesses) < n:
-        dp_indices = np.random.permutation(np.arange(num_dps))
-        for batch_indices in np.split(dp_indices, number_of_batches):            
-            guess = guess - alpha * df(guess, batch_indices)
+    
+    for iteration in range(n_iterations):
+        # Randomly shuffle data indices
+        dp_indices = np.random.permutation(np.arange(num_datapoints))
+        
+        # Split into batches
+        for batch_indices in np.split(dp_indices, num_batches):
+            # Compute gradient on this batch only
+            gradient = gradient_func(guess, batch_indices)
+            
+            # Update parameters
+            guess = guess - alpha * gradient
             guesses.append(guess)
+            
     return np.array(guesses)
 ```
+
+### 6. Visualization of Convergence
+
+```python
+def plot_cost_history(theta_history, X, y):
+    """
+    Plot how the cost function decreases over iterations.
+    """
+    costs = []
+    for theta in theta_history:
+        cost = mse_cost(theta, X, y)
+        costs.append(cost)
+    
+    plt.figure(figsize=(10, 6))
+    plt.plot(costs, linewidth=2)
+    plt.xlabel('Iteration', fontsize=12)
+    plt.ylabel('Cost J(θ)', fontsize=12)
+    plt.title('Cost Function vs. Iterations', fontsize=14)
+    plt.grid(True, alpha=0.3)
+    plt.show()
+    
+    print(f"Initial cost: {costs[0]:.2f}")
+    print(f"Final cost: {costs[-1]:.2f}")
+    print(f"Cost reduction: {costs[0] - costs[-1]:.2f}")
+
+# Usage
+plot_cost_history(theta_history, X, y)
+```
+
+### 7. Comparison with Scikit-Learn
+
+```python
+from sklearn.linear_model import LinearRegression, SGDRegressor
+
+# Prepare data
+X_train = credit[['Rating']].values
+y_train = credit['Balance'].values
+
+# Method 1: Gradient Descent (Manual)
+# ... (use code from above)
+
+# Method 2: Scikit-Learn Linear Regression (Closed-form solution)
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+print(f"sklearn LinearRegression - Intercept: {lr.intercept_:.2f}, Coefficient: {lr.coef_[0]:.2f}")
+
+# Method 3: Scikit-Learn SGD Regressor (Stochastic Gradient Descent)
+sgd = SGDRegressor(max_iter=10000, learning_rate='constant', eta0=0.0001, random_state=42)
+sgd.fit(X_train, y_train)
+print(f"sklearn SGDRegressor - Intercept: {sgd.intercept_[0]:.2f}, Coefficient: {sgd.coef_[0]:.2f}")
+
+# Compare results
+print(f"Manual GD - Intercept: {optimal_theta[0]:.2f}, Coefficient: {optimal_theta[1]:.2f}")
+```
+
+## Assignment Highlights
+*   **Dataset:** Credit dataset (predicting 'Balance' from features like 'Rating', 'Limit').
+*   **Goal:** Implement Gradient Descent from scratch and compare with sklearn's implementations.
+*   **Process:**
+    *   Loaded and explored the Credit dataset.
+    *   Defined the MSE cost function.
+    *   Implemented gradient computation manually.
+    *   Ran batch gradient descent with different learning rates.
+    *   Visualized cost reduction over iterations.
+    *   Implemented Stochastic Gradient Descent with mini-batches.
+    *   Compared manual implementation with `LinearRegression` and `SGDRegressor`.
+
+## Common Pitfalls & Debugging Tips
+
+### 1. Divergence (Cost Increasing)
+*   **Cause:** Learning rate too large.
+*   **Solution:** Reduce α by factors of 10 (e.g., try 0.1, 0.01, 0.001).
+
+### 2. Slow Convergence
+*   **Cause:** Learning rate too small.
+*   **Solution:** Increase α, but monitor for divergence.
+
+### 3. Feature Scaling
+*   **Issue:** Features with different scales can slow convergence.
+*   **Solution:** Normalize or standardize features before training.
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+```
+
+### 4. Not Converging
+*   **Check:** Plot cost vs. iterations.
+*   **Check:** Verify gradient computation is correct.
+*   **Try:** Different initialization values for θ.
+
+## Convergence Criteria
+
+Instead of fixed iterations, stop when:
+
+$$ |J(\theta^{(t+1)}) - J(\theta^{(t)})| < \epsilon $$
+
+*   **$\epsilon$** (Pronounced: *epsilon*): A small threshold (e.g., 0.0001).
+*   **$t$** (Pronounced: *t*): The iteration number.
+
+```python
+def gradient_descent_with_convergence(gradient_func, initial_theta, alpha, max_iter=10000, tolerance=1e-4):
+    """Gradient descent that stops when cost change is below tolerance."""
+    theta = initial_theta
+    cost_history = []
+    
+    for i in range(max_iter):
+        theta = theta - alpha * gradient_func(theta)
+        cost = mse_cost(theta, X, y)
+        cost_history.append(cost)
+        
+        # Check convergence
+        if i > 0 and abs(cost_history[-1] - cost_history[-2]) < tolerance:
+            print(f"Converged after {i+1} iterations")
+            break
+    
+    return theta, cost_history
+```
+
+## Key Takeaways
+1. Gradient Descent is an iterative optimization algorithm fundamental to machine learning.
+2. The learning rate α is critical: too large causes divergence, too small causes slow convergence.
+3. Stochastic variants (SGD, Mini-Batch GD) trade some stability for speed and scalability.
+4. Feature scaling significantly improves convergence speed.
+5. Scikit-learn provides optimized implementations (`LinearRegression` uses closed-form solution, `SGDRegressor` uses SGD).
