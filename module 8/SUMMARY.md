@@ -10,9 +10,30 @@ Machine Learning models require numerical input.
 *   **Ordinal Encoding:** For data with specific order (e.g., Low < Medium < High). Preserves rank.
 *   **One-Hot Encoding:** For nominal data with no order (e.g., Apple, Banana, Cherry). Creates binary columns ($0$ or $1$). Avoids false ranking.
 
+#### Visualizing Encoding
+```mermaid
+graph TD
+    subgraph Ordinal Encoding
+    A[Size: Small, Medium, Large] --> B[0, 1, 2]
+    end
+    
+    subgraph One-Hot Encoding
+    C[Color: Red] --> D[Red: 1, Blue: 0, Green: 0]
+    E[Color: Blue] --> F[Red: 0, Blue: 1, Green: 0]
+    end
+```
+
 ### 2. Text Feature Engineering (NLP Basics)
 *   **Bag of Words (BoW):** Counts word frequency. Discards grammar and order.
 *   **Count Vectorizer:** Converts a collection of text documents to a matrix of token counts.
+
+```mermaid
+graph LR
+    A["Text: 'AI is great'"] --> B(Tokenize)
+    B --> C["Tokens: ['AI', 'is', 'great']"]
+    C --> D{Count Vectorizer}
+    D --> E["Vector: [1, 1, 1]"]
+```
 
 ### 3. Numerical Transformations
 *   **Scaling:** Adjusting range (MinMax) or distribution (StandardScaler).
