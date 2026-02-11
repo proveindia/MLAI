@@ -15,28 +15,67 @@ Understanding probability distributions is key to statistical inference. This mo
 
 ### 3. Shape Statistics
 *   **Skewness:** Measure of asymmetry.
-    *   *Positive Skew:* Tail on the right.
-    *   *Negative Skew:* Tail on the left.
+    *   *Positive (Right) Skew:* Tail on the right. Mean > Median.
+    *   *Negative (Left) Skew:* Tail on the left. Mean < Median.
 *   **Kurtosis:** Measure of "tailedness" (outliers).
     *   *Leptokurtic:* Heavy tails (more outliers).
     *   *Platykurtic:* Light tails (fewer outliers).
 
+## Visualizing Skewness
+
+```mermaid
+graph TD
+    subgraph Symmetrical
+    A[Normal Distribution] --> B[Mean = Median = Mode]
+    end
+    
+    subgraph Pos_Skew
+    C[Positive / Right Skew] --> D[Mode < Median < Mean]
+    end
+
+    subgraph Neg_Skew
+    E[Negative / Left Skew] --> F[Mean < Median < Mode]
+    end
+```
+
 ## Key Formulas
 
-### 1. Normal Distribution Rule (68-95-99.7)
+### 1. The Mean ($\mu$)
+The average value.
+$$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$
+
+*   **$\mu$** (Pronounced: *Mu*): The population mean.
+*   **$\sum$** (Pronounced: *Sum*): Summation.
+*   **$N$** (Pronounced: *N*): Total number of observations.
+
+### 2. Standard Deviation ($\sigma$)
+A measure of the amount of variation or dispersion of a set of values.
+$$ \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2} $$
+
+*   **$\sigma$** (Pronounced: *Sigma*): Population standard deviation.
+*   **$\sigma^2$** (Pronounced: *Sigma squared*): Variance.
+
+### 3. Normal Distribution Rule (68-95-99.7)
 Percentage of data within standard deviations from the mean:
 
 *   $\mu \pm 1\sigma$: **68%**
 *   $\mu \pm 2\sigma$: **95%**
 *   $\mu \pm 3\sigma$: **99.7%**
 
-### 2. Standard Score (Z-Score)
+### 4. Standard Score (Z-Score)
+Normalizing a value to standard deviation units.
 
 $$ z = \frac{x - \mu}{\sigma} $$
+
+*   **$z$** (Pronounced: *z-score*): The number of standard deviations a data point is from the mean.
 
 ## Code for Learning
 
 ### Setup and Import
+```bash
+pip install numpy matplotlib scipy seaborn
+```
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
