@@ -1845,3 +1845,152 @@ plt.close()
 print("Created: odds_visualization.png")
 
 print("\nModule 13 complete: 11 visualizations created\n")
+
+# ============================================================================
+# MODULE 15 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 15: Optimization & SGD ###\n")
+os.makedirs('module 15/images', exist_ok=True)
+
+# 1. Convex vs Non-Convex
+x = np.linspace(-5, 5, 200)
+y_convex = x**2
+y_non_convex = x**2 + 10*np.sin(x) + 20 # Shift up for visibility
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+axes[0].plot(x, y_convex, 'b-', linewidth=3)
+axes[0].set_title('Convex Function\n(Single Global Minimum)', fontweight='bold')
+axes[0].set_xlabel('Parameter $\\theta$')
+axes[0].set_ylabel('Cost $J(\\theta)$')
+axes[0].grid(True, alpha=0.3)
+axes[0].plot(0, 0, 'go', markersize=10, label='Global Minimum')
+axes[0].legend()
+
+axes[1].plot(x, y_non_convex, 'r-', linewidth=3)
+axes[1].set_title('Non-Convex Function\n(Multiple Local Minima)', fontweight='bold')
+axes[1].set_xlabel('Parameter $\\theta$')
+axes[1].set_ylabel('Cost $J(\\theta)$')
+axes[1].grid(True, alpha=0.3)
+axes[1].plot(0, 20, 'go', markersize=10, label='Local Minimum')
+# Approximate global min manually for viz
+global_min_x = -1.3 
+global_min_y = global_min_x**2 + 10*np.sin(global_min_x) + 20
+axes[1].plot(global_min_x, global_min_y, 'k*', markersize=15, label='Global Minimum')
+axes[1].legend()
+
+plt.tight_layout()
+plt.savefig('module 15/images/convex_vs_non_convex.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: convex_vs_non_convex.png")
+
+# 2. Gradient Descent 1D Steps (Concept)
+def f(x): return x**2
+def df(x): return 2*x
+
+theta = 4.0
+history = [theta]
+alpha = 0.1
+for _ in range(5):
+    theta = theta - alpha * df(theta)
+    history.append(theta)
+
+x_plot = np.linspace(-5, 5, 100)
+plt.figure(figsize=(10, 6))
+plt.plot(x_plot, f(x_plot), 'k-', alpha=0.6, label='$J(\\theta) = \\theta^2$')
+history = np.array(history)
+plt.plot(history, f(history), 'ro-', markersize=8, label='Gradient Descent Steps')
+
+# Draw arrows for steps
+for i in range(len(history)-1):
+    plt.annotate('', xy=(history[i+1], f(history[i+1])), xytext=(history[i], f(history[i])),
+                 arrowprops=dict(arrowstyle='->', color='blue', lw=2))
+
+plt.title('Gradient Descent Steps (1D)', fontweight='bold')
+plt.xlabel('Parameter $\\theta$')
+plt.ylabel('Cost $J(\\theta)$')
+plt.grid(True, alpha=0.3)
+plt.legend()
+plt.tight_layout()
+plt.savefig('module 15/images/gradient_descent_1d.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: gradient_descent_1d.png")
+
+# 3. Learning Rate Comparison
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+alphas = [0.01, 0.1, 1.1] # Small, Good, Large (Diverging for x^2, df=2x -> x_new = x - 2.2x = -1.2x. Oscillates and diverges if > 1 for simple scaling? Actually for x^2, x_new = x(1-2alpha). Diverges if |1-2alpha| > 1 => 2alpha > 2 => alpha > 1. So 1.1 is diverging.)
+titles = ['Too Small (Slow)', 'Just Right (Converges)', 'Too Large (Diverges)']
+
+for ax, lr, title in zip(axes, alphas, titles):
+    theta = 4.5
+    path = [theta]
+    for _ in range(10): # 10 steps
+        theta = theta - lr * 2 * theta # derivative is 2*theta
+        path.append(theta)
+    
+    path = np.array(path)
+    ax.plot(x_plot, f(x_plot), 'k-', alpha=0.3)
+    ax.plot(path, f(path), 'o-', markersize=6, linewidth=2, label=f'$\\alpha={lr}$')
+    ax.set_title(title, fontweight='bold')
+    ax.set_xlabel('$\\theta$')
+    if lr == 1.1:
+        ax.set_ylim(0, 50) # Limit y-axis for diverging case
+    ax.grid(True, alpha=0.3)
+    ax.legend()
+
+plt.tight_layout()
+plt.savefig('module 15/images/learning_rate_comparison.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: learning_rate_comparison.png")
+
+# 4. GD vs SGD Path (2D Contour)
+# Generate a 2D loss surface (anisotropic bowl)
+def loss_2d(x, y): return 0.5*x**2 + 2*y**2 # Gradient is [x, 4y]
+
+# Batch GD Path (Smooth)
+path_gd = []
+x, y = 4.0, 3.0
+lr = 0.05
+for _ in range(20):
+    path_gd.append([x, y])
+    grad_x, grad_y = x, 4*y
+    x -= lr * grad_x
+    y -= lr * grad_y
+path_gd = np.array(path_gd)
+
+# SGD Path (Noisy - simulated with random noise added to gradient)
+path_sgd = []
+x, y = 4.0, 3.0
+np.random.seed(42)
+for _ in range(30):
+    path_sgd.append([x, y])
+    # True gradient + high noise to simulate "stochastic" mini-batch on full dataset
+    noise = np.random.randn(2) * 2.0 
+    grad_x, grad_y = x + noise[0], 4*y + noise[1]
+    x -= lr * grad_x
+    y -= lr * grad_y
+path_sgd = np.array(path_sgd)
+
+# Plot
+x_grid = np.linspace(-5, 5, 100)
+y_grid = np.linspace(-5, 5, 100)
+X_g, Y_g = np.meshgrid(x_grid, y_grid)
+Z_g = 0.5*X_g**2 + 2*Y_g**2
+
+plt.figure(figsize=(10, 8))
+plt.contour(X_g, Y_g, Z_g, levels=np.logspace(-1, 2, 20), cmap='gray_r', alpha=0.4)
+plt.plot(path_gd[:, 0], path_gd[:, 1], 'b-o', label='Batch Gradient Descent', markersize=6, linewidth=2)
+plt.plot(path_sgd[:, 0], path_sgd[:, 1], 'r-^', label='Stochastic Gradient Descent', markersize=6, linewidth=2, alpha=0.7)
+plt.plot(0, 0, 'k*', markersize=15, label='Global Minimum')
+
+plt.title('Optimization Paths: Batch GD vs SGD', fontweight='bold')
+plt.xlabel('Parameter $\\theta_1$')
+plt.ylabel('Parameter $\\theta_2$')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 15/images/gd_vs_sgd_path.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: gd_vs_sgd_path.png")
+
+print("\nModule 15 complete: 4 visualizations created\n")

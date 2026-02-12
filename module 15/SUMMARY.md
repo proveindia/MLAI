@@ -13,7 +13,16 @@ This module explored the optimization algorithm **Gradient Descent** and its app
 
 ## Key Formulas
 
-### 1. Mean Squared Error (MSE) Cost Function
+### 1. Derivative Approximation
+The derivative $f'(x)$ represents the slope of the tangent line. We can approximate the value of a function near a point $a$ using its derivative:
+$$ f(x) \approx f(a) + f'(a)(x - a) $$
+*   **$f(x)$**: The value we want to approximate.
+*   **$f(a)$**: The known function value at point $a$.
+*   **$f'(a)$**: The derivative (slope) at point $a$.
+*   **$(x - a)$**: The step size or distance from $a$.
+This concept underpins Gradient Descent: we take a small step $(x-a)$ in the direction of the slope to find a lower value.
+
+### 2. Mean Squared Error (MSE) Cost Function
 The function we want to minimize:
 
 $$ J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 $$
@@ -55,7 +64,21 @@ graph TD
     F -->|Yes| G[Return Optimal Theta]
 ```
 
-### 4. Gradient for Linear Regression
+### 6. 2D Gradient Calculation
+For a function of two variables $f(x, y)$, the gradient $\nabla f$ is a vector of partial derivatives:
+$$ \nabla f(x, y) = \begin{bmatrix} \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial y} \end{bmatrix} $$
+
+**Example:**
+Let $f(x, y) = x^2 + y^2$. This is a convex bowl.
+*   **Partial wrt $x$:** $\frac{\partial}{\partial x}(x^2 + y^2) = 2x$
+*   **Partial wrt $y$:** $\frac{\partial}{\partial y}(x^2 + y^2) = 2y$
+*   **Gradient:** $\nabla f(x, y) = [2x, 2y]^T$
+
+If we start at point $(3, 4)$:
+*   $\nabla f(3, 4) = [6, 8]^T$
+*   To minimize, we move in the **opposite** direction: $[-6, -8]^T$.
+
+### 7. Gradient for Linear Regression
 The gradient (partial derivative) of MSE with respect to each parameter:
 
 $$ \frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) x_j^{(i)} $$
@@ -122,11 +145,11 @@ $$ R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = 1 - \frac{\sum_{i=1}^{m} (y_i - \hat{y}
 *   **Range:** $-\infty$ to $1$. ($1.0$ is perfect prediction).
 
 ### 10. Convexity
-A function $f$ is **convex** if a line segment between any two points on the graph lies above or on the graph:
+A function $f$ is **convex** if a line segment between any two points on the graph lies above or on the graph.
+*   **Significance:** Convex functions (like MSE) have a single global minimum, guaranteeing GD converges.
+*   **Non-Convex:** Functions with multiple local minima (like Neural Networks) are harder to optimize.
 
-$$ t f(a) + (1-t)f(b) \ge f(t a + (1-t)b) $$
-
-**Significance:** Convex functions (like MSE for Linear Regression) have a single global minimum, guaranteeing Gradient Descent will find the optimal solution (given small enough $\alpha$).
+![Convex vs Non-Convex](images/convex_vs_non_convex.png)
 
 ## Convergence Criteria
 
@@ -138,6 +161,14 @@ $$ |J(\theta^{(t+1)}) - J(\theta^{(t)})| < \epsilon $$
 
 ### 1. Learning Rate (α)
 *   **Definition:** Controls how much to change the model parameters in response to the estimated error.
+*   **Visualizing Effect:**
+    *   **Small:** Safe but slow.
+    *   **Optimal:** Fast convergence.
+    *   **Large:** Overshooting and divergence.
+
+![Learning Rate Comparison](images/learning_rate_comparison.png)
+![Gradient Descent Steps](images/gradient_descent_1d.png)
+
 *   **Typical Range:** 0.001 to 0.3
 *   **Too Small:** Convergence is very slow; may require many iterations.
 *   **Too Large:** Can overshoot the minimum and fail to converge (divergence).
@@ -162,11 +193,16 @@ $$ |J(\theta^{(t+1)}) - J(\theta^{(t)})| < \epsilon $$
 *   Uses the **entire training set** to compute the gradient at each step.
 *   **Pros:** Stable convergence, guaranteed to converge to global minimum for convex functions.
 *   **Cons:** Slow for large datasets; requires fitting entire dataset in memory.
+*   **Variance:** Low (updates are smooth).
 
 ### Stochastic Gradient Descent (SGD)
 *   Uses **one random training example** at each step.
-*   **Pros:** Faster updates; can escape local minima; works with large datasets.
-*   **Cons:** Noisy updates; convergence path oscillates; may not reach exact minimum.
+*   **Pros:** Faster updates; can escape local minima (due to noise); works with large datasets.
+*   **Cons:** Noisy updates; convergence path oscillates; may not reach exact minimum (just oscillates around it).
+*   **Bias/Variance:** High variance in updates, but unbiased estimator of the true gradient.
+
+![GD vs SGD Path](images/gd_vs_sgd_path.png)
+*Figure 4: Comparison of optimization paths. Batch GD takes a direct route, while SGD oscillates but moves generally towards the minimum.*
 
 ### Mini-Batch Gradient Descent
 *   Uses **small random batches** (e.g., 32-256 examples).

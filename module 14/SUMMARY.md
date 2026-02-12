@@ -164,6 +164,13 @@ Gini (Red) and Scaled Entropy (Green) are nearly identical in shape.
 
 ![Gini vs Entropy](images/gini_vs_entropy.png)
 
+### 11. Example Dataset: Iris Species
+*   **Goal:** Classify flowers into 3 species (Setosa, Versicolor, Virginica) based on measurements.
+*   **Features:** Sepal Length, Sepal Width, Petal Length, Petal Width.
+*   **Visualizations:**
+    *   **Decision Boundaries:** See how the tree uses thresholds on *Petal Length* and *Sepal Length* to separate classes (Figure 2).
+    *   **Tree Structure:** Observe the actual splits (nodes) chosen by the algorithm to minimize impurity (Figure 3).
+
 ## Hyperparameters
 
 Decision Trees have many hyperparameters that control tree structure and prevent overfitting:
