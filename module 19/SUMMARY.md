@@ -93,16 +93,25 @@ In Matrix Factorization (`n_factors`):
 *   **Too Many Factors (Overfitting):** The model learns noise or specific random correlations for the training set, performing poorly on new data.
 
 ### 3. Simon Funk SVD (Gradient Descent)
-Unlike the linear algebra SVD which defines $R = U \Sigma V^T$ (only works on full matrices), **Funk SVD** learns $P$ and $Q$ by iterating over *only* the known ratings.
+Unlike the linear algebra SVD which defines $R = U \Sigma V^T$ (only works on full matrices), **Funk SVD** learns two matrices $P$ and $Q$ by iterating over *only* the known ratings.
+
+*   **P Matrix ($|U| \times k$):** User Factors. Each row represents a user's affinity for the $k$ latent features.
+*   **Q Matrix ($|I| \times k$):** Item Factors. Each row represents how much an item possesses those $k$ latent features.
+*   **$k$:** The number of latent factors (e.g., "Comedy", "Dark", "High Budget"). These are learned from data, not manually defined.
 
 **Algorithm:**
-1.  Initialize $P$ and $Q$ randomly.
-2.  For each known rating $r_{ui}$:
-    *   Predict $\hat{r}_{ui} = P_u \cdot Q_i$.
-    *   Calculate error $e_{ui} = r_{ui} - \hat{r}_{ui}$.
-    *   Update user factor: $P_u \leftarrow P_u + \alpha (e_{ui} \cdot Q_i - \lambda P_u)$.
-    *   Update item factor: $Q_i \leftarrow Q_i + \alpha (e_{ui} \cdot P_u - \lambda Q_i)$.
+1.  Initialize $P$ and $Q$ with small random values.
+2.  For each known rating $r_{ui}$ in the training set:
+    *   **Predict:** $\hat{r}_{ui} = P_u \cdot Q_i^T$ (Dot product of User $u$ and Item $i$ vectors).
+    *   **Calculate Error:** $e_{ui} = r_{ui} - \hat{r}_{ui}$.
+    *   **Update User Factor ($P_u$):** Move $P_u$ in the direction that reduces error.
+        $$ P_{u} \leftarrow P_{u} + \eta \cdot (e_{ui} \cdot Q_{i} - \lambda \cdot P_{u}) $$
+    *   **Update Item Factor ($Q_i$):** Move $Q_i$ in the direction that reduces error.
+        $$ Q_{i} \leftarrow Q_{i} + \eta \cdot (e_{ui} \cdot P_{u} - \lambda \cdot Q_{i}) $$
 3.  Repeat until RMSE converges.
+
+*   **$\eta$** (Eta): Learning Rate.
+*   **$\lambda$** (Lambda): Regularization term to prevent overfitting.
 
 ![FunkSVD Optimization](images/funksvd_optimization.png)
 *Figure: Minimizing RMSE over epochs using Gradient Descent.*
@@ -247,6 +256,36 @@ While the module focused on **Weighted Hybrid**, there are several types of hybr
 
 ## Code for Learning
 This section provides essential code snippets for implementing Recommender Systems, from manual calculations to using the powerful `Surprise` library.
+
+### 0. Toy Dataset (Copy-Paste Executable)
+Start here to understand the input format without downloading external files.
+
+```python
+import pandas as pd
+from surprise import Dataset, Reader, KNNBasic
+
+# 1. Create a simple dataset (User, Item, Rating)
+ratings_dict = {
+    "item": [1, 2, 1, 2, 1, 2, 1, 2, 1],
+    "user": ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E'],
+    "rating": [1, 2, 2, 4, 2.5, 4, 4.5, 5, 3],
+}
+df = pd.DataFrame(ratings_dict)
+reader = Reader(rating_scale=(1, 5))
+
+# 2. Load into Surprise
+data = Dataset.load_from_df(df[['user', 'item', 'rating']], reader)
+
+# 3. Build Trainset & Train
+trainset = data.build_full_trainset()
+algo = KNNBasic()
+algo.fit(trainset)
+
+# 4. Predict
+# Predict User E's rating for Item 2
+prediction = algo.predict('E', 2)
+print(f"Prediction for User E, Item 2: {prediction.est:.2f}")
+```
 
 ### 1. Setup and Imports
 Key libraries include `scikit-surprise` for recommendation algorithms and `sklearn` for manual regression basics.

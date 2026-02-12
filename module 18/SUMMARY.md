@@ -90,14 +90,22 @@ Naive Bayes is a probabilistic classifier based on Bayes' theorem, often used fo
 
 $$ P(c|d) \propto P(c) \prod_{w \in d} P(w|c) $$
 
+*   **$P(c|d)$** (Pronounced: *Probability of c given d*): Posterior probability.
+*   **$\propto$** (Pronounced: *is proportional to*): Symbol indicating proportionality.
+*   **$\prod$** (Pronounced: *product* or *Pi*): Product operator (multiplication).
+
 **Log-Probability:**
 To avoid underflow (multiplying many small probabilities results in zero), we maximize the sum of logarithms:
 
 $$ \log P(c|d) \propto \log P(c) + \sum_{w \in d} \log P(w|c) $$
 
+*   **$\sum$** (Pronounced: *sum* or *Sigma*): Summation operator.
+
 **Laplace Smoothing:**
 
 $$ P(w|c) = \frac{\text{count}(w, c) + 1}{\text{count}(c) + |V|} $$
+
+*   **$|V|$** (Pronounced: *magnitude of V*): Vocabulary size (number of unique words).
 
 ### Bag-of-Words (BoW)
 A representation of text that describes the occurrence of words within a document. It involves two things:
