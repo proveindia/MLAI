@@ -143,6 +143,8 @@ $$ K_{ij} = K(x_i, x_j) $$
 *   **Role:** During training, SVM doesn't look at the data points directly; it looks at this matrix of relationships. It tells the algorithm "how similar is point $i$ to point $j$?" in the high-dimensional space.
 *   **Properties:** It must be symmetric and positive semi-definite (Mercer's Theorem).
 
+*   **Properties:** It must be symmetric and positive semi-definite (Mercer's Theorem).
+
 ![Kernel Matrix Heatmap](images/kernel_matrix.png)
 *Figure 3: Heatmap of a Kernel Matrix. Darker colors on the diagonal indicate high self-similarity.*
 
@@ -177,6 +179,41 @@ The formula $y(x) = \beta_0 + \beta_1 \Phi_1(x) + \beta_2 \Phi_2(x) + \dots$ rep
     *   Calculated decision boundary characteristics.
     *   Visualized margins and support vectors.
     *   Implemented Polynomial SVM for non-linear data.
+
+## Advanced Concepts & Research
+
+### 1. Identifying Nonlinear Features
+How do we know if we need a non-linear kernel (like RBF or Poly)?
+*   **Visual Inspection:** Plotting features against each other (scatter plot). If classes are separated by a curved line or "islands", the data is non-linear.
+*   **Residual Analysis:** In regression, if residuals show a pattern (e.g., a U-shape), linear models are insufficient.
+*   **Domain Knowledge:** Complex problems (image recognition, biological processes) mostly involve non-linear relationships.
+
+![Kernel Trick Visualization](images/kernel_trick.png)
+*Figure 4: Visualizing non-linear data that becomes separable in higher dimensions.*
+
+### 2. Comparing Classifiers: Boundary Definitions
+*   **Logistic Regression:** Linear decision boundary ($w^T x + b = 0$). Probabilistic.
+*   **Decision Trees:** Orthogonal decision boundaries (parallel to axes). Box-like regions.
+*   **SVM (Linear):** Linear boundary maximizing margin.
+*   **SVM (RBF):** Smooth, curved boundaries. Can form closed loops around classes.
+*   **KNN:** Highly irregular, jagged boundaries based on local density.
+
+### 3. Automatic Feature Engineering: Kernels vs. Polynomial Features
+*   **Polynomial Features (Logistic Regression):** deeply "manual". We explicitly create $x^2, x^3, xy$ columns and feed them to a linear model. RAM intensive.
+*   **SVM Kernels:** "Implicit" feature engineering. The Kernel Trick computes the *similarity* as if we were in high dimensions, without ever creating the columns. Efficient.
+
+### 4. Calculating the Maximum Margin
+Given a weight vector $w$, the margin $M$ is:
+$$ M = \frac{2}{\|w\|} $$
+To find the margin for a dataset, we find the support vectors and calculate their distance to the hyperplane.
+
+### 5. Refining Your Problem Statement
+For your Capstone or research projects, ensure your problem statement includes:
+1.  **Research Question:** A specific, measurable question (e.g., "Can we predict bank churn with >85% accuracy?").
+2.  **Data Sources:** Where will data come from? (e.g., "UCI Repository, SQL Database").
+3.  **Data Structure:** What are the rows and columns? (e.g., "Rows=Customers, Cols=Demographics + Transaction History").
+4.  **Expected Results:** What metric defines success? (e.g., "F1-Score > 0.8 due to class imbalance").
+5.  **Techniques:** Which algorithms will you test? (e.g., "Logistic Regression (Baseline) vs SVM vs Random Forest").
 
 ## Implementation Details
 

@@ -41,7 +41,7 @@ $$ L(y, \hat{y}) = (y - \hat{y})^2 $$
 While often used interchangeably, there is a technical distinction:
 *   **Loss Function:** Error for a **single** training example, e.g., $L = (y^{(i)} - \hat{y}^{(i)})^2$.
 *   **Cost Function** ($J$): Average of the loss functions for the **entire** training set.
-    $$ J(\theta) = \frac{1}{m} \sum_{i=1}^{m} L(y^{(i)}, \hat{y}^{(i)}) $$
+$$ J(\theta) = \frac{1}{m} \sum_{i=1}^{m} L(y^{(i)}, \hat{y}^{(i)}) $$
 
 ### 4. The Mean ($\mu$) / Expected Value $E[Y]$
 The center of gravity of a distribution.

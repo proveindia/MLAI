@@ -51,7 +51,7 @@ For a single feature $x$, we add powers ($x^2, x^3$).
 When we have multiple features ($x_1, x_2$), polynomial expansion creates **interaction terms** ($x_1 \cdot x_2$) which capture how features influence each other.
 
 *   **Degree 2 for ($x_1, x_2$):**
-    $$ [1, x_1, x_2, x_1^2, x_1 x_2, x_2^2] $$
+$$ [1, x_1, x_2, x_1^2, x_1 x_2, x_2^2] $$
 *   **Effect:** Matches complex decision boundaries but increases dimensionality rapidly.
 
 ### Formula
@@ -94,7 +94,7 @@ Systematically testing combinations of hyperparameters (e.g., `alpha` in Ridge, 
 
 *   **Grid Search:** Exhaustive search over specified parameter values.
 *   **Optimal ($\theta^*$):**
-    $$ \theta^* = \arg\max_{\theta} \text{CV-Score}(\theta) $$
+$$ \theta^* = \arg\max_{\theta} \text{CV-Score}(\theta) $$
 
 ### Standardization (Z-score Normalization)
 $$ x_{\text{scaled}} = \frac{x - \mu}{\sigma} $$

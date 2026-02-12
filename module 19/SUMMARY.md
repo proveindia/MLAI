@@ -25,11 +25,11 @@ graph TD
     I --> J[Funk SVD]
     I --> K[SVD++]
     I --> L[ALS]
+```
 
 *   **Content-Based Filtering:** Recommends items similar to those a user liked in the past, based on item attributes (e.g., genre, director).
 *   **Collaborative Filtering:** Relies on past interactions (ratings) of many users.
 *   **Funk SVD:** A specific matrix factorization technique using Gradient Descent to handle sparse matrices (missing ratings). Distinct from mathematical SVD which requires a full matrix.
-```
 
 *   **Alternating Least Squares (ALS):** Iterative optimization to find user and item factors.
 *   **Matrix Factorization (SVD):** Decomposing the user-item interaction matrix into lower-dimensional matrices.
@@ -82,6 +82,61 @@ The following parameters were tuned for the `SVD` algorithm:
 *   **`n_epochs`:** The number of iterations of the SGD procedure.
     *   *Range searched:* 20 to 50.
 
+## Learning Outcomes addressed
+
+### 1. Computing Missing Ratings
+Recommender systems deal with **Sparse Matrices**. Even if a user has rated only 10 items, we want to start computing the missing values (fills) based on patterns from similar users (Collaborative) or similar items (Content-based).
+
+### 2. Trade-off: Factors vs. Performance
+In Matrix Factorization (`n_factors`):
+*   **Too Few Factors (Underfitting):** The model cannot capture complex tastes (e.g., user likes "Dark Sci-Fi" but model only knows "Action").
+*   **Too Many Factors (Overfitting):** The model learns noise or specific random correlations for the training set, performing poorly on new data.
+
+### 3. Simon Funk SVD (Gradient Descent)
+Unlike the linear algebra SVD which defines $R = U \Sigma V^T$ (only works on full matrices), **Funk SVD** learns $P$ and $Q$ by iterating over *only* the known ratings.
+
+**Algorithm:**
+1.  Initialize $P$ and $Q$ randomly.
+2.  For each known rating $r_{ui}$:
+    *   Predict $\hat{r}_{ui} = P_u \cdot Q_i$.
+    *   Calculate error $e_{ui} = r_{ui} - \hat{r}_{ui}$.
+    *   Update user factor: $P_u \leftarrow P_u + \alpha (e_{ui} \cdot Q_i - \lambda P_u)$.
+    *   Update item factor: $Q_i \leftarrow Q_i + \alpha (e_{ui} \cdot P_u - \lambda Q_i)$.
+3.  Repeat until RMSE converges.
+
+![FunkSVD Optimization](images/funksvd_optimization.png)
+*Figure: Minimizing RMSE over epochs using Gradient Descent.*
+
+### 4. Surprise Library Workflow
+The `Surprise` library simplifies building and analyzing recommenders.
+
+```python
+from surprise import SVD, Dataset, Reader
+from surprise.model_selection import cross_validate
+
+# 1. Load Data
+data = Dataset.load_builtin('ml-100k')
+
+# 2. Define Algorithm
+algo = SVD(n_factors=100, n_epochs=20, lr_all=0.005, reg_all=0.02)
+
+# 3. Analyze
+cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
+```
+
+### 5. Why Hybrid Systems?
+*   **Cold Start Problem:** Collaborative filtering fails for new users/items (no history). Content-based can handle new items (via features).
+*   **Accuracy:** Combining methods often yields lower error (like Ensemble learning).
+*   **Robustness:** If one signal is noisy, the other might correct it.
+
+![Recommender Strategies](images/recommender_comparison.png)
+*Figure: Comparing Content-Based, Collaborative, and Hybrid approaches.*
+
+### 6. Serendipity and Surprise
+A good recommendation isn't just accurate; it can be **surprising**.
+*   **Over-specialization:** Content-based systems only show what you already like (e.g., if you liked Star Wars, here is Star Wars 2).
+*   **Serendipity:** Collaborative filtering can find latent connections (e.g., Sci-Fi fans also happened to like this specific Jazz album), identifying items a user wouldn't have found themselves.
+
 ## Key Formulas
 
 ### 1. Matrix Factorization (ALS Update Rule)
@@ -93,7 +148,7 @@ $$ R \approx P \times Q^T $$
 *   **$P$** (Pronounced: *P*): The User-Factor matrix.
 *   **$Q^T$** (Pronounced: *Q transpose*): The Factor-Item matrix.
 
-![Matrix Factorization](images/matrix_factorization.png)
+![Matrix Factorization](images/matrix_factorization_concept.png)
 *Figure 3: Visualizing the decomposition of the rating matrix into latent factors.*
 
 **ALS Update Rule:**

@@ -43,6 +43,34 @@ graph LR
     F --> H[Vectorization BoW/TF-IDF]
     G --> H
 ```
+## Learning Outcomes addressed
+
+### 1. Text vs. Numerical Data
+*   **Numerical Data:** Dense, structured, order matters (1 < 2), continuous or discrete.
+*   **Text Data:** High-dimensional, sparse, sequential context matters, unstructured.
+*   **Zipf's Law:** In any corpus, the frequency of any word is inversely proportional to its rank in the frequency table. A few words (the, of, and) appear very often, while most words appear rarely (long tail).
+
+![Zipf's Law](images/zipfs_law.png)
+*Figure: Zipf's Law illustrates the sparsity of text data.*
+
+### 2. Feature Extraction Decisions
+How do we decide what to extract?
+*   **Stopwords:** Remove if the task relies on keywords (e.g., Topic Modeling). Keep if grammar/negation matters (e.g., Sentiment Analysis "not good").
+*   **Stemming vs Lemmatization:** Use Stemming for speed/search. Use Lemmatization for accuracy/generation.
+*   **N-grams:** Use bigrams/trigrams to capture context ("New York" vs "New" + "York").
+
+### 3. Model Comparison for Text
+*   **Naive Bayes:** The baseline standard. Fast, effective for high dimensions (text), handles independence assumption surprisingly well.
+*   **Logistic Regression:** Often outperforms NB if data is dense enough. Good interpretability (weights = word importance).
+*   **TF-IDF vs BoW:**
+    *   **BoW:** Good for short texts where word frequency ≈ importance.
+    *   **TF-IDF:** Better for long documents to penalize common words and find specific keywords.
+
+![BoW vs TF-IDF](images/bow_vs_tfidf.png)
+*Figure: Heatmap comparison showing how TF-IDF down-weights common words like 'the'.*
+
+![Naive Bayes Boundary](images/naive_bayes_boundary.png)
+*Figure: Conceptual Naive Bayes decision boundary separating two text classes.*
 
 ## Key Formulas
 
@@ -85,7 +113,9 @@ $$ \text{TF-IDF}(t, d) = \text{TF}(t, d) \cdot \text{IDF}(t) $$
 
 *   **TF** (Term Frequency): How typically a word appears in a document.
 *   **IDF** (Inverse Document Frequency): How rare the word is across all documents.
-    $$ \text{IDF}(t) = \log \frac{N}{df(t)} $$
+
+$$ \text{IDF}(t) = \log \frac{N}{df(t)} $$
+
 *   **$N$** (Pronounced: *N*): Total number of documents.
 *   **$df(t)$** (Pronounced: *document frequency of t*): Number of documents containing term $t$.
 

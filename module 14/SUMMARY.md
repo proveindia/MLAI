@@ -137,7 +137,7 @@ In scikit-learn, feature importances are automatically normalized to sum to 1.
     *   9 "Yes" (Play)
     *   5 "No" (Don't Play)
 *   **Initial Entropy ($H_{parent}$):**
-    $$ H(D) = - (\frac{9}{14} \log_2 \frac{9}{14} + \frac{5}{14} \log_2 \frac{5}{14}) = 0.940 $$
+$$ H(D) = - (\frac{9}{14} \log_2 \frac{9}{14} + \frac{5}{14} \log_2 \frac{5}{14}) = 0.940 $$
 
 **Step 1: Evaluate "Outlook" Feature**
 *   **Sunny (5 days):** 2 Yes, 3 No. $\rightarrow H(Sunny) = 0.971$
@@ -170,6 +170,30 @@ Gini (Red) and Scaled Entropy (Green) are nearly identical in shape.
 *   **Visualizations:**
     *   **Decision Boundaries:** See how the tree uses thresholds on *Petal Length* and *Sepal Length* to separate classes (Figure 2).
     *   **Tree Structure:** Observe the actual splits (nodes) chosen by the algorithm to minimize impurity (Figure 3).
+
+### 12. Handling Imbalanced Data & SMOTE
+Decision Trees can be biased towards the majority class. If a dataset has 99% Class A and 1% Class B, a tree might minimize impurity by simply predicting Class A for everything (99% accuracy), failing to learn the minority class.
+
+**Solution: SMOTE (Synthetic Minority Over-sampling Technique)**
+Instead of simply duplicating minority samples (which leads to overfitting), SMOTE **generates synthetic** new examples.
+*   **Mechanism:** It selects a minority sample, finds its $k$ nearest neighbors, usually $k=5$, picks one neighbor, and places a new "synthetic" point on the line segment connecting them.
+*   **Result:** The decision boundary becomes more generalizable for the minority class.
+
+![SMOTE Concept Visualization](images/smote_concept.png)
+
+### 13. Advanced Tuning: Halving Strategies
+When hyperparameter spaces are large, standard `GridSearchCV` is slow because it trains *every* combination on the *full* dataset.
+
+**Solution: Halving Grid Search (Successive Halving)**
+This strategy uses a "tournament" approach:
+1.  **Round 1:** Train all candidates on a small subset of data (e.g., 100 samples).
+2.  **Elimination:** Keep only the top performing fraction (e.g., top 1/3).
+3.  **Round 2:** Train the survivors on more data (e.g., 300 samples).
+4.  **Repeat:** Until one candidate remains or full data is used.
+
+**Benefit:** Much faster than standard Grid Search while usually finding the same optimal parameters.
+
+![Halving Search Concept](images/halving_search_concept.png)
 
 ## Hyperparameters
 
@@ -303,6 +327,21 @@ print("Best Cross-Validation Score:", grid_search.best_score_)
 best_tree = grid_search.best_estimator_
 y_pred = best_tree.predict(X_test)
 print(f"Test Accuracy: {accuracy_score(y_test, y_pred):.3f}")
+```
+
+### 2b. Advanced Tuning: HalvingGridSearchCV (Faster)
+For large datasets, use `HalvingGridSearchCV` to speed up tuning.
+
+```python
+# Note: Experimental feature
+from sklearn.experimental import enable_halving_search_cv  # noqa
+from sklearn.model_selection import HalvingGridSearchCV
+
+halving_search = HalvingGridSearchCV(
+    estimator=tree, param_grid=param_grid, factor=3, cv=5, verbose=1
+)
+halving_search.fit(X_train, y_train)
+print("Best Params (Halving):", halving_search.best_params_)
 ```
 
 ### 3. Cost Complexity Pruning

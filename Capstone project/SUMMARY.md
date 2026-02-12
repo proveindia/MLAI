@@ -13,10 +13,10 @@ This Capstone Project addresses a critical challenge in e-commerce: **Inventory 
 To measure the accuracy of our sales predictions.
 
 *   **Mean Squared Error (MSE):** The average squared difference between predicted and actual sales.
-    $$ MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $$
+$$ MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $$
 
 *   **R-squared ($R^2$):** The proportion of variance in sales explained by the model.
-    $$ R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2} $$
+$$ R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2} $$
 
 ### 2. Logistic Regression (Classification)
 Used for the "High Demand" binary classification. It estimates the probability $P(y=1)$ using the **Sigmoid Function**:

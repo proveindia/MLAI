@@ -115,18 +115,18 @@ $$ P(y=k|x) = \frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}} $$
 
 ```mermaid
 graph TD
-    subgraph Predicted Positive
+    subgraph "Predicted Positive"
     TP[True Positive<br>(Correct)]
     FP[False Positive<br>(Type I Error)]
     end
-    subgraph Predicted Negative
+    subgraph "Predicted Negative"
     FN[False Negative<br>(Type II Error)]
     TN[True Negative<br>(Correct)]
     end
-    Actual_Pos-->TP
-    Actual_Pos-->FN
-    Actual_Neg-->FP
-    Actual_Neg-->TN
+    AP[Actual Positive] --> TP
+    AP --> FN
+    AN[Actual Negative] --> FP
+    AN --> TN
     style TP fill:#9f9,stroke:#333,stroke-width:2px
     style TN fill:#9f9,stroke:#333,stroke-width:2px
     style FP fill:#f99,stroke:#333,stroke-width:2px

@@ -1737,7 +1737,102 @@ plt.savefig('module 14/images/tree_structure_viz.png', dpi=300, bbox_inches='tig
 plt.close()
 print("Created: tree_structure_viz.png")
 
-print("\nModule 14 complete: 5 visualizations created\n")
+print("Created: tree_structure_viz.png")
+
+# 6. SMOTE Concept Visualization
+# Generate synthetic imbalanced data
+from sklearn.datasets import make_classification
+X_smote, y_smote = make_classification(n_samples=50, n_features=2, n_redundant=0, 
+                                       n_clusters_per_class=1, weights=[0.90], flip_y=0, random_state=1)
+
+# Identify minority class
+minority_mask = y_smote == 1
+X_minority = X_smote[minority_mask]
+X_majority = X_smote[~minority_mask]
+
+# Create figure
+plt.figure(figsize=(10, 6))
+
+# Plot original data
+plt.scatter(X_majority[:, 0], X_majority[:, 1], c='blue', label='Majority Class (0)', alpha=0.5)
+plt.scatter(X_minority[:, 0], X_minority[:, 1], c='red', label='Minority Class (1)', s=100, edgecolor='k')
+
+# Illustrate SMOTE: Draw lines between random minority neighbors and add synthetic points
+np.random.seed(42)
+for i in range(len(X_minority)):
+    # Find a random neighbor (conceptually)
+    neighbor_idx = (i + 1) % len(X_minority)
+    p1 = X_minority[i]
+    p2 = X_minority[neighbor_idx]
+    
+    # Draw line
+    plt.plot([p1[0], p2[0]], [p1[1], p2[1]], 'k--', alpha=0.3)
+    
+    # Generate synthetic point
+    ratio = np.random.rand()
+    synthetic_point = p1 + ratio * (p2 - p1)
+    
+    if i == 0: # Label only once
+        plt.scatter(synthetic_point[0], synthetic_point[1], c='lime', marker='*', s=200, label='Analytically Generated (SMOTE)', edgecolor='k', zorder=10)
+    else:
+        plt.scatter(synthetic_point[0], synthetic_point[1], c='lime', marker='*', s=200, edgecolor='k', zorder=10)
+
+plt.title('SMOTE: Synthetic Minority Over-sampling Technique', fontweight='bold')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 14/images/smote_concept.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: smote_concept.png")
+
+print("Created: smote_concept.png")
+
+# 7. Halving Search Concept (Tournament)
+plt.figure(figsize=(12, 6))
+
+# Mock data for visualization
+rounds = ['Round 1\n(All Candidates)', 'Round 2\n(Top 1/3)', 'Round 3\n(Final Winner)']
+n_candidates = [27, 9, 3]
+resources = [100, 300, 900] # Increasing resources
+
+# Plotting the reduction in candidates
+ax1 = plt.subplot(1, 2, 1)
+bars = ax1.bar(rounds, n_candidates, color=['#ff9999', '#66b3ff', '#99ff99'])
+ax1.set_ylabel('Number of Candidate Models')
+ax1.set_title('Successive Halving Elimination', fontweight='bold')
+ax1.grid(axis='y', alpha=0.3)
+
+# Add text labels
+for bar in bars:
+    height = bar.get_height()
+    ax1.text(bar.get_x() + bar.get_width()/2., height + 0.5,
+            '%d' % int(height),
+            ha='center', va='bottom', fontsize=12)
+
+# Plotting the increase in resources
+ax2 = plt.subplot(1, 2, 2)
+bars2 = ax2.bar(rounds, resources, color=['#ffcc99', '#c2c2f0', '#ffb3e6'])
+ax2.set_ylabel('Resources per Model (e.g., Samples)')
+ax2.set_title('Resource Allocation Strategy', fontweight='bold')
+ax2.grid(axis='y', alpha=0.3)
+
+for bar in bars2:
+    height = bar.get_height()
+    ax2.text(bar.get_x() + bar.get_width()/2., height + 20,
+            '%d' % int(height),
+            ha='center', va='bottom', fontsize=12)
+
+plt.suptitle('Halving Grid Search: "Tournament" Approach', fontsize=16, fontweight='bold')
+plt.tight_layout()
+plt.subplots_adjust(top=0.85)
+plt.savefig('module 14/images/halving_search_concept.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: halving_search_concept.png")
+
+
+print("\nModule 14 complete: 7 visualizations created\n")
 print("Created: breast_cancer_viz.png")
 
 # 9. OVO vs OVR Conceptual Visualization
@@ -1994,3 +2089,346 @@ plt.close()
 print("Created: gd_vs_sgd_path.png")
 
 print("\nModule 15 complete: 4 visualizations created\n")
+
+# ============================================================================
+# MODULE 16 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 16: Support Vector Machines (SVM) ###\n")
+os.makedirs('module 16/images', exist_ok=True)
+
+from sklearn.svm import SVC
+from sklearn.datasets import make_blobs, make_circles, make_moons
+
+# 1. Hard vs Soft Margin (Effect of C)
+X_svm, y_svm = make_blobs(n_samples=100, centers=2, random_state=6, cluster_std=1.2) # Overlapping blobs
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+for ax, C_val, title in zip(axes, [0.1, 100], ['Soft Margin (Low C, High Bias)', 'Hard Margin (High C, Low Bias)']):
+    clf = SVC(kernel='linear', C=C_val)
+    clf.fit(X_svm, y_svm)
+    
+    # Plot data
+    ax.scatter(X_svm[:, 0], X_svm[:, 1], c=y_svm, s=50, cmap='autumn')
+    
+    # Plot decision boundary and margins
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+    
+    xx = np.linspace(xlim[0], xlim[1], 30)
+    yy = np.linspace(ylim[0], ylim[1], 30)
+    YY, XX = np.meshgrid(yy, xx)
+    xy = np.vstack([XX.ravel(), YY.ravel()]).T
+    Z = clf.decision_function(xy).reshape(XX.shape)
+    
+    # Plot boundary and margins
+    ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
+               linestyles=['--', '-', '--'])
+    
+    # Highlight support vectors
+    ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
+               linewidth=1, facecolors='none', edgecolors='k')
+    
+    ax.set_title(f'{title}\nC={C_val}', fontweight='bold')
+    ax.set_xlabel('Feature 1')
+    ax.set_ylabel('Feature 2')
+
+plt.tight_layout()
+plt.savefig('module 16/images/hard_soft_margin.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: hard_soft_margin.png")
+
+# 2. SVM Margin Visualization (Detailed)
+# Use separable data for clear margin visual
+X_sep, y_sep = make_blobs(n_samples=50, centers=2, random_state=6, cluster_std=0.8)
+
+clf = SVC(kernel='linear', C=10) # Hard marginish
+clf.fit(X_sep, y_sep)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(X_sep[:, 0], X_sep[:, 1], c=y_sep, s=50, cmap='autumn')
+
+# Get current axis
+ax = plt.gca()
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+xx = np.linspace(xlim[0], xlim[1], 30)
+yy = np.linspace(ylim[0], ylim[1], 30)
+YY, XX = np.meshgrid(yy, xx)
+xy = np.vstack([XX.ravel(), YY.ravel()]).T
+Z = clf.decision_function(xy).reshape(XX.shape)
+
+# Plot boundary
+ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5, linestyles=['--', '-', '--'])
+
+# Highlight support vectors
+ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=200,
+           linewidth=2, facecolors='none', edgecolors='k', label='Support Vectors')
+
+plt.title('Maximum Margin Hyperplane', fontweight='bold')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.legend(loc='lower right')
+plt.grid(True, alpha=0.3)
+plt.savefig('module 16/images/svm_margin.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: svm_margin.png")
+
+# 3. Kernel Trick (Conceptual 3D)
+from mpl_toolkits.mplot3d import Axes3D
+
+X_circle, y_circle = make_circles(n_samples=300, factor=0.1, noise=0.1, random_state=42)
+# Feature engineering: z = x^2 + y^2 (RBF-like mapping)
+z = X_circle[:, 0]**2 + X_circle[:, 1]**2
+
+fig = plt.figure(figsize=(14, 6))
+
+# 2D View
+ax1 = fig.add_subplot(1, 2, 1)
+ax1.scatter(X_circle[:, 0], X_circle[:, 1], c=y_circle, cmap='viridis', edgecolors='k')
+ax1.set_title('Original 2D Data\n(Not Linearly Separable)', fontweight='bold')
+ax1.set_xlabel('X1')
+ax1.set_ylabel('X2')
+
+# 3D View
+ax2 = fig.add_subplot(1, 2, 2, projection='3d')
+ax2.scatter(X_circle[:, 0], X_circle[:, 1], z, c=y_circle, cmap='viridis', edgecolors='k', s=40)
+ax2.set_title('Mapped to 3D ($z = x_1^2 + x_2^2$)\n(Linearly Separable by Hyperplane)', fontweight='bold')
+ax2.set_xlabel('X1')
+ax2.set_ylabel('X2')
+ax2.set_zlabel('Z (New Feature)')
+
+# Draw a conceptual hyperplane (plane at z=constant)
+xx, yy = np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-1, 1, 10))
+zz = np.ones_like(xx) * 0.5 # Threshold
+ax2.plot_surface(xx, yy, zz, alpha=0.2, color='red')
+
+plt.tight_layout()
+plt.savefig('module 16/images/kernel_trick.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: kernel_trick.png")
+
+# 4. Kernel Matrix Heatmap
+# Use small subset
+X_tiny = X_sep[:20] 
+# Compute RBF Kernel Matrix manually: K(x, y) = exp(-gamma * ||x-y||^2)
+from sklearn.metrics.pairwise import rbf_kernel
+
+gamma = 0.5
+K = rbf_kernel(X_tiny, gamma=gamma)
+
+plt.figure(figsize=(8, 7))
+plt.imshow(K, cmap='hot', interpolation='nearest')
+plt.colorbar(label='Similarity (1.0 = Identical)')
+plt.title(f'RBF Kernel Matrix (Gram Matrix)\n$\gamma={gamma}$', fontweight='bold')
+plt.xlabel('Sample Index')
+plt.ylabel('Sample Index')
+plt.savefig('module 16/images/kernel_matrix.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: kernel_matrix.png")
+
+print("\nModule 16 complete: 4 visualizations created\n")
+
+# ============================================================================
+# MODULE 18 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 18: Natural Language Processing (NLP) ###\n")
+os.makedirs('module 18/images', exist_ok=True)
+
+# 1. Zipf's Law (Text vs Numerical Data)
+# Simulate word frequencies following power law
+ranks = np.arange(1, 1001)
+frequencies = 10000 / ranks
+log_ranks = np.log10(ranks)
+log_freqs = np.log10(frequencies)
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# Linear Scale
+axes[0].plot(ranks, frequencies, color='purple', linewidth=2)
+axes[0].fill_between(ranks, frequencies, color='purple', alpha=0.3)
+axes[0].set_title("Word Frequency Distribution (Zipf's Law)\nHighly Skewed (Sparsity)", fontweight='bold')
+axes[0].set_xlabel("Rank (Most to Least Frequent)")
+axes[0].set_ylabel("Frequency")
+axes[0].grid(True, alpha=0.3)
+axes[0].text(300, 2000, "Few words are very common\nMany words are rare", fontsize=12)
+
+# Log-Log Scale
+axes[1].plot(log_ranks, log_freqs, color='green', linewidth=2)
+axes[1].set_title("Log-Log Plot of Word Frequency\n(Linear Relationship)", fontweight='bold')
+axes[1].set_xlabel("Log(Rank)")
+axes[1].set_ylabel("Log(Frequency)")
+axes[1].grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('module 18/images/zipfs_law.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: zipfs_law.png")
+
+# 2. BoW vs TF-IDF Heatmap
+# Mock document-term matrices
+docs = ["the cat sat", "the dog sat", "cat ate mouse"]
+vocab = ["the", "cat", "sat", "dog", "ate", "mouse"]
+
+# BoW (Count)
+bow_matrix = np.array([
+    [1, 1, 1, 0, 0, 0],
+    [1, 0, 1, 1, 0, 0],
+    [0, 1, 0, 0, 1, 1]
+])
+
+# TF-IDF (Weighted - simple mock calculation)
+# IDF: log(3/df). df(the)=2, df(cat)=2, df(sat)=2, df(dog)=1...
+# 'dog' is rarer, gets higher weight per occurrence
+tfidf_matrix = np.array([
+    [0.5, 0.8, 0.5, 0.0, 0.0, 0.0],
+    [0.5, 0.0, 0.5, 1.2, 0.0, 0.0],
+    [0.0, 0.8, 0.0, 0.0, 1.2, 1.2]
+])
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+sns.heatmap(bow_matrix, annot=True, cmap='Blues', xticklabels=vocab, yticklabels=[f'Doc {i+1}' for i in range(3)], ax=axes[0], cbar=False)
+axes[0].set_title("Bag of Words (Raw Counts)\nFrequent words dominate", fontweight='bold')
+
+sns.heatmap(tfidf_matrix, annot=True, cmap='Reds', xticklabels=vocab, yticklabels=[f'Doc {i+1}' for i in range(3)], ax=axes[1], cbar=False)
+axes[1].set_title("TF-IDF (Weighted)\nRare words (specific content) emphasized", fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('module 18/images/bow_vs_tfidf.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: bow_vs_tfidf.png")
+
+# 3. Naive Bayes Decision Boundary (Conceptual)
+from sklearn.naive_bayes import GaussianNB
+# Use blobs to simulate text clusters in 2D (e.g. after PCA)
+X_nb, y_nb = make_blobs(n_samples=200, centers=2, random_state=42, cluster_std=2.5)
+gnb = GaussianNB()
+gnb.fit(X_nb, y_nb)
+
+plt.figure(figsize=(8, 6))
+# Plot data
+plt.scatter(X_nb[:, 0], X_nb[:, 1], c=y_nb, cmap='coolwarm', edgecolors='k', s=50, alpha=0.7)
+
+# Plot boundary
+xlim = plt.gca().get_xlim()
+ylim = plt.gca().get_ylim()
+xx = np.linspace(xlim[0], xlim[1], 100)
+yy = np.linspace(ylim[0], ylim[1], 100)
+YY, XX = np.meshgrid(yy, xx)
+xy = np.vstack([XX.ravel(), YY.ravel()]).T
+Z = gnb.predict_proba(xy)[:, 1].reshape(XX.shape)
+
+plt.contour(XX, YY, Z, levels=[0.5], colors='k', linewidths=2)
+plt.contourf(XX, YY, Z, levels=20, cmap='coolwarm', alpha=0.2)
+
+plt.title("Naive Bayes Classification Boundary\n(Probabilistic Separation)", fontweight='bold')
+plt.xlabel("Latent Feature 1 (e.g., PCA of TF-IDF)")
+plt.ylabel("Latent Feature 2")
+plt.text(xlim[0]+1, ylim[0]+1, "Class 0 (e.g., Spam)", fontsize=10, fontweight='bold', color='blue')
+plt.text(xlim[1]-4, ylim[1]-1, "Class 1 (e.g., Ham)", fontsize=10, fontweight='bold', color='red')
+
+plt.tight_layout()
+plt.savefig('module 18/images/naive_bayes_boundary.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: naive_bayes_boundary.png")
+
+print("\nModule 18 complete: 3 visualizations created\n")
+
+# ============================================================================
+# MODULE 19 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 19: Recommender Systems ###\n")
+os.makedirs('module 19/images', exist_ok=True)
+
+# 1. Matrix Factorization (Visual Concept)
+# Create a small dense matrix R approx P x Q^T
+P = np.array([[1.2, 0.8], [0.4, 1.5], [1.1, 0.2]]) # 3 Users x 2 Factors
+Q = np.array([[1.5, 0.9], [0.6, 1.3], [1.1, 0.5], [0.3, 1.6]]) # 4 Items x 2 Factors
+R_prime = np.dot(P, Q.T) # 3 x 4
+
+fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+
+# User Factors P
+sns.heatmap(P, annot=True, cmap='Blues', ax=axes[0], cbar=False,
+            xticklabels=['F1', 'F2'], yticklabels=['User 1', 'User 2', 'User 3'])
+axes[0].set_title("User Factors (P)\n(Preferences)", fontweight='bold')
+
+# Item Factors Q^T
+sns.heatmap(Q.T, annot=True, cmap='Greens', ax=axes[1], cbar=False,
+            xticklabels=['Item A', 'Item B', 'Item C', 'Item D'], yticklabels=['F1', 'F2'])
+axes[1].set_title("Item Factors (Q^T)\n(Characteristics)", fontweight='bold')
+
+# Resulting Ratings R
+sns.heatmap(R_prime, annot=True, cmap='Purples', ax=axes[2], cbar=False,
+            xticklabels=['Item A', 'Item B', 'Item C', 'Item D'], yticklabels=['User 1', 'User 2', 'User 3'])
+axes[2].set_title("Predicted Ratings (R ≈ P × Q^T)\n(reconstructed)", fontweight='bold')
+
+axes[0].text(2.5, 1.5, "×", fontsize=40, fontweight='bold', va='center')
+axes[1].text(4.5, 1.0, "=", fontsize=40, fontweight='bold', va='center')
+
+plt.suptitle('Matrix Factorization: Decomposing Ratings into Latent Factors', fontsize=16, fontweight='bold')
+plt.tight_layout()
+plt.savefig('module 19/images/matrix_factorization_concept.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: matrix_factorization_concept.png")
+
+# 2. FunkSVD Optimization (Error vs Epochs)
+epochs = np.arange(1, 21)
+# Simulated error curve (exponential decay)
+train_rmse = 1.8 * np.exp(-0.2 * epochs) + 0.8
+test_rmse = 1.8 * np.exp(-0.15 * epochs) + 0.95 # Overfitting slightly later
+
+plt.figure(figsize=(10, 6))
+plt.plot(epochs, train_rmse, 'b-o', label='Training RMSE')
+plt.plot(epochs, test_rmse, 'r--s', label='Test RMSE')
+
+plt.title('FunkSVD Optimization: RMSE over Epochs', fontweight='bold')
+plt.xlabel('Epoch (Iteration)')
+plt.ylabel('RMSE (Error)')
+plt.xticks(epochs)
+plt.grid(True, alpha=0.3)
+plt.legend()
+
+# Annotation
+plt.annotate('Optimal Stop\n(Before Overfitting)', xy=(12, 1.05), xytext=(15, 1.3),
+             arrowprops=dict(facecolor='black', shrink=0.05), fontsize=10, fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('module 19/images/funksvd_optimization.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: funksvd_optimization.png")
+
+# 3. Content-Based vs Collaborative Filtering (Venn/Comaprison)
+fig, ax = plt.subplots(figsize=(12, 6))
+
+# Draw circles
+circle1 = plt.Circle((0.35, 0.5), 0.3, color='lightblue', alpha=0.6)
+circle2 = plt.Circle((0.65, 0.5), 0.3, color='lightgreen', alpha=0.6)
+
+ax.add_patch(circle1)
+ax.add_patch(circle2)
+
+ax.text(0.2, 0.5, "Content-Based\n\n• User Profile\n• Item Features\n• No Community Needed\n• Cold Start (User): OK", 
+        ha='center', va='center', fontsize=11)
+ax.text(0.8, 0.5, "Collaborative Filtering\n\n• Community Ratings\n• Latent Factors\n• Serendipity\n• Cold Start (Item): Hard", 
+        ha='center', va='center', fontsize=11)
+ax.text(0.5, 0.5, "Hybrid\n\nWeighted\nSwitching\nMixed", 
+        ha='center', va='center', fontsize=11, fontweight='bold')
+
+ax.set_xlim(0, 1)
+ax.set_ylim(0, 1)
+ax.axis('off')
+ax.set_title("Recommender Strategies Comparison", fontweight='bold', fontsize=16)
+
+plt.tight_layout()
+plt.savefig('module 19/images/recommender_comparison.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: recommender_comparison.png")
+
+print("\nModule 19 complete: 3 visualizations created\n")
+
+print("="*70)
+print("ALL VISUALIZATIONS GENERATED SUCCESSFULLY")
+print("="*70)
