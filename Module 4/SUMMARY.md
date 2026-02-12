@@ -43,13 +43,21 @@ $$ z = \frac{x - \mu}{\sigma} $$
 
 *   If $|z| > 3$, the point is typically considered an **outlier**.
 
-### 2. Interquartile Range (IQR)
-Used for outlier detection in boxplots.
+### 2. Interquartile Range (IQR) & Quartiles
+The IQR is a robust measure of statistical dispersion, representing the range of the middle 50% of the data. Unlike the range (Max - Min), it is not sensitive to outliers.
 
+#### Components
+*   **Q1 (25th Percentile):** The value below which 25% of the data falls.
+*   **Q2 (50th Percentile):** The **Median**. Splits the data in half.
+*   **Q3 (75th Percentile):** The value below which 75% of the data falls.
+
+#### Formula
 $$ IQR = Q3 - Q1 $$
 
+#### Outlier Detection Rule (Tukey's Fences)
 *   **Lower Bound:** $Q1 - 1.5 \times IQR$
 *   **Upper Bound:** $Q3 + 1.5 \times IQR$
+*   Any data point outside these bounds is statistically considered an **outlier**.
 
 ## Code for Learning
 

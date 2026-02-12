@@ -385,7 +385,45 @@ plt.savefig('module 2/images/skewness_comparison.png', dpi=300, bbox_inches='tig
 plt.close()
 print("Created: skewness_comparison.png")
 
-print("\nModule 2 complete: 3 visualizations created\n")
+# 4. Kurtosis Comparison
+fig, ax = plt.subplots(figsize=(10, 6))
+
+x = np.linspace(-5, 5, 1000)
+
+# Mesokurtic (Normal)
+y_meso = stats.norm.pdf(x, 0, 1)
+ax.plot(x, y_meso, 'b-', linewidth=3, label='Mesokurtic (Normal)\nKurtosis ≈ 3')
+ax.fill_between(x, y_meso, alpha=0.1, color='blue')
+
+# Leptokurtic (Laplace - Peaked, Heavy Tails)
+# Scale so variance is similar for visual comparison of shape
+y_lepto = stats.laplace.pdf(x, 0, 1/np.sqrt(2)) 
+ax.plot(x, y_lepto, 'r--', linewidth=2, label='Leptokurtic (Peaked, Heavy Tails)\nKurtosis > 3')
+
+# Platykurtic (Wigner Semicircle / Uniform-like - Flat, Light Tails)
+# Using Cosine distribution as a smooth platykurtic example
+y_platy = stats.cosine.pdf(x, 0, np.pi) # Variance is different but shape is clear
+ax.plot(x, y_platy, 'g:', linewidth=3, label='Platykurtic (Flat, Light Tails)\nKurtosis < 3')
+
+ax.set_title('Kurtosis: The Measure of "Tailedness"', fontsize=16, fontweight='bold')
+ax.set_xlabel('Value (Centered)', fontsize=12)
+ax.set_ylabel('Probability Density', fontsize=12)
+ax.legend(fontsize=11)
+ax.grid(True, alpha=0.3)
+ax.set_ylim(0, 0.8)
+
+# Annotations
+ax.text(0, 0.72, 'Leptokurtic\nPeak', ha='center', color='red', fontweight='bold')
+ax.text(2.5, 0.05, 'Heavy\nTail', ha='center', color='red', fontweight='bold')
+ax.text(0, 0.35, 'Mesokurtic', ha='center', color='blue', fontweight='bold')
+ax.text(0.8, 0.25, 'Platykurtic\nShoulder', ha='center', color='green', fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('module 2/images/kurtosis_comparison.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: kurtosis_comparison.png")
+
+print("\nModule 2 complete: 4 visualizations created\n")
 
 # ============================================================================
 # MODULE 3 VISUALIZATIONS
@@ -587,6 +625,439 @@ print("Created: eda_techniques.png")
 
 print("\nModule 4 complete: 3 visualizations created\n")
 
+# ============================================================================
+# MODULE 6 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 6: Unsupervised Learning ###\n")
+os.makedirs('module 6/images', exist_ok=True)
+
+# 1. PCA of Wine Dataset
+from sklearn.datasets import load_wine
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
+data_wine = load_wine()
+X_wine = data_wine.data
+y_wine = data_wine.target
+target_names = data_wine.target_names
+
+# Standardize
+scaler = StandardScaler()
+X_scaled_wine = scaler.fit_transform(X_wine)
+
+# PCA
+pca = PCA(n_components=2)
+X_pca_wine = pca.fit_transform(X_scaled_wine)
+
+# Plot
+plt.figure(figsize=(10, 7))
+scatter = plt.scatter(X_pca_wine[:, 0], X_pca_wine[:, 1], c=y_wine, cmap='viridis', edgecolor='k', s=70, alpha=0.8)
+plt.xlabel('Principal Component 1', fontsize=12)
+plt.ylabel('Principal Component 2', fontsize=12)
+plt.title('PCA of Wine Dataset\n(13 Features -> 2 Dimensions)', fontsize=16, fontweight='bold')
+plt.colorbar(scatter, label='Target Class', ticks=[0, 1, 2])
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 6/images/pca_wine_dataset.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: pca_wine_dataset.png")
+
+print("\nModule 6 complete: 1 visualization created\n")
+
 print("="*70)
 print("ALL VISUALIZATIONS GENERATED SUCCESSFULLY")
 print("="*70)
+
+# ============================================================================
+# MODULE 7 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 7: Optimization ###\n")
+os.makedirs('module 7/images', exist_ok=True)
+
+# 1. Loss Function Comparison (L1 vs L2)
+x = np.linspace(-3, 3, 500)
+mae = np.abs(x)
+mse = x**2
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, mae, 'b--', linewidth=2, label='L1 Loss (MAE) - Absolute Error')
+plt.plot(x, mse, 'r-', linewidth=2, label='L2 Loss (MSE) - Squared Error')
+
+plt.title('Loss Functions Comparison: L1 vs L2', fontsize=16, fontweight='bold')
+plt.xlabel('Error (Residual)', fontsize=12)
+plt.ylabel('Loss Value', fontsize=12)
+plt.legend(fontsize=12)
+plt.grid(True, alpha=0.3)
+plt.axhline(0, color='black', linewidth=1)
+plt.axvline(0, color='black', linewidth=1)
+
+# Annotations
+plt.text(2, 4.2, 'MSE penalizes\nlarge errors more', ha='center', color='red', fontweight='bold')
+plt.text(2, 1.5, 'MAE is linear\n(Robust to outliers)', ha='center', color='blue', fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('module 7/images/loss_function_comparison.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: loss_function_comparison.png")
+
+print("\nModule 7 complete: 1 visualization created\n")
+
+# ============================================================================
+# MODULE 8 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 8: Feature Engineering & Overfitting ###\n")
+os.makedirs('module 8/images', exist_ok=True)
+
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+
+# 1. Polynomial Regression (Underfitting vs Optimal vs Overfitting)
+np.random.seed(0)
+n_samples = 30
+X = np.sort(np.random.rand(n_samples))
+y = np.cos(1.5 * np.pi * X) + np.random.randn(n_samples) * 0.1
+
+plt.figure(figsize=(14, 5))
+degrees = [1, 4, 15]
+titles = ['Underfitting (Degree 1)\nHigh Bias', 'Optimal Fit (Degree 4)\nGeneralizes Well', 'Overfitting (Degree 15)\nHigh Variance']
+
+for i, degree in enumerate(degrees):
+    ax = plt.subplot(1, 3, i + 1)
+    
+    # Fit Polynomial
+    polynomial_features = PolynomialFeatures(degree=degree, include_bias=False)
+    linear_regression = LinearRegression()
+    pipeline = Pipeline([("polynomial_features", polynomial_features),
+                         ("linear_regression", linear_regression)])
+    pipeline.fit(X[:, np.newaxis], y)
+
+    # Convert features for plotting
+    X_test = np.linspace(0, 1, 100)
+    
+    plt.plot(X_test, pipeline.predict(X_test[:, np.newaxis]), label="Model", linewidth=2)
+    plt.plot(X_test, np.cos(1.5 * np.pi * X_test), label="True Function", linestyle="--")
+    plt.scatter(X, y, edgecolor='b', s=20, label="Samples")
+    
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.xlim((0, 1))
+    plt.ylim((-2, 2))
+    plt.legend(loc="best")
+    plt.title(titles[i], fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('module 8/images/polynomial_regression_fit.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: polynomial_regression_fit.png")
+
+# 2. Bias-Variance Tradeoff (Generalization Error)
+complexity = np.linspace(1, 10, 100)
+bias_squared = 1 / complexity  # Decreases with complexity
+variance = 0.05 * np.exp(0.4 * complexity) # Increases with complexity
+total_error = bias_squared + variance + 0.5 # Total Error + Irreducible noise
+
+plt.figure(figsize=(8, 6))
+plt.plot(complexity, total_error, 'k-', linewidth=3, label='Total Error (Generalization)')
+plt.plot(complexity, bias_squared, 'b--', linewidth=2, label='Bias^2 (Underfitting)')
+plt.plot(complexity, variance, 'r--', linewidth=2, label='Variance (Overfitting)')
+
+# Optimal Point
+min_idx = np.argmin(total_error)
+plt.axvline(complexity[min_idx], color='green', linestyle=':', linewidth=2, label='Optimal Complexity')
+
+plt.xlabel('Model Complexity', fontsize=12)
+plt.ylabel('Error', fontsize=12)
+plt.title('Bias-Variance Tradeoff', fontsize=16, fontweight='bold')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# Annotations
+plt.text(1.5, 3.5, 'High Bias\n(Underfitting)', ha='center', color='blue', fontweight='bold')
+plt.text(9, 3.5, 'High Variance\n(Overfitting)', ha='center', color='red', fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('module 8/images/bias_variance_tradeoff.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: bias_variance_tradeoff.png")
+
+print("\nModule 8 complete: 2 visualizations created\n")
+
+# ============================================================================
+# MODULE 9 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 9: Regularization & Feature Selection ###\n")
+os.makedirs('module 9/images', exist_ok=True)
+
+from sklearn.linear_model import Ridge, Lasso
+from sklearn.preprocessing import StandardScaler
+
+# 1. Regularization Path (Ridge vs Lasso)
+# Demonstrate how coefficients shrink with alpha
+np.random.seed(42)
+n_samples, n_features = 50, 10
+X = np.random.randn(n_samples, n_features)
+# Some features are informative, others are noise
+coef = 3 * np.random.randn(n_features)
+inds = np.arange(n_features)
+np.random.shuffle(inds)
+coef[inds[5:]] = 0  # Sparsify coef
+y = np.dot(X, coef) + 0.1 * np.random.normal(size=n_samples)
+
+alphas = np.logspace(-4, 4, 100)
+
+coefs_ridge = []
+coefs_lasso = []
+
+for a in alphas:
+    ridge = Ridge(alpha=a)
+    ridge.fit(X, y)
+    coefs_ridge.append(ridge.coef_)
+    
+    lasso = Lasso(alpha=a)
+    lasso.fit(X, y)
+    coefs_lasso.append(lasso.coef_)
+
+plt.figure(figsize=(14, 6))
+
+ax1 = plt.subplot(1, 2, 1)
+ax1.plot(alphas, coefs_ridge)
+ax1.set_xscale('log')
+ax1.set_xlabel('Alpha (Regularization Strength)')
+ax1.set_ylabel('Coefficients')
+ax1.set_title('Ridge Path (L2)\nCoefficients shrink but stay non-zero')
+ax1.axis('tight')
+ax1.grid(True, alpha=0.3)
+
+ax2 = plt.subplot(1, 2, 2)
+ax2.plot(alphas, coefs_lasso)
+ax2.set_xscale('log')
+ax2.set_xlabel('Alpha (Regularization Strength)')
+ax2.set_title('Lasso Path (L1)\nCoefficients drop to zero (Feature Selection)')
+ax2.axis('tight')
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('module 9/images/regularization_path.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: regularization_path.png")
+
+# 2. Cross Validation Types Diagram
+# Conceptual visualization
+plt.figure(figsize=(12, 8))
+
+# Data representation
+data_len = 20
+data_bar = np.ones((1, data_len))
+
+# 1. Holdout
+plt.subplot(4, 1, 1)
+plt.title("Holdout Method (Train/Test Split)", fontsize=12, fontweight='bold', loc='left')
+plt.barh(y=0, width=data_len*0.7, left=0, height=0.5, color='blue', label='Train')
+plt.barh(y=0, width=data_len*0.3, left=data_len*0.7, height=0.5, color='orange', label='Test')
+plt.xlim(0, data_len)
+plt.axis('off')
+plt.legend(loc='lower right', bbox_to_anchor=(1.1, 0))
+
+# 2. K-Fold (K=5)
+plt.subplot(4, 1, 2)
+plt.title("K-Fold Cross-Validation (K=5)", fontsize=12, fontweight='bold', loc='left')
+for k in range(5):
+    fold_size = data_len / 5
+    start = k * fold_size
+    plt.barh(y=k, width=data_len, left=0, height=0.6, color='blue', alpha=0.3) # Train background
+    plt.barh(y=k, width=fold_size, left=start, height=0.6, color='orange', label='Validation' if k==0 else "") # Val fold
+    plt.text(-1, k, f"Fold {k+1}", va='center', fontsize=10)
+
+plt.xlim(0, data_len)
+plt.axis('off')
+
+# 3. Leave-One-Out (LOOCV)
+plt.subplot(4, 1, 3)
+plt.title("Leave-One-Out CV (N Iterations)", fontsize=12, fontweight='bold', loc='left')
+# Show first 5 iterations
+for i in range(5):
+    plt.barh(y=i, width=data_len, left=0, height=0.6, color='blue', alpha=0.3)
+    plt.barh(y=i, width=1, left=i, height=0.6, color='orange')
+    plt.text(-1, i, f"Iter {i+1}", va='center', fontsize=10)
+
+plt.text(data_len/2, 2, "...", fontsize=20, ha='center')
+plt.xlim(0, data_len)
+plt.axis('off')
+
+plt.tight_layout()
+plt.savefig('module 9/images/cv_types_comparison.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: cv_types_comparison.png")
+
+print("\nModule 9 complete: 2 visualizations created\n")
+
+# ============================================================================
+# MODULE 10 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 10: Time Series Analysis ###\n")
+os.makedirs('module 10/images', exist_ok=True)
+
+# 1. Stationary vs Non-Stationary
+np.random.seed(42)
+t = np.arange(100)
+# Non-Stationary (Trend + Seasonality)
+trend = 0.5 * t
+seasonality = 10 * np.sin(2 * np.pi * t / 12)
+noise = np.random.normal(0, 2, 100)
+non_stationary = trend + seasonality + noise
+
+# Stationary (Differenced)
+stationary = np.diff(non_stationary)
+
+plt.figure(figsize=(12, 6))
+
+plt.subplot(1, 2, 1)
+plt.plot(t, non_stationary, 'b-', label='Raw Data')
+plt.title('Non-Stationary\n(Trend + Seasonality + Changing Mean)', fontweight='bold')
+plt.xlabel('Time')
+plt.ylabel('Value')
+plt.grid(True, alpha=0.3)
+
+plt.subplot(1, 2, 2)
+plt.plot(t[1:], stationary, 'g-', label='Differenced')
+plt.title('Stationary\n(Constant Mean & Variance)', fontweight='bold')
+plt.xlabel('Time')
+plt.ylabel('Diff Value')
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('module 10/images/stationary_vs_nonstationary.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: stationary_vs_nonstationary.png")
+
+# 2. ACF / PACF Concept (Simulated)
+# We will create a visual representation of what these look like
+lags = np.arange(11)
+acf_vals = np.array([1.0, 0.8, 0.6, 0.4, 0.2, 0.1, 0.0, -0.1, -0.05, 0.0, 0.0]) # Decay
+pacf_vals = np.array([1.0, 0.7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]) # Cut-off at lag 1 (AR 1)
+
+plt.figure(figsize=(12, 5))
+
+# ACF
+plt.subplot(1, 2, 1)
+plt.bar(lags, acf_vals, width=0.3, color='blue')
+plt.axhline(0, color='black', linewidth=0.8)
+plt.axhspan(-0.2, 0.2, alpha=0.2, color='blue') # Significance bound
+plt.title('ACF (Autocorrelation)\nGradual Decay = AR Process', fontweight='bold')
+plt.xlabel('Lag')
+plt.ylabel('Correlation')
+
+# PACF
+plt.subplot(1, 2, 2)
+plt.bar(lags, pacf_vals, width=0.3, color='red')
+plt.axhline(0, color='black', linewidth=0.8)
+plt.axhspan(-0.2, 0.2, alpha=0.2, color='red') # Significance bound
+plt.title('PACF (Partial Autocorrelation)\nSharp Cut-off = Order of AR Model', fontweight='bold')
+plt.xlabel('Lag')
+
+plt.tight_layout()
+plt.savefig('module 10/images/acf_pacf_concept.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: acf_pacf_concept.png")
+
+# 3. Forecasting & Uncertainty
+# Visualize what a forecast looks like with confidence intervals
+np.random.seed(101)
+n_points = 50
+t_train = np.arange(n_points)
+y_train = 10 + 0.5 * t_train + np.random.normal(0, 2, n_points)
+
+t_test = np.arange(n_points, n_points + 10)
+y_test = 10 + 0.5 * t_test + np.random.normal(0, 2, 10)
+
+# Forecast (Simple extrapolation with noise)
+y_pred = 10 + 0.5 * t_test
+# Confidence Interval (expanding over time)
+uncertainty = np.arange(1, 11) * 0.5 + 2
+
+plt.figure(figsize=(10, 6))
+plt.plot(t_train, y_train, 'b.-', label='Historical Data')
+plt.plot(t_test, y_test, 'g.-', label='Actual Future Data')
+plt.plot(t_test, y_pred, 'r--', label='Forecast')
+plt.fill_between(t_test, y_pred - uncertainty, y_pred + uncertainty, color='red', alpha=0.2, label='95% Confidence Interval')
+
+plt.title('Forecasting & Uncertainty', fontsize=16, fontweight='bold')
+plt.xlabel('Time')
+plt.ylabel('Value')
+plt.axvline(n_points - 0.5, color='k', linestyle=':', linewidth=1)
+plt.text(n_points - 2, 25, 'Past', ha='right', fontsize=12)
+plt.text(n_points + 1, 25, 'Future', ha='left', fontsize=12)
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('module 10/images/forecasting_uncertainty.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: forecasting_uncertainty.png")
+
+print("\nModule 10 complete: 3 visualizations created\n")
+
+# ============================================================================
+# MODULE 11 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 11: Used Car Price Analysis ###\n")
+os.makedirs('module 11/images', exist_ok=True)
+
+# Generate synthetic car data
+np.random.seed(42)
+n_cars = 1000
+years = np.random.randint(2000, 2024, n_cars)
+ages = 2024 - years
+odometers = np.random.exponential(50000, n_cars) + (ages * 10000)
+conditions = np.random.choice(['new', 'like new', 'excellent', 'good', 'fair', 'salvage'], n_cars, p=[0.05, 0.1, 0.3, 0.3, 0.2, 0.05])
+condition_map = {'new': 5, 'like new': 4, 'excellent': 3, 'good': 2, 'fair': 1, 'salvage': 0}
+condition_vals = np.array([condition_map[c] for c in conditions])
+
+# Price model (Age, Odometer, Condition)
+base_price = 45000
+price = base_price * (0.9 ** ages) * (0.99999 ** odometers) * (0.8 + 0.1 * condition_vals) + np.random.normal(0, 2000, n_cars)
+price = np.maximum(price, 500) # Minimum price
+
+df_cars = pd.DataFrame({
+    'price': price,
+    'odometer': odometers,
+    'year': years,
+    'age': ages,
+    'condition': conditions,
+    'condition_val': condition_vals
+})
+
+# 1. Price Distribution
+plt.figure(figsize=(10, 6))
+sns.histplot(df_cars['price'], kde=True, bins=50, color='skyblue')
+plt.title('Distribution of Used Car Prices', fontweight='bold')
+plt.xlabel('Price ($)')
+plt.ylabel('Frequency')
+plt.grid(True, alpha=0.3)
+plt.savefig('module 11/images/price_distribution.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: price_distribution.png")
+
+# 2. Correlation Matrix
+plt.figure(figsize=(8, 6))
+corr_matrix = df_cars[['price', 'year', 'odometer', 'condition_val']].corr()
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", vmin=-1, vmax=1)
+plt.title('Feature Correlation Matrix', fontweight='bold')
+plt.savefig('module 11/images/feature_correlation_matrix.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: feature_correlation_matrix.png")
+
+# 3. Price by Condition
+plt.figure(figsize=(12, 6))
+order = ['new', 'like new', 'excellent', 'good', 'fair', 'salvage']
+sns.boxplot(x='condition', y='price', data=df_cars, order=order, palette='viridis')
+plt.title('Price Distribution by Vehicle Condition', fontweight='bold')
+plt.xlabel('Condition')
+plt.ylabel('Price ($)')
+plt.grid(True, axis='y', alpha=0.3)
+plt.savefig('module 11/images/price_by_condition.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: price_by_condition.png")
+
+print("\nModule 11 complete: 3 visualizations created\n")

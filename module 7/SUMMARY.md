@@ -34,7 +34,13 @@ graph TD
     F -->|Yes| G[Stop]
 ```
 
-### 1. Linear Regression Models
+### 1. Model Types
+*   **Linear Models:** The target ($y$) is a linear combination of features ($x$). The change in $y$ for a unit change in $x$ is constant.
+    *   *Equation:* $y = \theta_0 + \theta_1 x$
+*   **Nonlinear Models:** The relationship involves curves, thresholds, or complex interactions. The change in $y$ depends on the current value of $x$.
+    *   *Examples:* Polynomial Regression ($y = \theta_0 + \theta_1 x + \theta_2 x^2$), Decision Trees, Neural Networks.
+
+### 2. Linear Regression Models
 *   **Simple Linear Regression:** One feature.
     *   $\hat{y} = \theta_0 + \theta_1 x$
 *   **Multiple Linear Regression:** Multiple features.
@@ -42,13 +48,22 @@ graph TD
     *   *Interpreting Coefficients:* $\theta_i$ represents the change in $y$ for a one-unit change in $x_i$, holding other variables constant.
 
 ### 2. Feature Engineering
-*   **One-Hot Encoding:** Converting categorical data (e.g., "Day of Week") into numerical dummy variables (0s and 1s).
-*   **Interaction Terms:** combining features to capture non-linear effects.
+*   **Categorical Data Types:**
+    *   **Nominal:** No inherent order (e.g., Color: Red, Blue). Use **One-Hot Encoding**.
+    *   **Ordinal:** Inherent order (e.g., Size: Small, Medium, Large). Use **Integer Encoding** (1, 2, 3).
+*   **Interaction Terms:** Combining features to capture non-linear effects ($x_1 \cdot x_2$).
 
 ### 3. The Loss Function ($J(\theta)$)
-Quantifies error.
-*   **L2 Loss (MSE):** Squared difference. Penalizes outliers heavily. Differentiable (good for Gradient Descent).
-*   **L1 Loss (MAE):** Absolute difference. More robust to outliers but harder to optimize (not differentiable at 0).
+The Loss Function quantifies how far the model's predictions are from the actual values. Our goal is to minimize this error.
+
+![Loss Function Comparison](images/loss_function_comparison.png)
+
+*   **L2 Loss (Mean Squared Error - MSE):** Calculates the squared difference.
+    *   *Pros:* Penalizes large errors heavily (due to squaring). Differentiable everywhere, making it ideal for Gradient Descent.
+    *   *Cons:* Can be overly sensitive to outliers.
+*   **L1 Loss (Mean Absolute Error - MAE):** Calculates the absolute difference.
+    *   *Pros:* Robust to outliers (linear penalty).
+    *   *Cons:* Harder to optimize because the derivative is undefined at 0 (the "V" shape bottom).
 
 ### 4. Gradient Descent
 An iterative algorithm that moves parameters in the opposite direction of the gradient (slope) to find the minimum.
@@ -138,6 +153,29 @@ plt.title("Gradient Descent Path")
 plt.show()
 ```
 
+### 3. Visualizing with Plotly (Interactive)
+Using `scikit-learn` to fit and `plotly` to visualize.
+
+```python
+import plotly.express as px
+from sklearn.linear_model import LinearRegression
+
+# 1. Fit Model
+model = LinearRegression()
+model.fit(X, y)
+y_pred = model.predict(X)
+
+# 2. Create DataFrame for Plotly
+import pandas as pd
+df_plot = pd.DataFrame({'X': X.flatten(), 'y': y.flatten(), 'y_pred': y_pred.flatten()})
+
+# 3. Plot
+fig = px.scatter(df_plot, x='X', y='y', opacity=0.65, title='Linear Regression with Plotly')
+fig.add_traces(px.line(df_plot, x='X', y='y_pred').data[0])
+fig.data[1].line.color = 'red' # Set regression line color
+fig.show()
+```
+
 ### 3. Using Scipy Minimize (Black Box)
 For complex functions where gradients are hard to derive manually.
 
@@ -154,4 +192,34 @@ x0 = np.random.randn(2, 1)
 # Minimize
 result = minimize(loss_func, x0)
 print("Scipy Result:", result.x)
+```
+
+### 4. Evaluating Performance (MAE vs MSE)
+```python
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+# Calculate Errors
+mae = mean_absolute_error(y, y_pred)
+mse = mean_squared_error(y, y_pred)
+rmse = np.sqrt(mse)
+
+print(f"MAE: {mae:.2f}")
+print(f"MSE: {mse:.2f}")
+print(f"RMSE: {rmse:.2f}")
+```
+
+### 5. Multiple Linear Regression
+fitting a model with multiple features ($X_1, X_2, ...$).
+
+```python
+# Generate data with 2 features
+X_multi = 2 * np.random.rand(100, 2)
+y_multi = 4 + 3 * X_multi[:, 0] + 5 * X_multi[:, 1] + np.random.randn(100)
+
+# Fit Model
+model_multi = LinearRegression()
+model_multi.fit(X_multi, y_multi)
+
+print("Coefficients:", model_multi.coef_) # Should be close to [3, 5]
+print("Intercept:", model_multi.intercept_) # Should be close to 4
 ```

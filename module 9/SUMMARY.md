@@ -32,9 +32,28 @@ As the number of features (dimensions) increases, the amount of data needed to g
 
 ---
 
-## 1. Polynomial Regression
+### 3. Sequential Feature Selection (SFS)
+A wrapper method that iteratively adds (Forward) or removes (Backward) features to find the optimal subset based on model performance.
+*   **Forward Selection:** Start with 0 features, add the best one, then the next best, etc.
+*   **Backward Selection:** Start with all features, remove the least useful one, etc.
+*   **Pros:** Considers feature interactions.
+*   **Cons:** Computationally expensive.
+
+---
+
+## 1. Polynomial Regression & Multidimensionality
 
 ### Concept
+Linear models can fit nonlinear data by using **Polynomial Features**.
+For a single feature $x$, we add powers ($x^2, x^3$).
+
+### Multidimensional Data (Interaction Effects)
+When we have multiple features ($x_1, x_2$), polynomial expansion creates **interaction terms** ($x_1 \cdot x_2$) which capture how features influence each other.
+
+*   **Degree 2 for ($x_1, x_2$):**
+    $$ [1, x_1, x_2, x_1^2, x_1 x_2, x_2^2] $$
+*   **Effect:** Matches complex decision boundaries but increases dimensionality rapidly.
+
 ### Formula
 For a single feature $x$, polynomial regression of degree $d$:
 
@@ -53,18 +72,29 @@ For multiple features, polynomial features include:
 **Example:** For features $[x_1, x_2]$ with degree 2:
 $$ [1, x_1, x_2, x_1^2, x_1 x_2, x_2^2] $$
 
-### K-Fold Cross Validation Formula
-For $k$ folds, the cross-validation score is:
+## 2. Cross-Validation & Model Selection
 
-$$ \text{CV Score} = \frac{1}{k} \sum_{i=1}^{k} \text{Score}_i $$
+### Cross-Validation Techniques
+Robustly estimating model performance.
 
-### Formula for Model Selection
-For hyperparameter set $\theta$:
+![CV Types Comparison](images/cv_types_comparison.png)
 
-$$ \theta^* = \arg\max_{\theta} \text{CV-Score}(\theta) $$
+1.  **Holdout Method:** Split data once (Train/Test). Fast but high variance (depends on split).
+2.  **K-Fold Cross-Validation:** Split data into $k$ folds. Train on $k-1$, test on 1. Repeat $k$ times.
+    *   **Formula:** $\text{CV Score} = \frac{1}{k} \sum_{i=1}^{k} \text{Score}_i$
+    *   **$k$** (Pronounced: *k*): Number of folds.
+    *   **$\sum$** (Pronounced: *sum* or *sigma*): Summation operator.
+    *   **Pros:** Lower variance, uses all data.
+3.  **Leave-One-Out (LOOCV):** K-Fold where $k = n$ (number of samples).
+    *   **Pros:** Low bias, deterministic.
+    *   **Cons:** Extremely computationally expensive.
 
-*   **$\theta^*$** (Pronounced: *theta star*): The optimal set of hyperparameters.
-*   **$\arg\max$** (Pronounced: *argument of the maximum*): The input value that produces the maximum output.
+### Hyperparameter Tuning (GridSearchCV)
+Systematically testing combinations of hyperparameters (e.g., `alpha` in Ridge, `degree` in Polynomial) to find the best model.
+
+*   **Grid Search:** Exhaustive search over specified parameter values.
+*   **Optimal ($\theta^*$):**
+    $$ \theta^* = \arg\max_{\theta} \text{CV-Score}(\theta) $$
 
 ### Standardization (Z-score Normalization)
 $$ x_{\text{scaled}} = \frac{x - \mu}{\sigma} $$
@@ -75,11 +105,18 @@ $$ x_{\text{scaled}} = \frac{x - \mu}{\sigma} $$
 ### Min-Max Normalization
 $$ x_{\text{scaled}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}} $$
 
+*   **$x_{\min}$** (Pronounced: *x min*): Minimum value of the feature.
+*   **$x_{\max}$** (Pronounced: *x max*): Maximum value of the feature.
+
 ### Robust Scaling
 $$ x_{\text{scaled}} = \frac{x - \text{median}}{\text{IQR}} $$
 
 ### Mean Squared Error (Regression)
 $$ J(\beta) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $$
+
+*   **$n$** (Pronounced: *n*): Number of samples.
+*   **$y_i$** (Pronounced: *y sub i*): Actual value.
+*   **$\hat{y}_i$** (Pronounced: *y hat sub i*): Predicted value (pronounced *y hat*).
 
 ### Mean Absolute Error (Regression)
 $$ J(\beta) = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i| $$
@@ -96,16 +133,28 @@ $$ \beta_{t+1} = \beta_t - \eta \nabla J(\beta_t) $$
 *   **$\eta$** (Pronounced: *eta*): The learning rate (step size).
 *   **$\nabla J$** (Pronounced: *nabla J* or *gradient of J*): The direction of steepest ascent (we subtract it to go down).
 
-### Ridge Regression Formula
-$$ J(\beta) = \text{MSE} + \lambda \sum_{j=1}^p \beta_j^2 $$
+## 3. Regularization (Ridge & Lasso)
+Techniques to prevent overfitting by adding a penalty term to the loss function.
 
-### Lasso Regression Formula
-$$ J(\beta) = \text{MSE} + \lambda \sum_{j=1}^p |\beta_j| $$
+**Critical Step: Feature Scaling**
+*   **StandardScaler** is mandatory before Regularization.
+*   *Why?* The penalty depends on the magnitude of coefficients. If features have different scales (e.g., age vs salary), the penalty will unfairly punish the larger feature.
 
-### The optimization problem Lasso solves:
-$$ \min_{\beta} \left\{ \frac{1}{2n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \alpha \sum_{j=1}^p |\beta_j| \right\} $$
+![Regularization Path](images/regularization_path.png)
 
-### Rule of thumb: Assymptotic Alpha
+### Ridge Regression (L2 Penalty)
+Shrinks coefficients towards zero but rarely reaches exactly zero.
+*   **Formula:** $J(\beta) = \text{MSE} + \alpha \sum_{j=1}^p \beta_j^2$
+*   **$\alpha$** (Pronounced: *alpha*): Regularization strength. Large $\alpha$ implies simple model.
+*   **$\beta_j^2$** (Pronounced: *beta j squared*): Squared magnitude of coefficients (L2 Penalty).
+
+### Lasso Regression (L1 Penalty)
+Can shrink coefficients to exactly zero, performing **Feature Selection**.
+*   **Formula:** $J(\beta) = \text{MSE} + \alpha \sum_{j=1}^p |\beta_j|$
+*   **$|\beta_j|$** (Pronounced: *absolute value of beta j*): Absolute magnitude of coefficients (L1 Penalty).
+*   **Optimization:** Solves $\min_{\beta} \left\{ \text{MSE} + \alpha \sum |\beta_j| \right\}$
+
+### Rule of thumb: Asymptotic Alpha
 $$ \alpha_{\text{optimal}} \propto \frac{1}{\sqrt{n}} $$
 
 ### Elastic Net (Combination)
@@ -234,4 +283,22 @@ selected_mask = lasso_poly.coef_ != 0
 selected_features = feature_names[selected_mask]
 print(f"Selected Poly Features ({len(selected_features)}):")
 print(selected_features)
+```
+
+### 5. Hyperparameter Tuning (GridSearchCV)
+Finding the optimal `alpha` for Ridge Regression.
+
+```python
+# Define model
+ridge = Ridge()
+
+# Define parameter grid
+param_grid = {'alpha': [0.1, 1, 10, 100, 1000]}
+
+# Grid Search with 5-fold CV
+grid = GridSearchCV(ridge, param_grid, cv=5, scoring='neg_mean_squared_error')
+grid.fit(X_scaled, y)
+
+print("Best Alpha:", grid.best_params_['alpha'])
+print("Best MSE score:", -grid.best_score_)
 ```

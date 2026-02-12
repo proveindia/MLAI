@@ -30,7 +30,7 @@ This module lays the groundwork for Machine Learning, covering the Python ecosys
 ## Key Formulas
 
 ### 1. The Mystery Box (Model)
-Input vector $\mathbf{x}$ goes into a model $f$ to predict output $y$.
+Input vector $x$ (or $\mathbf{x}$) goes into a model $f$ to predict output $y$.
 $$ \hat{y} = f(\mathbf{x}) $$
 
 ### 2. Loss Function (Quadratic)
@@ -39,8 +39,8 @@ $$ L(y, \hat{y}) = (y - \hat{y})^2 $$
 
 ### 3. Cost Function vs Loss Function
 While often used interchangeably, there is a technical distinction:
-*   **Loss Function:** Error for a **single** training example (e.g., $(y^{(i)} - \hat{y}^{(i)})^2$).
-*   **Cost Function ($J$):** Average of the loss functions for the **entire** training set.
+*   **Loss Function:** Error for a **single** training example, e.g., $L = (y^{(i)} - \hat{y}^{(i)})^2$.
+*   **Cost Function** ($J$): Average of the loss functions for the **entire** training set.
     $$ J(\theta) = \frac{1}{m} \sum_{i=1}^{m} L(y^{(i)}, \hat{y}^{(i)}) $$
 
 ### 4. The Mean ($\mu$) / Expected Value $E[Y]$

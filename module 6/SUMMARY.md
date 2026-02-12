@@ -20,8 +20,11 @@ Grouping similar data points together.
     *   **K-Means++:** Smart initialization strategy to spread centroids apart, improving convergence speed and result quality.
 *   **DBSCAN:** Density-based clustering.
     *   **Core Points:** Having at least `min_samples` neighbors within `eps` radius.
+    *   **Epsilon (`eps`):** The maximum distance between two samples for one to be considered as in the neighborhood of the other. It defines the "neighborhood" size.
     *   **Boundary Points:** Reachable from a core point but not core themselves.
     *   **Noise (Outliers):** Not reachable from any core point.
+
+![K-Means Iterations](images/kmeans_iterations.png)
 
 ## Key Formulas
 
@@ -30,8 +33,8 @@ Projecting data $X$ onto the Principal Components (Eigenvectors $W$).
 
 $$ Z = X \cdot W $$
 
-*   $Z$: Transformed data (Principal Components).
-*   $W$: Matrix of Top-$k$ Eigenvectors.
+*   **$Z$**: Transformed data (Principal Components).
+*   **$W$**: Matrix of Top-$k$ Eigenvectors.
 
 ![PCA Variance Explained](images/pca_variance_explained.png)
 
@@ -39,19 +42,18 @@ $$ Z = X \cdot W $$
 ### 2. SVD (Singular Value Decomposition)
 PCA is often implemented using SVD. $X$ (Tall Matrix, $N \times D$) is decomposed into:
 
+![SVD Matrix Decomposition](images/svd_matrix_decomposition.png)
+
 $$ X = U \Sigma V^T $$
 
-*   **$U$** (Pronounced: *U*): Left singular vectors.
-*   **$\Sigma$** (Pronounced: *Sigma*): Diagonal matrix of singular values.
-*   **$V^T$** (Pronounced: *V transpose*): Transpose of the right singular vectors (Principal Components).
-
-*   $X$: Data Matrix.
-*   $U$: Left Singular Vectors ($N \times N$, orthogonal).
-*   $\Sigma$: Diagonal matrix of Singular Values ($\sigma_i$) sorted descending ($N \times D$).
-*   $V^T$: Right Singular Vectors ($D \times D$, Principal Components).
+*   **$X$**: Data Matrix $(N \times D)$.
+*   **$U$** (Pronounced: *U*): Left Singular Vectors $(N \times N$, orthogonal).
+*   **$\Sigma$** (Pronounced: *Sigma*): Diagonal matrix of Singular Values $(\sigma_i)$ sorted descending $(N \times D)$.
+*   **$V^T$** (Pronounced: *V transpose*): Transpose of the Right Singular Vectors $(D \times D$, Principal Components).
 
 **PCA Approximation (Reconstruction):**
 We can approximate the original data using only the top $r$ components:
+
 $$ \tilde{X}_r = U_r \Sigma_r V_r^T $$
 
 ### 3. Feature Normalization ($X_{norm}$)
@@ -65,9 +67,9 @@ $$ x_{norm} = \frac{x - \mu}{\sigma} $$
 *   $\sigma$: Standard deviation of the feature.
 
 ### 4. K-Means Inertia
-The goal of K-Means is to minimize this value.
+The goal of K-Means is to minimize this value. It represents the **within-cluster sum of squares**. Lower inertia means tighter, more coherent clusters.
 
-$$ \text{Inertia} = \sum_{j=1}^k \sum_{i \in C_j} ||x_i - \mu_j||^2 $$
+$$ \text{Inertia} = \sum_{j=1}^k \sum_{i \in C_j} \|x_i - \mu_j\|^2 $$
 
 *   **$\mu_j$** (Pronounced: *Mu sub j*): Centroid of cluster $j$.
 *   **$\sum$** (Pronounced: *Sum*): Summation of distances.
@@ -136,8 +138,12 @@ plt.colorbar(label='Target Class')
 plt.show()
 ```
 
+![PCA Wine Dataset](images/pca_wine_dataset.png)
+
 ### 2. K-Means and the Elbow Method
 Finding the optimal $K$.
+
+![Elbow Method Detailed](images/elbow_method_detailed.png)
 
 ```python
 inertia = []
@@ -156,8 +162,6 @@ plt.title('Elbow Method For Optimal k')
 plt.show()
 ```
 *   **Interpretation:** Look for the "elbow" where the inertia drop creates an angle. That is the optimal $K$.
-
-![Elbow Method Detailed](images/elbow_method_detailed.png)
 
 
 ### 3. DBSCAN (for specific shapes)

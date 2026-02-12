@@ -5,28 +5,51 @@ This module explores **Time Series Analysis (TSA)**, the process of analyzing da
 
 ## Key Concepts
 
-### 1. Stationarity
+### 1. Stochastic Process vs. Time Series
+*   **Stochastic Process:** A mathematical abstraction defining a sequence of random variables indexed by time. It represents *all possible* futures (the "multiverse" of outcomes).
+*   **Time Series:** A single *realization* (sample path) of a stochastic process. The one history that actually happened.
+*   **Goal:** We use the single observed Time Series to infer the properties (parameters) of the underlying Stochastic Process.
+
+### 2. Stationarity
 A time series is **stationary** if its statistical properties (mean, variance, autocorrelation) do not change over time.
 *   **Why it matters:** Most classical models (like ARIMA) assume stationarity to make reliable predictions.
 *   **Non-Stationary behaviors:** Trends (upward/downward movement), Seasonality (repeating cycles), and changing Variance (heteroscedasticity).
+
+![Stationarity Comparison](images/stationary_vs_nonstationary.png)
+
 *   **Fixes:**
     *   **Log Transformation:** Stabilizes variance (straightens out exponential growth).
     *   **Differencing:** Removes trends by subtracting the previous value ($y_t - y_{t-1}$).
 
-### 2. Time Series Decomposition
+### 2. Stationarity vs. Independence (Crucial Distinction)
+*   **Stationarity:** The *rules* (statistical properties) don't change over time, but the data points are highly **dependent** on each other (today depends on yesterday).
+*   **Independence:** Data points are completely unrelated (like flipping a coin).
+*   **Goal of TSA:** We model the *dependency* (signal) so that what's left over (residuals) is *independent* (noise).
+    *   *Raw Data:* Stationary but Dependent.
+    *   *Residuals:* Stationary and Independent (White Noise).
+
+### 3. Time Series Decomposition
 Breaking a series into its constituent parts to understand it better:
 
 ![Time Series Decomposition](images/ts_decomposition_visual.png)
 
 *   **Additive Model:** $y_t = \text{Trend} + \text{Seasonality} + \text{Residue}$
-    *   Use when magnitude of seasonality is constant.
 *   **Multiplicative Model:** $y_t = \text{Trend} \times \text{Seasonality} \times \text{Residue}$
-    *   Use when magnitude of seasonality changes with the trend (e.g., grows as valus grow).
-*   **Smoothing:** A common way to extract trend is using a **convolution filter** (moving average).
+    *   **Trend**: Long-term increase or decrease in the data.
+    *   **Seasonality**: Repeating short-term cycle.
+    *   **Residue (Noise)**: The random variation left over.
+
+### 2. AR vs MA Models
+*   **AR (AutoRegressive):** "Regressing on itself." Current value depends on its own past values. Like momentum.
+    *   *Analogy:* If it was hot yesterday, it will likely be hot today.
+*   **MA (Moving Average):** "Regressing on past errors." Current value depends on past forecast shocks/errors. Like a correction mechanism.
+    *   *Analogy:* If I made a huge mistake yesterday, I will adjust today to compensate.
 
 ### 3. Autocorrelation (ACF & PACF)
 *   **ACF (Autocorrelation Function):** Correlation between $y_t$ and its lags ($y_{t-1}, y_{t-2}, ...$). Shows direct and indirect effects.
 *   **PACF (Partial Autocorrelation Function):** Direct correlation between $y_t$ and a lag, removing the influence of intermediate lags. Crucial for determining AR terms.
+
+![ACF and PACF Concept](images/acf_pacf_concept.png)
 
 ## Key Formulas
 
@@ -41,6 +64,8 @@ Predicting the current value based on past values.
 $$ y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + ... + \phi_p y_{t-p} + \epsilon_t $$
 
 *   **$p$** (Pronounced: *p*): The order of the AR term (number of lags).
+*   **$\phi$** (Pronounced: *phi*): Coefficients for past values (lags).
+*   **$\epsilon_t$** (Pronounced: *epsilon sub t*): White noise error term.
 
 ### 3. MA (Moving Average) Model
 Predicting the current value based on past forecast errors (shocks).
@@ -48,6 +73,7 @@ Predicting the current value based on past forecast errors (shocks).
 $$ y_t = c + \epsilon_t + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + ... + \theta_q \epsilon_{t-q} $$
 
 *   **$q$** (Pronounced: *q*): The order of the MA term.
+*   **$\theta$** (Pronounced: *theta*): Coefficients for past error terms.
 
 ### 4. ARIMA Model
 Combines AR, Integration (Differencing), and MA. Notation: **ARIMA(p, d, q)**.
@@ -139,6 +165,23 @@ check_stationarity(df)
 df_diff = df.diff().dropna()
 check_stationarity(df_diff)
 ```
+
+### 4. The Forecasting Problem
+*   **Goal:** Predict future values ($y_{t+1}, y_{t+2}$) based on historical data ($y_t, y_{t-1}$).
+*   **Interpretation & Uncertainty:**
+    *   A forecast is never a single number; it's a **probability distribution**.
+    *   **Confidence Intervals:** The range where the true value is likely to fall (e.g., 95% probability).
+    *   **Fan Chart:** Uncertainty typically grows as we forecast further into the future.
+
+![Forecasting Uncertainty](images/forecasting_uncertainty.png)
+
+### 5. ARMA Model Selection & Invertibility
+*   **Stationarity:** Required for AR models (roots of characteristic equation outside unit circle).
+*   **Invertibility:** Required for MA models (to express MA as an infinite AR process). Ensures unique model representation.
+*   **Order Selection (Rule of Thumb):**
+    *   **AR(p):** PACF cuts off at lag $p$, ACF decays gradually.
+    *   **MA(q):** ACF cuts off at lag $q$, PACF decays gradually.
+    *   **ARMA(p,q):** Both decay gradually (feature of mixed models).
 
 ### 3. ARIMA Forecasting
 Building a model to predict future values.

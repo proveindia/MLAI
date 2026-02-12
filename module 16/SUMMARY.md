@@ -29,9 +29,9 @@ This module focused on Support Vector Machines (SVM), specifically the Maximum M
 *   **Condition:** Data must be linearly separable (no noise/overlap).
 *   **Pros:** Works perfectly on clean, separable data.
 *   **Cons:** Highly sensitive to outliers. A single outlier can dramatically shift the boundary or make the problem unsolvable.
-*   **Equation:** Minimize $||w||^2$ subject to $y_i(w^T x_i + b) \ge 1$ for all $i$.
-    *   **$||w||^2$** (Pronounced: *norm of w squared*): The term we minimize to maximize the margin.
-    *   **$\ge 1$** (Pronounced: *greater than or equal to 1*): The constraint forcing correct classification.
+*   **Equation:** Minimize $\|w\|^2$ subject to $y_i(w^T x_i + b) \ge 1$ for all $i$.
+  *   **$\|w\|^2$** (Pronounced: *norm of w squared*): The term we minimize to maximize the margin.
+  *   **$\ge 1$** (Pronounced: *greater than or equal to 1*): The constraint forcing correct classification.
 
 ### 2. Soft Margin SVM
 *   **Definition:** Allows some data points to be misclassified or violate the margin to achieve a more robust decision boundary.
@@ -40,9 +40,9 @@ This module focused on Support Vector Machines (SVM), specifically the Maximum M
 *   **Role of C:** The hyperparameter `C` controls the penalty for misclassification.
     *   **Large C:** Strict (Hard Margin behavior). Low bias, high variance. Risk of overfitting.
     *   **Small C:** Flexible (Soft Margin behavior). Higher bias, lower variance. Smoother boundary.
-*   **Equation:** Minimize $||w||^2 + C \sum \xi_i$ subject to $y_i(w^T x_i + b) \ge 1 - \xi_i$.
-    *   **$\xi_i$** (Pronounced: *zeta sub i* or *slack variable*): Measure of how much the $i$-th point violates the margin.
-    *   **$C$** (Pronounced: *C*): Regularization parameter balancing margin width and error.
+*   **Equation:** Minimize $\|w\|^2 + C \sum \xi_i$ subject to $y_i(w^T x_i + b) \ge 1 - \xi_i$.
+  *   **$\xi_i$** (Pronounced: *zeta sub i* or *slack variable*): Measure of how much the $i$-th point violates the margin.
+  *   **$C$** (Pronounced: *C*): Regularization parameter balancing margin width and error.
 
 ![Hard vs Soft Margin](images/hard_soft_margin.png)
 *Figure: Hard Margin (Left) forces all points to be correct, potentially overfitting outliers. Soft Margin (Right) ignores some points to find a better general trend.*
@@ -76,9 +76,9 @@ $$ w^T x + b = 0 $$
 ### 2. Margin
 The distance between the hyperplane and the nearest data point (support vector). SVM maximizes this margin:
 
-$$ \text{Margin} = \frac{2}{||w||} $$
+$$ \text{Margin} = \frac{2}{\|w\|} $$
 
-*   **$||w||$** (Pronounced: *norm of w*): The Euclidean length (magnitude) of the weight vector.
+*   **$\|w\|$** (Pronounced: *norm of w*): The Euclidean length (magnitude) of the weight vector.
 
 ![SVM Margin Visualization](images/svm_margin.png)
 *Figure 1: Maximum Margin Hyperplane showing support vectors (circled) and the decision boundary.*
@@ -112,24 +112,24 @@ Instead of explicitly calculating the coordinates of data points in a high-dimen
 
 $$ K(x, x') = x^T x' $$
 
-    *   **$K(x, x')$** (Pronounced: *K of x and x prime*): The kernel function value representing similarity.
-    *   **$x'$** (Pronounced: *x prime*): Another data point (support vector) we are comparing against.
+  *   **$K(x, x')$** (Pronounced: *K of x and x prime*): The kernel function value representing similarity.
+  *   **$x'$** (Pronounced: *x prime*): Another data point (support vector) we are comparing against.
 
 *   **Polynomial Kernel:** Maps data into a polynomial feature space.
 
 $$ K(x, x') = (\gamma x^T x' + r)^d $$
 
-    *   **$\gamma$** (Pronounced: *gamma*): A coefficient scaling the input data.
-    *   **$r$** (Pronounced: *r*): A constant term (coefficient 0).
-    *   **$d$** (Pronounced: *d*): The degree of the polynomial.
+  *   **$\gamma$** (Pronounced: *gamma*): A coefficient scaling the input data.
+  *   **$r$** (Pronounced: *r*): A constant term (coefficient 0).
+  *   **$d$** (Pronounced: *d*): The degree of the polynomial.
 
 *   **Radial Basis Function (RBF) Kernel:** (Default) Maps data into an infinite-dimensional space. Effective for complex, non-linear boundaries.
 
-$$ K(x, x') = \exp(-\gamma ||x - x'||^2) $$
+$$ K(x, x') = \exp(-\gamma \|x - x'\|^2) $$
 
-    *   **$\gamma$** (Pronounced: *gamma*): Controls the reach of a single training example's influence.
-    *   **$\exp$** (Pronounced: *exponential*): The exponential function ($e$ raised to the power of...).
-    *   **$||x - x'||^2$** (Pronounced: *squared Euclidean distance*): The squared distance between two data points.
+  *   **$\gamma$** (Pronounced: *gamma*): Controls the reach of a single training example's influence.
+  *   **$\exp$** (Pronounced: *exponential*): The exponential function ($e$ raised to the power of...).
+  *   **$\|x - x'\|^2$** (Pronounced: *squared Euclidean distance*): The squared distance between two data points.
 
 ### 5. Kernel Matrix (Gram Matrix)
 

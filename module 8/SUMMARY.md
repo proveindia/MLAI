@@ -26,34 +26,53 @@ graph TD
     end
 ```
 
-### 2. Text Feature Engineering (NLP Basics)
-*   **Bag of Words (BoW):** Counts word frequency. Discards grammar and order.
-*   **Count Vectorizer:** Converts a collection of text documents to a matrix of token counts.
 
-```mermaid
-graph LR
-    A["Text: 'AI is great'"] --> B(Tokenize)
-    B --> C["Tokens: ['AI', 'is', 'great']"]
-    C --> D{Count Vectorizer}
-    D --> E["Vector: [1, 1, 1]"]
-```
 
-### 3. Numerical Transformations
+### 2. Inference vs Prediction
+*   **Inference:** Understanding the relationship between features and target. Focus on interpretability (e.g., "How much does rainfall affect crop yield?").
+*   **Prediction:** Forecasting the target value for new data. Focus on accuracy (e.g., "What will the crop yield be next year?").
+
+### 3. Nonlinear Features (Polynomial Regression)
+**The Challenge: Fitting Parabolic Data**
+A simple linear model ($y = \theta_0 + \theta_1 x$) produces a straight line. It cannot capture a curve (like a parabola $y = x^2$).
+*   **Problem:** High Bias (Underfitting). The model is too simple for the data.
+*   **Solution:** Create a **new feature** $x^2$ and feed it to the linear model.
+    *   New Equation: $y = \theta_0 + \theta_1 x + \theta_2 x^2$
+    *   This is still **Linear Regression** because it is linear in the parameters ($\theta$), even though the feature ($x^2$) is nonlinear.
+
+Linear models can fit nonlinear data by transforming features. A "linear model" refers to linearity in parameters ($\theta$), not necessarily features ($x$).
+*   **Polynomial Features:** Generating powers ($x^2, x^3$) and interactions ($x_1 \cdot x_2$) to capture curves.
+
+![Polynomial Regression Fit](images/polynomial_regression_fit.png)
+
+### 4. Numerical Transformations
 *   **Scaling:** Adjusting range (MinMax) or distribution (StandardScaler).
 *   **Interaction Terms:** Creating new features by multiplying existing ones.
 
-### 4. Overfitting & Generalization
-*   **Overfitting:** Model learns noise instead of signal. High Variance. Captures too many details (e.g., high-degree polynomial).
-*   **Underfitting:** Model is too simple to capture patterns. High Bias.
-*   **Generalization:** Ability to perform well on unseen data.
+### 5. Overfitting & Generalization (Bias-Variance Tradeoff)
+*   **Overfitting (High Variance):** Model learns noise/specifics of training data. Performs well on train, poor on test.
+    *   *Cause:* Model too complex (e.g., high-degree polynomial).
+*   **Underfitting (High Bias):** Model makes strong assumptions and misses patterns. Poor on train and test.
+    *   *Cause:* Model too simple (e.g., straight line for curved data).
+*   **Generalization:** Ability to perform well on unseen data. Our goal is to find the "sweet spot" (Low Bias, Low Variance).
 
-#### Train / Validation / Test Split
-*   **Training Set:** Used to fit the model parameters.
-*   **Validation (Dev) Set:** Used to tune hyperparameters (e.g., degree of polynomial).
-*   **Test Set:** Used *once* for final evaluation.
+![Bias-Variance Tradeoff](images/bias_variance_tradeoff.png)
 
-### 5. Scikit-Learn Pipelines
-Chaining transformers and estimators ensures no data leakage and simplifies code.
+#### Model Selection
+*   **Training Set:** Fit parameters.
+*   **Validation Set:** Tune hyperparameters (e.g., polynomial degree) and select best model. Evaluates **generalization**.
+*   **Test Set:** Final evaluation.
+
+### 6. Pandas for Feature Engineering
+Key functions for data manipulation:
+*   `df.apply()`: Apply a function along an axis (e.g., row-wise custom logic).
+*   `df.map()`: Map values in a Series (e.g., manual encoding).
+*   `pd.get_dummies()`: One-hot encode categorical variables.
+*   `df.groupby()`: Aggregating data (e.g., mean price by city).
+*   `df.fillna()`: Handle missing values.
+
+### 7. Scikit-Learn Pipelines
+Chaining transformers and estimators ensures no **data leakage** and simplifies code.
 `Pipeline([('scaler', StandardScaler()), ('model', LinearRegression())])`
 
 ## Key Formulas
@@ -77,7 +96,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, PolynomialFeatures
 from sklearn.compose import ColumnTransformer
-from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
 ```
 
@@ -121,29 +139,9 @@ df_processed = pd.DataFrame(processed_data, columns=columns)
 print(df_processed)
 ```
 
-### 2. Text Vectorization (Bag of Words)
-Converting text to a frequency matrix.
 
-```python
-corpus = [
-    'This is the first document.',
-    'This document is the second document.',
-    'And this is the third one.',
-    'Is this the first document?',
-]
 
-# Create Vectorizer (Count Frequency)
-vectorizer = CountVectorizer(stop_words='english')
-
-# Fit and Transform
-X = vectorizer.fit_transform(corpus)
-
-# View as DataFrame
-df_bow = pd.DataFrame(X.toarray(), columns=vectorizer.get_feature_names_out())
-print("Bag of Words Matrix:\n", df_bow)
-```
-
-### 3. Creating Polynomial Interactions
+### 2. Creating Polynomial Interactions
 Capturing complex relationships.
 
 ```python
@@ -156,7 +154,7 @@ print("Original:\n", X)
 print("Polynomial (a, b, a^2, ab, b^2):\n", X_poly)
 ```
 
-### 4. Pipeline with Cross-Validation
+### 3. Pipeline with Cross-Validation
 Best practice for preventing data leakage.
 
 ```python
@@ -178,4 +176,9 @@ pipeline = Pipeline([
 pipeline.fit(X_train, y_train)
 score = pipeline.score(X_test, y_test)
 print(f"R^2 Score on Test Set: {score:.4f}")
+
+# Calculate Error (MSE/RMSE)
+y_pred = pipeline.predict(X_test)
+mse = np.mean((y_test - y_pred)**2)
+print(f"Test MSE: {mse:.4f}")
 ```
