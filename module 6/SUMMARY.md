@@ -138,6 +138,12 @@ plt.colorbar(label='Target Class')
 plt.show()
 ```
 
+### 1. Example Dataset: Wine Quality (PCA)
+*   **Goal:** Differentiate between three different cultivars of wine.
+*   **Features:** 13 chemical properties (Alcohol, Malic acid, Ash, etc.).
+*   **Dimensionality Reduction:** It is impossible to visualize 13 dimensions. PCA reduces this to 2 Principal Components while retaining the maximize variance (information).
+*   **Result:** The plot below shows how the 3 wine classes are distinct even when projected down to just 2 dimensions.
+
 ![PCA Wine Dataset](images/pca_wine_dataset.png)
 
 ### 2. K-Means and the Elbow Method

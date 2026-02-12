@@ -14,200 +14,165 @@ This module introduced Logistic Regression, a fundamental algorithm for classifi
 *   **Maximum Likelihood Estimation (MLE):** The statistical framework used to derive the Log Loss cost function.
 *   **Cleanly Separable Data:** If classes are perfectly separable, MLE causes coefficients to grow to infinity (overfitting). Regularization (L2) prevents this.
 
-### 8. Multiclass Strategies
-*   **One-vs-Rest (OVR):** Fits $K$ classifiers. Good for large $K$.
-*   **One-vs-One (OVO):** Fits $\frac{K(K-1)}{2}$ classifiers (every pair). Good for small $K$ or algorithms that don't scale well.
-*   **Multinomial (Softmax):** Direct probability estimation for all classes at once. Preferred if solver supports it.
+### Multiclass Strategies
+
+how do we adapt a binary classifier like Logistic Regression for multiple classes (e.g., Red, Blue, Green)?
+
+**1. One-vs-Rest (OVR) / One-vs-All:**
+*   **Strategy:** "Us vs The World".
+*   **Mechanism:** Train $K$ separate classifiers.
+    *   Classifier 1: Red vs [Blue + Green]
+    *   Classifier 2: Blue vs [Red + Green]
+    *   ...
+*   **Prediction:** The classifier with the highest confidence score wins.
+*   **Pros:** Efficient for large datasets, clear interpretation.
+*   **Cons:** Class imbalance (1 vs K-1), ambiguous regions (where multiple classifiers claim the point).
+
+**2. One-vs-One (OVO):**
+*   **Strategy:** "Round-Robin Tournament".
+*   **Mechanism:** Train a classifier for **every pair** of classes. Total classifiers = $\frac{K(K-1)}{2}$.
+    *   Classifier 1: Red vs Blue (Ignore Green)
+    *   Classifier 2: Red vs Green (Ignore Blue)
+    *   Classifier 3: Blue vs Green (Ignore Red)
+*   **Prediction:** Each classifier casts a vote. The class with the most votes wins.
+*   **Pros:** Less sensitive to imbalance, generally accurate.
+*   **Cons:** Computationally expensive for large $K$ (too many pairs).
+
+**3. Multinomial (Softmax):**
+*   **Strategy:** Direct probability estimation.
+*   **Mechanism:** Optimizes a single cost function (Cross-Entropy) for all classes simultaneously using the Softmax function.
+*   **Pros:** Theoretically most sound, calibrated probabilities.
+
+![One-vs-One vs One-vs-Rest](images/ovo_vs_ovr.png)
+*Figure: conceptual difference between OVR (Linear boundaries separating one class from rest) and OVO (Boundaries separating specific pairs).*
 
 ## Key Formulas
 
-### Logistic Regression Workflow
-
-```mermaid
-graph LR
-    A[Input Features X] --> B[Linear Combi: z = wX + b]
-    B --> C[Sigmoid Activation: σ z]
-    C --> D{Prob > 0.5?}
-    D -->|Yes| E[Class 1]
-    D -->|No| F[Class 0]
-```
-
-### 1. Sigmoid Function
-
-The sigmoid function maps any real-valued number to the range [0, 1], which can be interpreted as a probability.
+### 1. Sigmoid Function (Activation)
+The sigmoid function maps any real-valued number to the range [0, 1].
 
 $$ \sigma(z) = \frac{1}{1 + e^{-z}} $$
 
-where:
-
-$$ z = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_n x_n $$
-
-*   **$\sigma(z)$** (Pronounced: *sigma of z*): The sigmoid function output, representing the probability $P(y=1|x)$.
-*   **$z$** (Pronounced: *z*): The linear combination of features and coefficients (also called the logit).
-*   **$e$** (Pronounced: *e* or *Euler's number*): The mathematical constant approximately equal to 2.71828.
-*   **$\beta_0$** (Pronounced: *beta zero*): The intercept (bias term).
-*   **$\beta_i$** (Pronounced: *beta i*): The coefficient for feature $x_i$.
+*   **$\sigma(z)$** (Pronounced: *sigma of z*): Probability $P(y=1|x)$.
+*   **$z$** (Pronounced: *z*): Log-odds (linear combination).
+*   **$e$** (Pronounced: *e*): Euler's number ($\approx 2.718$).
 
 ![Sigmoid Function](images/sigmoid_visualization.png)
-*Figure 1: The sigmoid function curve showing how it maps input values to probabilities between 0 and 1.*
-
-**Properties:**
-- Output range: $(0, 1)$
-- Symmetric around 0.5
-- $\sigma(0) = 0.5$
-- As $z \to \infty$, $\sigma(z) \to 1$
-- As $z \to -\infty$, $\sigma(z) \to 0$
+*Figure 1: The sigmoid function curve.*
 
 ### 2. Logistic Regression Model
+Probability of positive class:
 
-The probability that the output $y$ equals 1 given input features $x$:
-
-$$ P(y=1|x; \beta) = \sigma(\beta_0 + \beta_1 x_1 + ... + \beta_n x_n) = \frac{1}{1 + e^{-(\beta_0 + \sum_{i=1}^{n} \beta_i x_i)}} $$
-
-*   **$P(y=1|x; \beta)$** (Pronounced: *Probability of y equals 1 given x, parameterized by beta*): The predicted probability of the positive class.
+$$ P(y=1|x; \beta) = \sigma(\beta^T x) = \frac{1}{1 + e^{-(\beta_0 + \sum \beta_i x_i)}} $$
 
 ### 3. Odds and Odds Ratio
+Odds represent the ratio of success to failure probability.
 
-The **odds** represent the ratio of the probability of success to the probability of failure:
+$$ \text{Odds} = \frac{P(y=1)}{1-P(y=1)} = e^z $$
 
-$$ \text{Odds} = \frac{P(y=1)}{1-P(y=1)} = e^{\beta_0 + \beta_1 x_1 + ... + \beta_n x_n} $$
+*   **Interpretation:** $e^{\beta_i}$ is the multiplicative change in odds for a one-unit increase in $x_i$.
+*   **Log-Odds (Logit):** $\ln(\text{Odds}) = z = \beta^T x$. This is the linear part of the model!
 
-*   **$\text{Odds}$** (Pronounced: *Odds*): The odds of the positive outcome occurring.
-*   **$e^{\beta_i}$** (Pronounced: *e to the beta i*): The **odds ratio** for a one-unit increase in $x_i$, holding other features constant.
+![Odds vs Probability](images/odds_visualization.png)
+*Figure 2: Relationship between Probability, Odds, and Log-Odds.*
 
-**Interpretation:** If $\beta_1 = 0.5$, then $e^{0.5} \approx 1.65$, meaning a one-unit increase in $x_1$ increases the odds by 65%.
-
-### 4. Log Loss (Binary Cross-Entropy)
-
-The cost function minimized in logistic regression training:
+### 4. Log Loss (Cost Function)
+We minimize the negative log-likelihood:
 
 $$ J(\beta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(\hat{y}^{(i)}) + (1-y^{(i)}) \log(1-\hat{y}^{(i)}) \right] $$
 
-*   **$J(\beta)$** (Pronounced: *J of beta*): The log loss (cost function).
-*   **$m$** (Pronounced: *m*): The number of training samples.
-*   **$y^{(i)}$** (Pronounced: *y super i*): The actual label for sample $i$ (0 or 1).
-*   **$\hat{y}^{(i)}$** (Pronounced: *y hat super i*): The predicted probability for sample $i$.
-*   **$\log$** (Pronounced: *log* or *natural logarithm*): The natural logarithm.
-*   **$\sum$** (Pronounced: *sum*): Summation over all training examples.
+*   **$J(\beta)$** (Pronounced: *J of beta*): Cost function.
+*   **$\log$**: Natural logarithm.
 
-**Intuition:** Log loss penalizes confident wrong predictions heavily. Predicting high probability for the wrong class results in large loss.
+![Log Loss Function](images/log_loss_concept.png)
+*Figure 3: The Log Loss function penalizes wrong predictions exponentially.*
 
-### 5. Gradient of Log Loss
-
-To minimize the cost function using Gradient Descent, we need its partial derivatives. Surprisingly, it has the **exact same form** as Linear Regression:
-
-$$ \frac{\partial}{\partial \beta_j} J(\beta) = \frac{1}{m} \sum_{i=1}^{m} (\sigma(z^{(i)}) - y^{(i)}) x_j^{(i)} $$
-
-*   **$\frac{\partial}{\partial \beta_j}$** (Pronounced: *partial derivative with respect to beta j*): The rate of change of the cost function as just $\beta_j$ changes.
-
-Vectorized form:
+### 5. Gradient (for Optimization)
+Used in Gradient Descent. Same form as Linear Regression!
 
 $$ \nabla J(\beta) = \frac{1}{m} X^T (\hat{y} - y) $$
 
-*   **$\nabla J(\beta)$** (Pronounced: *Nabla J of beta*): The gradient vector.
-*   **$X^T$** (Pronounced: *X transpose*): The transpose of the feature matrix.
-*   **$\hat{y}$**: The vector of predicted probabilities $\sigma(X\beta)$.
+![Cost Function Optimization](images/betasopt.png)
+*Figure 4: Gradient descent finding the minimum of the cost function.*
 
-### 6. Newton-Raphson Method (Second-Order Optimization)
+### 6. Regularized Cost Functions
+Penalties to prevent overfitting.
 
-Advanced solvers like `newton-cg` and `lbfgs` use second-order derivative information (the Hessian matrix) for faster convergence:
+*   **Ridge (L2):** $J(\beta) + \lambda \sum \beta_j^2$
+*   **Lasso (L1):** $J(\beta) + \lambda \sum |\beta_j|$
 
-$$ \beta^{(t+1)} = \beta^{(t)} - H^{-1} \nabla J(\beta^{(t)}) $$
+![L1 Regularization Path](images/coefl1.png)
+*Figure 5: Lasso (L1) drives coefficients to zero, performing feature selection.*
 
-*   **$H$** (Pronounced: *Hessian matrix*): Matrix of second partial derivatives.
-*   **$H^{-1}$** (Pronounced: *H inverse*): The inverse of the Hessian matrix.
-*   **Pros:** Much faster convergence near the minimum.
-*   **Cons:** Expensive to compute $H^{-1}$ for large numbers of features.
+### 7. Softmax (Multinomial Logistic Regression)
+Generalization for $K$ classes:
 
-### 7. Regularized Cost Functions
-
-To prevent overfitting, we add a penalty term to the cost function:
-
-**L2 Regularization (Ridge) - Default:**
-$$ J_{reg}(\beta) = J(\beta) + \frac{\lambda}{2m} \sum_{j=1}^{n} \beta_j^2 $$
-
-**L1 Regularization (Lasso):**
-$$ J_{reg}(\beta) = J(\beta) + \frac{\lambda}{m} \sum_{j=1}^{n} |\beta_j| $$
-
-*   **$\lambda$** (Pronounced: *lambda*): Regularization strength (inverse of parameter `C`).
+$$ P(y=k|x) = \frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}} $$
 
 ### 8. Evaluation Metrics
 
-**Confusion Matrix Components:**
-- **TP** (True Positive): Correctly predicted positive
-- **TN** (True Negative): Correctly predicted negative
-- **FP** (False Positive): Incorrectly predicted positive (Type I error)
-- **FN** (False Negative): Incorrectly predicted negative (Type II error)
+**Confusion Matrix:**
 
-**Accuracy:**
+```mermaid
+graph TD
+    subgraph Predicted Positive
+    TP[True Positive<br>(Correct)]
+    FP[False Positive<br>(Type I Error)]
+    end
+    subgraph Predicted Negative
+    FN[False Negative<br>(Type II Error)]
+    TN[True Negative<br>(Correct)]
+    end
+    Actual_Pos-->TP
+    Actual_Pos-->FN
+    Actual_Neg-->FP
+    Actual_Neg-->TN
+    style TP fill:#9f9,stroke:#333,stroke-width:2px
+    style TN fill:#9f9,stroke:#333,stroke-width:2px
+    style FP fill:#f99,stroke:#333,stroke-width:2px
+    style FN fill:#f99,stroke:#333,stroke-width:2px
+```
 
-Proportion of correct predictions out of all predictions.
-
+**Accuracy:** Overall correctness.
 $$ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $$
 
-*   **$\text{Accuracy}$** (Pronounced: *Accuracy*): Overall correctness of the model.
-
-**Precision:**
-
-Proportion of true positives among all positive predictions. Answers: "Of all predicted positives, how many were actually positive?"
-
+**Precision:** Quality of positive predictions.
 $$ \text{Precision} = \frac{TP}{TP + FP} $$
 
-*   **$\text{Precision}$** (Pronounced: *Precision*): Measures the quality of positive predictions.
-
-**Recall (Sensitivity, True Positive Rate):**
-
-Proportion of true positives among all actual positives. Answers: "Of all actual positives, how many did we correctly identify?"
-
+**Recall:** Quantity of positives found.
 $$ \text{Recall} = \frac{TP}{TP + FN} $$
 
-*   **$\text{Recall}$** (Pronounced: *Recall* or *Sensitivity*): Measures the model's ability to find all positive cases.
+**F1 Score:** Harmonic mean.
+$$ F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} $$
 
-**F1 Score:**
-
-Harmonic mean of precision and recall, balancing both metrics.
-
-$$ F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \times TP}{2 \times TP + FP + FN} $$
-
-*   **$F1$** (Pronounced: *F-one score*): Combines precision and recall into a single metric.
-
-**Specificity (True Negative Rate):**
-
-$$ \text{Specificity} = \frac{TN}{TN + FP} $$
-
-### 6. ROC Curve Metrics
-
-**True Positive Rate (TPR):**
-
-$$ TPR = \frac{TP}{TP + FN} = \text{Recall} $$
-
-**False Positive Rate (FPR):**
-
-$$ FPR = \frac{FP}{FP + TN} = 1 - \text{Specificity} $$
-
-*   **$TPR$** (Pronounced: *T-P-R* or *True Positive Rate*): Y-axis of ROC curve.
-*   **$FPR$** (Pronounced: *F-P-R* or *False Positive Rate*): X-axis of ROC curve.
-
-**ROC Curve:** A plot of TPR vs FPR at various classification thresholds.
-
-**AUC (Area Under the Curve):** A single metric summarizing ROC curve performance:
-- AUC = 1.0: Perfect classifier
-- AUC = 0.5: Random guessing
-- AUC > 0.8: Generally considered good
+**ROC Curve & AUC:**
+*   **TPR (Recall):** $TP/(TP+FN)$
+*   **FPR:** $FP/(TN+FP)$
+*   **AUC:** Area Under ROC Curve (1.0 = perfect, 0.5 = random).
 
 ![Decision Boundary](images/dboundary.png)
-*Figure 2: Decision boundary showing how logistic regression separates classes in feature space.*
+*Figure 6: Decision Boundary.*
 
-### 7. Multinomial Logistic Regression (Softmax)
+![ROC Curve](images/p3.png)
+*Figure 7: Performance metrics.*
 
-For multiclass classification with $K$ classes, the softmax function generalizes the sigmoid:
+### 9. Example Dataset: Breast Cancer Diagnosis
+A classic binary classification problem.
+*   **Goal:** Predict if a tumor is Malignant (0) or Benign (1).
+*   **Features:** Radius, Texture, Smoothness, etc. (computed from cell images).
+*   **Logic:** Logistic Regression estimates the probability $P(y=Benign|x)$. If $P > 0.5$, classify as Benign. The plot below shows two features where a linear decision boundary could separate the classes (though not perfectly).
 
-$$ P(y=k|x; \beta) = \frac{e^{\beta_k^T x}}{\sum_{j=1}^{K} e^{\beta_j^T x}} $$
+![Breast Cancer Visualization](images/breast_cancer_viz.png)
+*Figure 8: Scatter plot of Breast Cancer data (Radius vs Texture). Malignant tumors tend to be larger and more textured.*
 
-*   **$P(y=k|x; \beta)$** (Pronounced: *Probability of y equals k given x*): Probability of class $k$.
-*   **$K$** (Pronounced: *K*): Total number of classes.
-*   **$\beta_k^T x$** (Pronounced: *beta k transpose times x*): Linear combination for class $k$.
-*   **$\sum_{j=1}^{K}$** (Pronounced: *sum from j equals 1 to K*): Normalization term ensuring probabilities sum to 1.
+## Business Applications
+
+Logistic Regression is the workhorse of industrial classification:
+*   **Credit Scoring:** Predicting default risk (Prob > Threshold -> Deny).
+*   **Churn Prediction:** Identifying at-risk customers for retention campaigns.
+*   **Ad Click-Through Rate (CTR):** Predicting probability of a click for ad ranking.
+*   **Medical Diagnosis:** Estimating disease risk probabilities.
+*   **Fraud Detection:** Flagging suspicious transactions.
 
 ## Hyperparameters
 
@@ -227,7 +192,7 @@ Logistic Regression in scikit-learn has several important hyperparameters:
     *   *Effect:* Controls the tradeoff between fitting training data and keeping coefficients small
 
 ![L1 Regularization Coefficients](images/coefl1.png)
-*Figure 3: Effect of L1 regularization on coefficient values, showing how some coefficients become exactly zero.*
+*Figure 8: Effect of L1 regularization on coefficient values, showing how some coefficients become exactly zero.*
 
 ### Optimization
 *   **`solver`**: Algorithm to use for optimization.
@@ -336,7 +301,7 @@ Where $B$ is the shrinking factor.
 
 
 ![Logistic Regression Visualization](images/lr.png)
-*Figure 4: Logistic regression model showing the sigmoid curve fitted to binary classification data.*
+*Figure 9: Logistic regression model showing the sigmoid curve fitted to binary classification data.*
 
 ### 2. Visualizing the Sigmoid Curve
 
@@ -385,7 +350,7 @@ print(classification_report(y_test, y_pred, target_names=['Adelie', 'Gentoo']))
 ```
 
 ![Threshold Analysis](images/thresh.png)
-*Figure 5: Analysis of different classification thresholds showing precision-recall tradeoff.*
+*Figure 10: Analysis of different classification thresholds showing precision-recall tradeoff.*
 
 ### 4. ROC Curve and AUC
 
@@ -411,7 +376,7 @@ print(f"AUC Score: {auc:.3f}")
 ```
 
 ![Performance Comparison](images/p3.png)
-*Figure 6: Model performance metrics comparison across different configurations.*
+*Figure 11: Model performance metrics comparison across different configurations.*
 
 ### 5. Threshold Tuning
 
@@ -488,7 +453,7 @@ plt.show()
 ```
 
 ![Beta Optimization](images/betasopt.png)
-*Figure 7: Optimization path showing how coefficients converge during training.*
+*Figure 12: Optimization path showing how coefficients converge during training.*
 
 ### 7. Multiclass Classification
 
@@ -527,7 +492,7 @@ plt.show()
 ```
 
 ![Feature Distribution](images/flipperdist.png)
-*Figure 8: Distribution of flipper length feature across different penguin species.*
+*Figure 13: Distribution of flipper length feature across different penguin species.*
 
 ### 8. Handling Class Imbalance
 

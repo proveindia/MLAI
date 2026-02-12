@@ -40,7 +40,14 @@ graph TD
 *   **Nonlinear Models:** The relationship involves curves, thresholds, or complex interactions. The change in $y$ depends on the current value of $x$.
     *   *Examples:* Polynomial Regression ($y = \theta_0 + \theta_1 x + \theta_2 x^2$), Decision Trees, Neural Networks.
 
-### 2. Linear Regression Models
+### 2. Example Dataset: California Housing
+Optimization algorithms like Gradient Descent are used to find the best-fitting line (model) for real data.
+*   **Goal:** Predict median house value based on median income.
+*   **Optimization:** The algorithm iteratively adjusts the slope and intercept to minimize the difference between the red line (prediction) and the teal dots (actual data).
+
+![California Housing Optimization](images/california_housing_viz.png)
+
+### 3. Linear Regression Models
 *   **Simple Linear Regression:** One feature.
     *   $\hat{y} = \theta_0 + \theta_1 x$
 *   **Multiple Linear Regression:** Multiple features.

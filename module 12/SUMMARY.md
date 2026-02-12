@@ -4,63 +4,43 @@
 This module focused on the K-Nearest Neighbors (KNN) algorithm, a versatile distance-based method for classification and regression. The module also emphasized robust model selection techniques, including the use of Pipelines to prevent data leakage and GridSearchCV for hyperparameter tuning.
 
 ## Key Concepts
-*   **K-Nearest Neighbors (KNN):** A non-parametric, lazy learning algorithm that classifies a data point based on the majority class of its 'K' nearest neighbors in the feature space.
-*   **Distance Metrics:** Mathematical formulas used to calculate the similarity (or dissimilarity) between data points (e.g., Euclidean, Manhattan).
-*   **Feature Scaling:** The process of normalizing the range of independent variables. Crucial for distance-based algorithms like KNN.
-*   **Pipelines:** A mechanism to chain preprocessing steps (like scaling) with the estimator, ensuring consistent transformation of training and test data.
-*   **Data Leakage:** A common error where information from the test set influences the training process (e.g., scaling before splitting). Pipelines prevent this.
-*   **Grid Search (GridSearchCV):** An exhaustive search over specified parameter values to find the optimal model configuration.
-*   **Curse of Dimensionality:** In high dimensions, all points become equidistant, reducing KNN effectiveness. Requires dimensionality reduction (PCA).
+### 1. Classification Concept: Email Spam Detection
+*   **Goal:** Classify an incoming email as "Spam" (1) or "Not Spam" (0).
+*   **Features:** Word counts (e.g., "Win", "Free"), Sender reputation, Link count.
+*   **Process:**
+    *   **Training:** The algorithm memorizes the features of known spam and non-spam emails.
+    *   **Prediction:** For a new email, it finds the most similar emails (neighbors) from history. If the majority were spam, the new email is classified as spam.
+
+### 2. K-Nearest Neighbors (KNN)
+A non-parametric, lazy learning algorithm that classifies a data point based on the majority class of its 'K' nearest neighbors.
+
+### 3. Model Selection & Evaluation
+*   **Distance Metrics:** Mathematical formulas used to calculate similarity (e.g., Euclidean, Manhattan).
+*   **Feature Scaling:** Normalizing the range of independent variables. Crucial for distance-based algorithms like KNN.
+*   **Pipelines:** Chains preprocessing steps (like scaling) with the estimator to prevent data leakage.
+*   **Data Leakage:** When information from the test set influences the training process (e.g., scaling before splitting).
+*   **Grid Search (GridSearchCV):** Exhaustive search over specified parameter values to find the optimal model configuration.
 *   **Cross-Validation:** Evaluating model performance by splitting data into multiple train/test folds to ensure robustness.
-
-### 5. Classification Metrics & Trade-offs
-*   **Accuracy:** $(TP+TN)/(TP+TN+FP+FN)$
-*   **Precision:** $TP/(TP+FP)$. "Pessimistic Classifier" (High Precision) is cautious, only predicting positive when certain.
-*   **Recall (Sensitivity):** $TP/(TP+FN)$. "Optimistic Classifier" (High Recall) tries to find all positives, risking false alarms.
-*   **Specificity:** $TN/(TN+FP)$. Ability to find true negatives.
-*   **Thresholding:** Adjusting the probability cutoff (default 0.5) from `predict_proba` to trade off Precision vs Recall.
-
-### 6. Real-World Application: Matching
-**Case Study: Refugee Resettlement**
-*   **Goal:** Maximize refugee employment success.
-*   **Method:** Use supervised learning to predict employment probability for a refugee in different locations based on their characteristics.
-*   **Result:** Algorithmic assignment could increase employment by 41-73% compared to random assignment.
-
-## KNN Algorithm Steps
-
-```mermaid
-graph TD
-    A[New Data Point] --> B[Calculate Distance to All Training Points]
-    B --> C[Sort Distances Ascending]
-    C --> D[Pick Top K Neighbors]
-    D --> E{Task Type?}
-    E -->|Classification| F[Majority Vote]
-    E -->|Regression| G[Average Target Value]
-```
 
 ## Key Formulas
 
 ### 1. Euclidean Distance (L2 Norm)
 
-The straight-line distance between two points $p$ and $q$ in n-dimensional space. This is the default metric for many KNN implementations.
+The straight-line distance between two points $p$ and $q$ in n-dimensional space.
 
 $$ d(p, q) = \sqrt{\sum_{i=1}^{n} (q_i - p_i)^2} $$
 
 *   **$d(p, q)$** (Pronounced: *distance between p and q*): The Euclidean distance.
-*   **$q_i$** (Pronounced: *q sub i*): The value of the $i$-th feature for point $q$.
-*   **$p_i$** (Pronounced: *p sub i*): The value of the $i$-th feature for point $p$.
-*   **$n$** (Pronounced: *n*): The total number of features (dimensions).
-*   **$\sum$** (Pronounced: *sum*): Summation over all $n$ features.
+*   **$q_i, p_i$** (Pronounced: *q sub i, p sub i*): The values of the $i$-th feature.
+*   **$\sum$** (Pronounced: *sum* or *sigma*): Summation operator.
 
 ### 2. Manhattan Distance (L1 Norm)
 
-The sum of absolute differences between points across all dimensions. Also known as City Block distance.
+The sum of absolute differences. Also known as City Block distance.
 
 $$ d(p, q) = \sum_{i=1}^{n} |q_i - p_i| $$
 
-*   **$|q_i - p_i|$** (Pronounced: *absolute value of q sub i minus p sub i*): The absolute difference for the $i$-th feature.
-
-**Use Case:** Preferred for high-dimensional data or when features are discrete.
+*   **$|q_i - p_i|$** (Pronounced: *absolute value of q sub i minus p sub i*): The absolute difference.
 
 ### 3. Minkowski Distance (Lp Norm)
 
@@ -88,30 +68,92 @@ $$ \hat{y} = \text{mode}(\{y_i : x_i \in N_k(x)\}) $$
 
 ## Hyperparameters
 
-KNN has several key hyperparameters that significantly affect model performance:
+KNN has several key hyperparameters that control its behavior and performance. Tuning these is critical for balancing Bias and Variance.
 
-### Model Configuration
-*   **`n_neighbors` (K)**: Number of neighbors to use.
-    *   **Small K** (e.g., 1): High variance, low bias (overfitting). Decision boundaries are jagged.
-    *   **Large K**: Low variance, high bias (underfitting). Decision boundaries are smooth.
-    *   *Optimal K:* Usually found via Grid Search (often $\sqrt{N}$ is a starting point).
+### 1. `n_neighbors` (K)
+The number of neighbors to vote.
+*   **Small K (e.g., K=1):**
+    *   **Model:** Complex, flexible.
+    *   **Bias/Variance:** Low Bias, **High Variance** (Overfitting).
+    *   **Behavior:** Captures noise/outliers. Decision boundaries are jagged and follow individual points.
+*   **Large K (e.g., K=50):**
+    *   **Model:** Simple, rigid.
+    *   **Bias/Variance:** **High Bias** (Underfitting), Low Variance.
+    *   **Behavior:** Ignores local structure. Decision boundaries are smooth and linear.
+*   **Odd vs Even:** For binary classification, choose an **odd** K to avoid ties in voting.
 
-*   **`weights`**: Weight function used in prediction.
-    *   `'uniform'` (default): All points in each neighborhood are weighted equally.
-    *   `'distance'`: Weight points by the inverse of their distance. Closer neighbors have a greater influence.
+### 2. `weights`
+Determines how much influence each neighbor has on the vote.
+*   **`'uniform'` (Default):** All neighbors count equally.
+    *   *Use case:* When local density is uniform.
+*   **`'distance'`:** Closer neighbors have more influence (weight = $1/d$).
+    *   *Use case:* When data is unevenly sampled or you want to reduce the effect of far-away neighbors in a sparse region.
 
-*   **`metric`**: The distance metric to use.
-    *   Options: `'minkowski'` (default), `'euclidean'`, `'manhattan'`, `'chebyshev'`.
-    *   *Note:* Need to set `p` parameter when using `'minkowski'`.
+### 3. `metric` and `p`
+The distance function used to find neighbors.
+*   **`'minkowski'`:** The default generalized metric.
+    *   **`p=1`:** Manhattan Distance (L1). Good for high dimensions or sparse data.
+    *   **`p=2`:** Euclidean Distance (L2). Standard for spatial data.
+*   **`'cosine'`:** Measures angle rather than magnitude.
+    *   *Use case:* Text analysis, NLP, and high-dimensional sparse data (where magnitude doesn't matter).
 
-*   **`p`**: Power parameter for the Minkowski metric.
-    *   `p=1`: Manhattan distance.
-    *   `p=2`: Euclidean distance.
+### 4. `algorithm`
+The data structure used to compute nearest neighbors.
+*   **`'auto'`:** Sklearn decides the best method based on training data.
+*   **`'brute'`:** Brute-force search. Calculates distance to *every* point.
+    *   *Pros:* Exact. *Cons:* Very slow for large datasets ($O(N)$).
+*   **`'kd_tree'` / `'ball_tree'`:** Tree-based structures that partition space to prune search.
+    *   *Pros:* Much faster prediction ($O(\log N)$). *Cons:* Higher training time (to build tree).
 
-### Optimization
-*   **`algorithm`**: Algorithm used to compute the nearest neighbors.
-    *   Options: `'auto'`, `'ball_tree'`, `'kd_tree'`, `'brute'`.
-    *   *Effect:* Affects speed of training/prediction but not the outcome. `'kd_tree'` is efficient for low-dimensional data.
+### 5. `leaf_size`
+Number of points at which to switch to brute-force within the tree algorithm.
+*   *Effect:* Smaller leaf size = larger tree (more memory, potentially faster specific queries). Default is 30.
+
+### 2. Optimization: The Elbow Method
+A technique to find the optimal 'K' by plotting the Error Rate against K.
+*   **Goal:** Minimize error (or maximize accuracy) without increasing model complexity unnecessarily.
+*   **The "Elbow":** The point where the improvement in performance starts to flatten out.
+
+![Error Rate vs K](images/error_vs_k.png)
+
+### 3. Classification Metrics & Trade-offs
+*   **Accuracy:** $(TP+TN)/(TP+TN+FP+FN)$
+*   **Precision:** $TP/(TP+FP)$. "Pessimistic Classifier" (High Precision) is cautious, only predicting positive when certain.
+*   **Recall (Sensitivity):** $TP/(TP+FN)$. "Optimistic Classifier" (High Recall) tries to find all positives, risking false alarms.
+*   **Specificity:** $TN/(TN+FP)$. Ability to find true negatives.
+
+#### Thresholding and predict_proba
+Adjusting the probability cutoff (default 0.5) from `predict_proba` allows trading off Precision vs Recall.
+*   **Lower Threshold:** Increases Recall (Catches more positives), but lowers Precision (More false alarms).
+*   **Higher Threshold:** Increases Precision (Fewer false alarms), but lowers Recall (Misses some positives).
+
+![Precision-Recall vs Threshold](images/precision_recall_threshold.png)
+
+### 4. KNN Regression
+KNN can also be used for regression by averaging the values of the nearest neighbors.
+
+$$ \hat{y} = \frac{1}{k} \sum_{i=1}^{k} y_i $$
+
+*   **Comparison with Linear Regression:**
+    *   **Linear Regression:** Fits a straight line (parametric). High Bias, Low Variance. Global model.
+    *   **KNN Regression:** Fits a wiggly curve (non-parametric). Low Bias, High Variance. Local model.
+
+![KNN Regression vs Linear](images/knn_regression_vs_linear.png)
+
+### 5. Real-World Application: Matching
+**Case Study: Refugee Resettlement**
+*   **Goal:** Maximize refugee employment success.
+*   **Method:** Use supervised learning (KNN) to predict employment probability based on characteristics and location history.
+*   **Result:** Algorithmic assignment could increase employment by 41-73% compared to random assignment.
+
+### 6. Example Dataset: Iris Plants
+A classic dataset for testing classification algorithms like KNN.
+*   **Goal:** Classify iris flowers into 3 species (setosa, versicolor, virginica).
+*   **Features:** Sepal Length, Sepal Width, Petal Length, Petal Width.
+*   **Why KNN?** As seen in the plot below, the classes are grouped in clusters. KNN can easily classify new points based on which cluster they fall into.
+
+![Iris Dataset Clusters](images/iris_dataset.png)
+*Figure: Scatter plot of Iris data showing clear separation between Setosa and overlap between Versicolor/Virginica.*
 
 ## Code for Learning
 

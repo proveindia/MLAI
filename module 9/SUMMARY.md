@@ -157,7 +157,14 @@ Can shrink coefficients to exactly zero, performing **Feature Selection**.
 ### Rule of thumb: Asymptotic Alpha
 $$ \alpha_{\text{optimal}} \propto \frac{1}{\sqrt{n}} $$
 
-### Elastic Net (Combination)
+### 4. Example Dataset: Diabetes (Feature Selection)
+*   **Goal:** Predict disease progression based on patient metrics.
+*   **Method:** Lasso Regression.
+*   **Result:** As we increase regularization strength ($\alpha$), coefficients drop to zero. The "surviving" features (e.g., BMI, BP) are the most important predictors.
+
+![Diabetes Lasso Path](images/diabetes_lasso.png)
+
+### 5. Elastic Net (Combination)
 Combines both L1 and L2 penalties:
 
 $$ J(\beta) = \text{MSE} + \lambda_1 \sum_{j=1}^p |\beta_j| + \lambda_2 \sum_{j=1}^p \beta_j^2 $$

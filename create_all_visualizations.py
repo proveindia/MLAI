@@ -9,6 +9,14 @@ import pandas as pd
 from scipy import stats
 import os
 
+# Global Imports
+from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import precision_recall_curve
+from sklearn.datasets import make_classification, load_iris
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import l1_min_c
+
 sns.set_style('whitegrid')
 plt.rcParams['figure.facecolor'] = 'white'
 
@@ -698,9 +706,40 @@ plt.text(2, 1.5, 'MAE is linear\n(Robust to outliers)', ha='center', color='blue
 plt.tight_layout()
 plt.savefig('module 7/images/loss_function_comparison.png', dpi=300, bbox_inches='tight')
 plt.close()
+plt.close()
 print("Created: loss_function_comparison.png")
 
-print("\nModule 7 complete: 1 visualization created\n")
+# 2. Real-World Example: California Housing (Median Income vs House Value)
+from sklearn.datasets import fetch_california_housing
+housing = fetch_california_housing()
+X_cal = housing.data
+y_cal = housing.target
+feature_names = housing.feature_names
+# Feature: MedInc (Median Income in block group) - Index 0
+X_inc = X_cal[:, 0].reshape(-1, 1)
+
+# Fit simple linear model to visualize
+lr_cal = LinearRegression()
+lr_cal.fit(X_inc, y_cal)
+y_pred_cal = lr_cal.predict(X_inc)
+
+plt.figure(figsize=(10, 6))
+# Plot a subset of points for cleaner visualization
+indices = np.random.choice(len(X_inc), 500, replace=False)
+plt.scatter(X_inc[indices], y_cal[indices], alpha=0.4, color='teal', label='Data Points (Subset)')
+plt.plot(X_inc, y_pred_cal, color='red', linewidth=3, label='Optimized Model (Gradient Descent)')
+
+plt.title('California Housing: Income vs House Value (Optimization Goal)', fontweight='bold')
+plt.xlabel('Median Income (Tens of Thousands)')
+plt.ylabel('Median House Value (Hundreds of Thousands)')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 7/images/california_housing_viz.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: california_housing_viz.png")
+
+print("\nModule 7 complete: 2 visualizations created\n")
 
 # ============================================================================
 # MODULE 8 VISUALIZATIONS
@@ -781,7 +820,51 @@ plt.savefig('module 8/images/bias_variance_tradeoff.png', dpi=300, bbox_inches='
 plt.close()
 print("Created: bias_variance_tradeoff.png")
 
-print("\nModule 8 complete: 2 visualizations created\n")
+plt.close()
+print("Created: bias_variance_tradeoff.png")
+
+# 3. Real-World Example: Auto MPG (Polynomial Regression)
+# Demonstrate that relation between Horsepower and MPG is non-linear
+try:
+    mpg_data = sns.load_dataset('mpg').dropna()
+    X_mpg = mpg_data['horsepower'].values.reshape(-1, 1)
+    y_mpg = mpg_data['mpg'].values
+    
+    # Sort for plotting
+    sorted_idx = np.argsort(X_mpg.flatten())
+    X_mpg_sorted = X_mpg[sorted_idx]
+    y_mpg_sorted = y_mpg[sorted_idx]
+    
+    # Linear Fit
+    lr_mpg = LinearRegression()
+    lr_mpg.fit(X_mpg, y_mpg)
+    y_pred_lin = lr_mpg.predict(X_mpg_sorted)
+    
+    # Polynomial Fit (Degree 2)
+    poly_mpg = PolynomialFeatures(degree=2)
+    X_poly_mpg = poly_mpg.fit_transform(X_mpg)
+    lr_poly = LinearRegression()
+    lr_poly.fit(X_poly_mpg, y_mpg)
+    y_pred_poly = lr_poly.predict(poly_mpg.transform(X_mpg_sorted))
+    
+    plt.figure(figsize=(10, 6))
+    plt.scatter(X_mpg, y_mpg, alpha=0.5, color='gray', label='Data Points')
+    plt.plot(X_mpg_sorted, y_pred_lin, 'r--', linewidth=2, label='Linear Fit (Underfitting)')
+    plt.plot(X_mpg_sorted, y_pred_poly, 'b-', linewidth=3, label='Polynomial Fit (Degree 2)')
+    
+    plt.title('Auto MPG: Horsepower vs MPG (Feature Engineering)', fontweight='bold')
+    plt.xlabel('Horsepower')
+    plt.ylabel('Miles Per Gallon (MPG)')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('module 8/images/auto_mpg_poly.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    print("Created: auto_mpg_poly.png")
+except Exception as e:
+    print(f"Skipping Auto MPG plot: {e}")
+
+print("\nModule 8 complete: 3 visualizations created\n")
 
 # ============================================================================
 # MODULE 9 VISUALIZATIONS
@@ -890,7 +973,40 @@ plt.savefig('module 9/images/cv_types_comparison.png', dpi=300, bbox_inches='tig
 plt.close()
 print("Created: cv_types_comparison.png")
 
-print("\nModule 9 complete: 2 visualizations created\n")
+plt.close()
+print("Created: regularization_path.png")
+
+# 2. Real-World Example: Diabetes (Lasso Feature Selection)
+# Visualize which features are selected by Lasso as we increase regularization
+from sklearn.datasets import load_diabetes
+diabetes = load_diabetes()
+X_dia = diabetes.data
+y_dia = diabetes.target
+feature_names_dia = diabetes.feature_names
+
+# Compute Lasso path
+alphas_dia = np.logspace(-4, -0.5, 30)
+coefs_dia = []
+for a in alphas_dia:
+    lasso_dia = Lasso(alpha=a, max_iter=10000)
+    lasso_dia.fit(X_dia, y_dia)
+    coefs_dia.append(lasso_dia.coef_)
+
+plt.figure(figsize=(10, 6))
+plt.plot(alphas_dia, coefs_dia, linewidth=2)
+plt.xscale('log')
+plt.xlabel('Alpha (Regularization Strength)')
+plt.ylabel('Coefficients')
+plt.title('Diabetes Dataset: Lasso Feature Selection', fontweight='bold')
+plt.legend(feature_names_dia, loc='upper right', bbox_to_anchor=(1.15, 1))
+plt.grid(True, alpha=0.3)
+plt.axvline(0.01, color='red', linestyle='--', alpha=0.5, label='Strong Selection')
+plt.tight_layout()
+plt.savefig('module 9/images/diabetes_lasso.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: diabetes_lasso.png")
+
+print("\nModule 9 complete: 3 visualizations created\n")
 
 # ============================================================================
 # MODULE 10 VISUALIZATIONS
@@ -996,7 +1112,49 @@ plt.savefig('module 10/images/forecasting_uncertainty.png', dpi=300, bbox_inches
 plt.close()
 print("Created: forecasting_uncertainty.png")
 
-print("\nModule 10 complete: 3 visualizations created\n")
+print("Created: forecasting_uncertainty.png")
+
+# 4. Real-World Example: Air Passengers (Trend + Seasonality)
+print("Loading AirPassengers dataset...")
+try:
+    # Try loading from statsmodels (requires internet or local cache)
+    import statsmodels.api as sm
+    air_passengers = sm.datasets.get_rdataset("AirPassengers").data
+    # Convert to datetime index
+    air_passengers['time'] = pd.date_range(start='1949-01-01', periods=len(air_passengers), freq='MS')
+    air_passengers.set_index('time', inplace=True)
+    ts_air = air_passengers['value']
+
+    plt.figure(figsize=(12, 10))
+    result_air = sm.tsa.seasonal_decompose(ts_air, model='multiplicative')
+
+    # Custom decomposition plot
+    plt.subplot(411)
+    plt.plot(ts_air, label='Original', color='blue')
+    plt.legend(loc='upper left')
+    plt.title('Air Passengers Data (1949-1960)\nMultiplicative Decomposition', fontweight='bold')
+
+    plt.subplot(412)
+    plt.plot(result_air.trend, label='Trend', color='orange')
+    plt.legend(loc='upper left')
+
+    plt.subplot(413)
+    plt.plot(result_air.seasonal, label='Seasonality', color='green')
+    plt.legend(loc='upper left')
+
+    plt.subplot(414)
+    plt.plot(result_air.resid, label='Residuals', color='red')
+    plt.legend(loc='upper left')
+
+    plt.tight_layout()
+    plt.savefig('module 10/images/air_passengers_analysis.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    print("Created: air_passengers_analysis.png")
+    
+except Exception as e:
+    print(f"Skipping AirPassengers plot due to load error: {e}")
+
+print("\nModule 10 complete: 4 visualizations created\n")
 
 # ============================================================================
 # MODULE 11 VISUALIZATIONS
@@ -1061,3 +1219,629 @@ plt.close()
 print("Created: price_by_condition.png")
 
 print("\nModule 11 complete: 3 visualizations created\n")
+
+# ============================================================================
+# MODULE 12 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 12: K-Nearest Neighbors (KNN) ###\n")
+os.makedirs('module 12/images', exist_ok=True)
+
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from matplotlib.colors import ListedColormap
+
+# 1. Distance Metrics Visual
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+p1 = np.array([2, 2])
+p2 = np.array([8, 6])
+
+# Euclidean
+ax = axes[0]
+ax.plot([p1[0], p2[0]], [p1[1], p2[1]], 'b-', linewidth=3, label='Euclidean (L2)')
+ax.scatter([p1[0], p2[0]], [p1[1], p2[1]], c='red', s=100, zorder=5)
+ax.set_title("Euclidean Distance (L2)\nShortest Path", fontweight='bold')
+ax.grid(True, linestyle='--')
+ax.set_xlim(0, 10); ax.set_ylim(0, 10)
+
+# Manhattan
+ax = axes[1]
+ax.plot([p1[0], p2[0]], [p1[1], p1[1]], 'g--', linewidth=3)
+ax.plot([p2[0], p2[0]], [p1[1], p2[1]], 'g--', linewidth=3, label='Manhattan (L1)')
+ax.scatter([p1[0], p2[0]], [p1[1], p2[1]], c='red', s=100, zorder=5)
+ax.set_title("Manhattan Distance (L1)\nGrid/City Block", fontweight='bold')
+ax.grid(True, linestyle='--')
+ax.set_xlim(0, 10); ax.set_ylim(0, 10)
+
+# Chebyshev
+ax = axes[2]
+ax.plot([p1[0], p2[0]], [p1[1], p2[1]], 'k:', linewidth=1, alpha=0.3) # Layout
+rect = plt.Rectangle((p1[0], p1[1]), p2[0]-p1[0], p2[1]-p1[1], fill=False, edgecolor='purple', linewidth=3, linestyle='-.')
+ax.add_patch(rect)
+ax.scatter([p1[0], p2[0]], [p1[1], p2[1]], c='red', s=100, zorder=5)
+ax.text(5, 1, "Max(|x2-x1|, |y2-y1|)", ha='center', color='purple')
+ax.set_title("Chebyshev Distance (L∞)\nChessboard Move", fontweight='bold')
+ax.grid(True, linestyle='--')
+ax.set_xlim(0, 10); ax.set_ylim(0, 10)
+
+plt.suptitle("Common Distance Metrics", fontsize=16, fontweight='bold')
+plt.tight_layout()
+plt.savefig('module 12/images/distance_metrics.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: distance_metrics.png")
+
+# 2. KNN Decision Boundaries (Effect of K)
+from sklearn.datasets import make_moons
+X, y = make_moons(n_samples=200, noise=0.3, random_state=42)
+
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+ks = [1, 15, 50]
+cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA'])
+cmap_bold = ListedColormap(['#FF0000', '#00FF00'])
+
+for i, k in enumerate(ks):
+    clf = KNeighborsClassifier(n_neighbors=k)
+    clf.fit(X, y)
+    
+    # Meshgrid
+    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.05),
+                         np.arange(y_min, y_max, 0.05))
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    
+    axes[i].pcolormesh(xx, yy, Z, cmap=cmap_light, shading='auto')
+    axes[i].scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
+    axes[i].set_title(f"K = {k}\n{'Overfitting (High Variance)' if k==1 else ('Optimal?' if k==15 else 'Underfitting (High Bias)')}", fontweight='bold')
+
+plt.suptitle("Effect of K on Decision Boundaries", fontsize=16, fontweight='bold')
+plt.tight_layout()
+plt.savefig('module 12/images/knn_decision_boundaries.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: knn_decision_boundaries.png")
+
+# 3. KNN Regression vs Linear Regression
+np.random.seed(42)
+X_reg = np.sort(5 * np.random.rand(40, 1), axis=0)
+y_reg = np.sin(X_reg).ravel() + np.random.normal(0, 0.1, X_reg.shape[0])
+T = np.linspace(0, 5, 500)[:, np.newaxis]
+
+# Fit models
+knn_reg = KNeighborsRegressor(n_neighbors=5)
+knn_reg.fit(X_reg, y_reg)
+y_knn = knn_reg.predict(T)
+
+lin_reg = LinearRegression()
+lin_reg.fit(X_reg, y_reg)
+y_lin = lin_reg.predict(T)
+
+plt.figure(figsize=(10, 6))
+plt.scatter(X_reg, y_reg, color='darkorange', label='Data')
+plt.plot(T, y_knn, color='navy', label='KNN Regression (K=5)', linewidth=2)
+plt.plot(T, y_lin, color='red', linestyle='--', label='Linear Regression', linewidth=2)
+plt.plot(T, np.sin(T), color='green', alpha=0.3, label='True Function')
+plt.title("KNN Regression (Non-Linear) vs Linear Regression", fontweight='bold')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.savefig('module 12/images/knn_regression_vs_linear.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: knn_regression_vs_linear.png")
+
+# 4. Error Rate vs K (Elbow Method)
+from sklearn.model_selection import cross_val_score
+
+X, y = make_moons(n_samples=500, noise=0.35, random_state=42)
+k_values = range(1, 50)
+error_rates = []
+
+for k in k_values:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    scores = cross_val_score(knn, X, y, cv=5, scoring='accuracy')
+    error_rates.append(1 - scores.mean())
+
+plt.figure(figsize=(10, 6))
+plt.plot(k_values, error_rates, marker='o', linestyle='-', color='purple')
+plt.title('Error Rate vs. K Value (The Elbow Method)', fontweight='bold')
+plt.xlabel('Number of Neighbors K')
+plt.ylabel('Error Rate')
+plt.grid(True, alpha=0.3)
+plt.savefig('module 12/images/error_vs_k.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: error_vs_k.png")
+
+# 5. Real-World Example: Iris Dataset Visualization
+from sklearn.datasets import load_iris
+iris = load_iris()
+X_iris = iris.data
+y_iris = iris.target
+target_names = iris.target_names
+
+plt.figure(figsize=(10, 6))
+colors = ['navy', 'turquoise', 'darkorange']
+lw = 2
+
+for color, i, target_name in zip(colors, [0, 1, 2], target_names):
+    plt.scatter(X_iris[y_iris == i, 0], X_iris[y_iris == i, 1], color=color, alpha=0.8, lw=lw,
+                label=target_name)
+
+plt.legend(loc='best', shadow=False, scatterpoints=1)
+plt.title('Iris Dataset: Sepal Length vs Sepal Width', fontweight='bold')
+plt.xlabel('Sepal Length (cm)')
+plt.ylabel('Sepal Width (cm)')
+plt.grid(True, alpha=0.3)
+plt.savefig('module 12/images/iris_dataset.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: iris_dataset.png")
+
+
+# 5. Precision-Recall vs Threshold
+from sklearn.metrics import precision_recall_curve
+
+# Train a model
+knn = KNeighborsClassifier(n_neighbors=15)
+knn.fit(X, y)
+y_scores = knn.predict_proba(X)[:, 1]
+
+precisions, recalls, thresholds = precision_recall_curve(y, y_scores)
+
+plt.figure(figsize=(10, 6))
+plt.plot(thresholds, precisions[:-1], 'b--', label='Precision', linewidth=2)
+plt.plot(thresholds, recalls[:-1], 'g-', label='Recall', linewidth=2)
+plt.xlabel('Threshold')
+plt.ylabel('Score')
+plt.title('Precision & Recall vs. Threshold', fontweight='bold')
+plt.legend(loc='best')
+plt.grid(True, alpha=0.3)
+plt.axvline(0.5, color='k', linestyle=':', label='Default Threshold (0.5)')
+
+plt.tight_layout()
+plt.savefig('module 12/images/precision_recall_threshold.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: precision_recall_threshold.png")
+
+
+
+print("\nModule 12 complete: 5 visualizations created\n")
+
+# ============================================================================
+# MODULE 13 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 13: Logistic Regression ###\n")
+os.makedirs('module 13/images', exist_ok=True)
+
+# 1. Sigmoid Function
+z = np.linspace(-10, 10, 100)
+sigmoid = 1 / (1 + np.exp(-z))
+
+plt.figure(figsize=(10, 6))
+plt.plot(z, sigmoid, 'b-', linewidth=3, label=r'$\sigma(z) = \frac{1}{1 + e^{-z}}$')
+plt.axhline(0, color='black', linewidth=1)
+plt.axvline(0, color='black', linewidth=1)
+plt.axhline(0.5, color='red', linestyle='--', label='Decision Threshold (0.5)')
+plt.axhline(1, color='gray', linestyle=':')
+plt.xlabel('z (Log-Odds)', fontsize=12)
+plt.ylabel('Probability $\sigma(z)$', fontsize=12)
+plt.title('The Sigmoid Function', fontweight='bold', fontsize=16)
+plt.legend(fontsize=12)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 13/images/sigmoid_visualization.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: sigmoid_visualization.png")
+
+# 2. Logistic Regression Fit (Toy Data)
+np.random.seed(42)
+X_toys = np.random.normal(0, 1, 100)
+y_toys = (X_toys > 0).astype(int)
+# Add noise (flip some labels)
+flip_indices = np.random.choice(100, 10, replace=False)
+y_toys[flip_indices] = 1 - y_toys[flip_indices]
+
+clf = LogisticRegression()
+clf.fit(X_toys.reshape(-1, 1), y_toys)
+X_test_toys = np.linspace(-3, 3, 300).reshape(-1, 1)
+y_prob_toys = clf.predict_proba(X_test_toys)[:, 1]
+
+plt.figure(figsize=(10, 6))
+plt.scatter(X_toys, y_toys, c=y_toys, cmap='bwr', alpha=0.6, edgecolors='k', label='Data')
+plt.plot(X_test_toys, y_prob_toys, 'g-', linewidth=3, label='Logistic Model')
+plt.axhline(0.5, color='gray', linestyle='--', label='Threshold')
+plt.ylabel('Probability')
+plt.xlabel('Feature Value')
+plt.title('Logistic Regression Model Fit', fontweight='bold')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 13/images/lr.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: lr.png")
+
+# 3. Decision Boundary (2D)
+from sklearn.datasets import make_classification
+X_2d, y_2d = make_classification(n_features=2, n_redundant=0, n_informative=2,
+                                 n_clusters_per_class=1, random_state=42)
+clf_2d = LogisticRegression()
+clf_2d.fit(X_2d, y_2d)
+
+# Meshgrid
+x_min, x_max = X_2d[:, 0].min() - 1, X_2d[:, 0].max() + 1
+y_min, y_max = X_2d[:, 1].min() - 1, X_2d[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.05),
+                     np.arange(y_min, y_max, 0.05))
+Z = clf_2d.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+plt.figure(figsize=(10, 6))
+plt.contourf(xx, yy, Z, alpha=0.3, cmap='coolwarm')
+plt.scatter(X_2d[:, 0], X_2d[:, 1], c=y_2d, edgecolors='k', cmap='coolwarm', s=50)
+plt.title('Linear Decision Boundary (2D)', fontweight='bold')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.tight_layout()
+plt.savefig('module 13/images/dboundary.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: dboundary.png")
+
+# 4. L1 Regularization Coefficients
+# We'll calculate paths for a dataset
+from sklearn.svm import l1_min_c
+iris = load_iris()
+X_iris = iris.data
+y_iris = (iris.target == 0).astype(int) # Binary: Setosa vs Rest
+X_iris_std = StandardScaler().fit_transform(X_iris)
+
+cs = l1_min_c(X_iris_std, y_iris, loss='log') * np.logspace(0, 7, 16)
+clf_l1 = LogisticRegression(penalty='l1', solver='liblinear', tol=1e-6, max_iter=int(1e6))
+coefs_ = []
+for c in cs:
+    clf_l1.set_params(C=c)
+    clf_l1.fit(X_iris_std, y_iris)
+    coefs_.append(clf_l1.coef_.ravel().copy())
+
+coefs_ = np.array(coefs_)
+plt.figure(figsize=(10, 6))
+plt.plot(np.log10(cs), coefs_, marker='o')
+plt.xlabel('log(C)')
+plt.ylabel('Coefficients')
+plt.title('L1 Regularization Path (Lasso Effect)', fontweight='bold')
+plt.legend(iris.feature_names, loc='upper left')
+plt.grid(True, alpha=0.3)
+plt.axis('tight')
+plt.tight_layout()
+plt.savefig('module 13/images/coefl1.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: coefl1.png")
+
+# 5. Threshold Analysis (Precision-Recall)
+# Re-using the toy data model
+y_scores_toys = clf.predict_proba(X_test_toys)[:, 1]
+# We need true labels for the test set, let's just use the training set for this demo viz
+y_scores_train = clf.predict_proba(X_toys.reshape(-1, 1))[:, 1]
+prec, rec, thresh = precision_recall_curve(y_toys, y_scores_train)
+
+plt.figure(figsize=(10, 6))
+plt.plot(thresh, prec[:-1], 'b--', label='Precision')
+plt.plot(thresh, rec[:-1], 'g-', label='Recall')
+plt.title('Precision & Recall vs Threshold', fontweight='bold')
+plt.xlabel('Threshold')
+plt.ylabel('Score')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 13/images/thresh.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: thresh.png")
+
+# 6. Performance Metrics Bar Chart
+metrics = {'Accuracy': 0.85, 'Precision': 0.82, 'Recall': 0.88, 'F1': 0.85, 'AUC': 0.91}
+plt.figure(figsize=(8, 5))
+plt.bar(metrics.keys(), metrics.values(), color=['blue', 'green', 'orange', 'purple', 'red'], alpha=0.7, edgecolor='k')
+plt.ylim(0, 1.1)
+plt.title('Model Performance Metrics', fontweight='bold')
+plt.ylabel('Score')
+for i, v in enumerate(metrics.values()):
+    plt.text(i, v + 0.02, str(v), ha='center', fontweight='bold')
+plt.grid(True, axis='y', alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 13/images/p3.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: p3.png")
+
+# 7. Optimization Path (Conceptual)
+# Contour plot of a convex function
+delta = 0.025
+x_opt = np.arange(-3.0, 3.0, delta)
+y_opt = np.arange(-2.0, 2.0, delta)
+X_opt, Y_opt = np.meshgrid(x_opt, y_opt)
+Z_opt = X_opt**2 + Y_opt**2 # Simple convex bowl
+
+plt.figure(figsize=(8, 6))
+cs = plt.contour(X_opt, Y_opt, Z_opt, levels=20, cmap='viridis')
+plt.clabel(cs, inline=1, fontsize=10)
+# Mock path
+path_x = [2.5, 2, 1.5, 1, 0.5, 0.2, 0]
+path_y = [1.5, 1.2, 0.8, 0.5, 0.2, 0.1, 0]
+plt.plot(path_x, path_y, 'ro-', linewidth=2, label='Gradient Descent Path')
+plt.plot(0, 0, 'y*', markersize=15, label='Global Minimum')
+plt.title('Cost Function Optimization (Gradient Descent)', fontweight='bold')
+plt.xlabel('Parameter Beta 1')
+plt.ylabel('Parameter Beta 2')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 13/images/betasopt.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: betasopt.png")
+
+# 8. Feature Distribution (Penguins Flipper)
+# Using seaborn built-in data or mock
+# Assuming we can load penguins, otherwise mock
+try:
+    penguins = sns.load_dataset('penguins')
+    plt.figure(figsize=(10, 6))
+    sns.histplot(data=penguins, x='flipper_length_mm', hue='species', kde=True, element='step')
+    plt.title('Feature Distribution by Class (Penguins)', fontweight='bold')
+except:
+    # Fallback
+    d1 = np.random.normal(180, 10, 100)
+    d2 = np.random.normal(210, 10, 100)
+    plt.figure(figsize=(10, 6))
+    plt.hist(d1, alpha=0.5, label='Class 0', bins=20)
+    plt.hist(d2, alpha=0.5, label='Class 1', bins=20)
+    plt.legend()
+    plt.title('Feature Distribution by Class (Simulated)', fontweight='bold')
+plt.tight_layout()
+plt.savefig('module 13/images/flipperdist.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: flipperdist.png")
+
+# 12. Real-World Example: Breast Cancer Wisconsin
+from sklearn.datasets import load_breast_cancer
+data = load_breast_cancer()
+X_bc = data.data
+y_bc = data.target
+# Feature indices: 0=mean radius, 1=mean texture
+plt.figure(figsize=(10, 6))
+plt.scatter(X_bc[y_bc==0, 0], X_bc[y_bc==0, 1], c='red', label='Malignant', alpha=0.6)
+plt.scatter(X_bc[y_bc==1, 0], X_bc[y_bc==1, 1], c='blue', label='Benign', alpha=0.6)
+plt.xlabel('Mean Radius')
+plt.ylabel('Mean Texture')
+plt.title('Breast Cancer Wisconsin: Radius vs Texture', fontweight='bold')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.savefig('module 13/images/breast_cancer_viz.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: breast_cancer_viz.png")
+
+print("\nModule 13 complete: 11 visualizations created\n")
+
+# ============================================================================
+# MODULE 14 VISUALIZATIONS
+# ============================================================================
+print("### MODULE 14: Decision Trees ###\n")
+os.makedirs('module 14/images', exist_ok=True)
+
+# 1. Gini vs Entropy
+p = np.linspace(0.001, 0.999, 100)
+gini = 1 - (p**2 + (1-p)**2)
+entropy = -(p*np.log2(p) + (1-p)*np.log2(1-p))
+# Scale entropy to match gini range for visual comparison (entropy max is 1, gini max is 0.5)
+entropy_scaled = entropy * 0.5 
+
+plt.figure(figsize=(10, 6))
+plt.plot(p, gini, 'r-', linewidth=3, label='Gini Impurity')
+plt.plot(p, entropy, 'b--', linewidth=3, label='Entropy (Base 2)')
+plt.plot(p, entropy_scaled, 'g:', linewidth=3, label='Entropy (Scaled 0.5)')
+plt.title('Impurity Measures: Gini vs Entropy', fontweight='bold')
+plt.xlabel('Probability of Class 1')
+plt.ylabel('Impurity')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.axvline(0.5, color='gray', linestyle='--', alpha=0.5)
+plt.tight_layout()
+plt.savefig('module 14/images/gini_vs_entropy.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: gini_vs_entropy.png")
+
+# 2. Overfitting (Depth vs Accuracy)
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import cross_val_score
+
+# Generate complex moon data
+from sklearn.datasets import make_moons
+X_m, y_m = make_moons(n_samples=500, noise=0.3, random_state=42)
+X_train_m, X_test_m, y_train_m, y_test_m = train_test_split(X_m, y_m, test_size=0.3, random_state=42)
+
+depths = range(1, 16)
+train_scores = []
+test_scores = []
+
+for d in depths:
+    clf = DecisionTreeClassifier(max_depth=d, random_state=42)
+    clf.fit(X_train_m, y_train_m)
+    train_scores.append(clf.score(X_train_m, y_train_m))
+    test_scores.append(clf.score(X_test_m, y_test_m))
+
+plt.figure(figsize=(10, 6))
+plt.plot(depths, train_scores, 'bo-', label='Training Accuracy')
+plt.plot(depths, test_scores, 'rs-', label='Test Accuracy')
+plt.title('Overfitting: Model Complexity (Depth) vs Accuracy', fontweight='bold')
+plt.xlabel('Max Depth of Tree')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.grid(True, alpha=0.3)
+# Highlight divergence
+plt.annotate('Overfitting Starts Here', xy=(3, test_scores[2]), xytext=(5, 0.85),
+             arrowprops=dict(facecolor='black', shrink=0.05))
+plt.tight_layout()
+plt.savefig('module 14/images/overfitting_depth.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: overfitting_depth.png")
+
+# 3. Decision Boundaries (Iris)
+# Visualize splits on 2 features
+iris = load_iris()
+X_iris_2 = iris.data[:, [0, 2]] # Sepal length, Petal length
+y_iris = iris.target
+
+clf_tree = DecisionTreeClassifier(max_depth=3, random_state=42)
+clf_tree.fit(X_iris_2, y_iris)
+
+x_min, x_max = X_iris_2[:, 0].min() - 1, X_iris_2[:, 0].max() + 1
+y_min, y_max = X_iris_2[:, 1].min() - 1, X_iris_2[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.05),
+                     np.arange(y_min, y_max, 0.05))
+Z = clf_tree.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+plt.figure(figsize=(10, 6))
+plt.contourf(xx, yy, Z, alpha=0.3, cmap='viridis')
+scatter = plt.scatter(X_iris_2[:, 0], X_iris_2[:, 1], c=y_iris, alpha=0.8, edgecolors='k', cmap='viridis')
+plt.xlabel('Sepal Length')
+plt.ylabel('Petal Length')
+plt.title('Decision Tree Boundaries (Depth=3)', fontweight='bold')
+plt.legend(handles=scatter.legend_elements()[0], labels=['Setosa', 'Versicolor', 'Virginica'])
+plt.tight_layout()
+plt.savefig('module 14/images/dt_boundaries_iris.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: dt_boundaries_iris.png")
+
+# 4. Feature Importance
+importances = clf_tree.feature_importances_
+# Only used 2 features
+feat_names = ['Sepal Length', 'Petal Length'] # Matches indices [0, 2]
+plt.figure(figsize=(8, 5))
+plt.bar(feat_names, importances, color=['skyblue', 'lightgreen'], edgecolor='k')
+plt.title('Feature Importance (Iris Subset)', fontweight='bold')
+plt.ylabel('Importance Score')
+plt.grid(True, axis='y', alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 14/images/feature_importance.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: feature_importance.png")
+
+plt.close()
+print("Created: feature_importance.png")
+
+# 5. Tree Structure Visualization
+# Visualize the actual tree structure for Iris
+from sklearn.tree import plot_tree
+plt.figure(figsize=(20, 10))
+# Train a slightly deeper tree for visualization
+clf_tree_viz = DecisionTreeClassifier(max_depth=3, random_state=42)
+clf_tree_viz.fit(iris.data, iris.target)
+plot_tree(clf_tree_viz, feature_names=iris.feature_names, class_names=iris.target_names, 
+          filled=True, rounded=True, fontsize=12)
+plt.title('Decision Tree Structure (Iris Dataset)', fontweight='bold', fontsize=16)
+plt.tight_layout()
+plt.savefig('module 14/images/tree_structure_viz.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: tree_structure_viz.png")
+
+print("\nModule 14 complete: 5 visualizations created\n")
+print("Created: breast_cancer_viz.png")
+
+# 9. OVO vs OVR Conceptual Visualization
+from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
+from sklearn.svm import SVC # SVC exposes decision boundaries nicely for OVO/OVR illustration
+# We use SVC linear because it makes the separation very clear for educational purposes
+
+X_dummy, y_dummy = make_classification(n_samples=100, n_features=2, n_redundant=0, 
+                                       n_informative=2, n_clusters_per_class=1, 
+                                       n_classes=3, class_sep=2.0, random_state=42)
+
+# OVR
+clf_ovr = OneVsRestClassifier(SVC(kernel='linear', probability=True))
+clf_ovr.fit(X_dummy, y_dummy)
+
+# OVO
+clf_ovo = OneVsOneClassifier(SVC(kernel='linear', probability=True))
+clf_ovo.fit(X_dummy, y_dummy)
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# Plotting function
+def plot_boundaries_conceptual(ax, clf, title, X, y):
+    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
+                         np.arange(y_min, y_max, 0.02))
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    
+    ax.contourf(xx, yy, Z, alpha=0.3, cmap='viridis')
+    scatter = ax.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='viridis', edgecolors='k')
+    ax.set_title(title, fontweight='bold', fontsize=14)
+    ax.set_xlabel('Feature 1')
+    ax.set_ylabel('Feature 2')
+    return scatter
+
+# OVR Plot
+_ = plot_boundaries_conceptual(axes[0], clf_ovr, 'One-vs-Rest (OVR)\nK Classifiers (Red vs Rest, etc.)', X_dummy, y_dummy)
+# OVO Plot
+scatter = plot_boundaries_conceptual(axes[1], clf_ovo, 'One-vs-One (OVO)\nK(K-1)/2 Classifiers (Red vs Blue, etc.)', X_dummy, y_dummy)
+
+# Legend
+handles, labels = scatter.legend_elements() if 'scatter' in locals() else ([], []) # Safe fallback
+# Manually creating legend for classes 0, 1, 2
+from matplotlib.patches import Patch
+legend_elements = [Patch(facecolor=plt.cm.viridis(0.0), label='Class 0'),
+                   Patch(facecolor=plt.cm.viridis(0.5), label='Class 1'),
+                   Patch(facecolor=plt.cm.viridis(1.0), label='Class 2')]
+axes[1].legend(handles=legend_elements, loc='upper right')
+
+plt.tight_layout()
+plt.savefig('module 13/images/ovo_vs_ovr.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: ovo_vs_ovr.png")
+
+# 10. Log Loss Function Concept
+p = np.linspace(0.001, 0.999, 100)
+cost_y1 = -np.log(p)
+cost_y0 = -np.log(1 - p)
+
+plt.figure(figsize=(10, 6))
+plt.plot(p, cost_y1, 'b-', linewidth=3, label='y = 1 (Cost = -log(p))')
+plt.plot(p, cost_y0, 'r-', linewidth=3, label='y = 0 (Cost = -log(1-p))')
+plt.xlabel('Predicted Probability (p)', fontsize=12)
+plt.ylabel('Cost (Loss)', fontsize=12)
+plt.title('Log Loss (Binary Cross-Entropy) Function', fontweight='bold', fontsize=15)
+plt.legend(fontsize=12)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('module 13/images/log_loss_concept.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: log_loss_concept.png")
+
+# 11. Odds vs Probability vs Log-Odds
+probs = np.linspace(0.01, 0.99, 100)
+odds = probs / (1 - probs)
+log_odds = np.log(odds)
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# Plot 1: Probability vs Odds
+axes[0].plot(probs, odds, 'purple', linewidth=3)
+axes[0].set_xlabel('Probability (p)')
+axes[0].set_ylabel('Odds')
+axes[0].set_title('Odds vs Probability\n(Exponential Growth)', fontweight='bold')
+axes[0].grid(True, alpha=0.3)
+axes[0].set_ylim(0, 20) # Limit y-axis to see the curve better usually odds explode
+axes[0].axvline(0.5, color='gray', linestyle='--')
+axes[0].text(0.55, 10, 'p=0.5 -> Odds=1', fontsize=10)
+
+# Plot 2: Probability vs Log-Odds (Sigmoid Inverse)
+axes[1].plot(log_odds, probs, 'green', linewidth=3)
+axes[1].set_xlabel('Log-Odds (Logit)')
+axes[1].set_ylabel('Probability (p)')
+axes[1].set_title('Probability vs Log-Odds\n(The Sigmoid)', fontweight='bold')
+axes[1].grid(True, alpha=0.3)
+axes[1].axvline(0, color='gray', linestyle='--')
+axes[1].axhline(0.5, color='gray', linestyle='--')
+axes[1].text(0.5, 0.4, 'Log-Odds=0 -> p=0.5', fontsize=10)
+
+plt.tight_layout()
+plt.savefig('module 13/images/odds_visualization.png', dpi=300, bbox_inches='tight')
+plt.close()
+print("Created: odds_visualization.png")
+
+print("\nModule 13 complete: 11 visualizations created\n")

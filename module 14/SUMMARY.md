@@ -131,6 +131,39 @@ $$ \text{Importance}(f) = \frac{\sum_{\text{node splits on } f} (\text{samples a
 
 In scikit-learn, feature importances are automatically normalized to sum to 1.
 
+### 8. Manual Tree Building Example
+**Scenario:** Predict if a person plays Tennis based on Weather.
+*   **Data:** 14 Days.
+    *   9 "Yes" (Play)
+    *   5 "No" (Don't Play)
+*   **Initial Entropy ($H_{parent}$):**
+    $$ H(D) = - (\frac{9}{14} \log_2 \frac{9}{14} + \frac{5}{14} \log_2 \frac{5}{14}) = 0.940 $$
+
+**Step 1: Evaluate "Outlook" Feature**
+*   **Sunny (5 days):** 2 Yes, 3 No. $\rightarrow H(Sunny) = 0.971$
+*   **Overcast (4 days):** 4 Yes, 0 No. $\rightarrow H(Overcast) = 0.0$ (Pure node!)
+*   **Rain (5 days):** 3 Yes, 2 No. $\rightarrow H(Rain) = 0.971$
+
+**Weighted Entropy ($H_{child}$):**
+$$ H(Outlook) = \frac{5}{14}(0.971) + \frac{4}{14}(0.0) + \frac{5}{14}(0.971) = 0.693 $$
+
+**Information Gain ($IG$):**
+$$ IG(Outlook) = 0.940 - 0.693 = 0.247 $$
+
+Repeat for Humidity, Wind, Temp. Select feature with **highest IG** (likely Outlook) as the root.
+
+### 9. Visualizing Overfitting
+Decision Trees are prone to overfitting if not pruned. The plot below shows how Training Accuracy continues to rise with Depth, while Test Accuracy peaks and then drops (divergence).
+
+![Overfitting Depth vs Accuracy](images/overfitting_depth.png)
+
+### 10. Comparing Impurity Measures
+Gini (Red) and Scaled Entropy (Green) are nearly identical in shape.
+*   **Gini:** Max 0.5 (Binary).
+*   **Entropy:** Max 1.0 (Binary).
+
+![Gini vs Entropy](images/gini_vs_entropy.png)
+
 ## Hyperparameters
 
 Decision Trees have many hyperparameters that control tree structure and prevent overfitting:
@@ -322,7 +355,7 @@ print(f"Best Alpha (1-SE Rule): {best_alpha_1se:.5f}")
 
 ### 4. Feature Importance Visualization
 
-![Feature Importance](images/imp1.png)
+![Feature Importance](images/feature_importance.png)
 *Figure 1: Feature importance showing which features contribute most to the decision tree's predictions.*
 
 ```python
@@ -353,8 +386,8 @@ print(importance_df)
 
 ### 5. Decision Boundary Visualization
 
-![Decision Boundary](images/dt_boundaries.png)
-*Figure 2: Decision boundaries showing how the tree partitions the feature space with different depths.*
+![Decision Boundary](images/dt_boundaries_iris.png)
+*Figure 2: Decision boundaries showing how the tree partitions the feature space.*
 
 ```python
 from matplotlib.colors import ListedColormap
@@ -393,7 +426,7 @@ for depth in [1, 3, 5]:
 
 ### 6. Export Tree Structure
 
-![Tree Structure](images/tree1.png)
+![Tree Structure](images/tree_structure_viz.png)
 *Figure 3: Visual representation of a decision tree structure showing splits and leaf nodes.*
 
 ```python

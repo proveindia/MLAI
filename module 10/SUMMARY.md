@@ -21,14 +21,14 @@ A time series is **stationary** if its statistical properties (mean, variance, a
     *   **Log Transformation:** Stabilizes variance (straightens out exponential growth).
     *   **Differencing:** Removes trends by subtracting the previous value ($y_t - y_{t-1}$).
 
-### 2. Stationarity vs. Independence (Crucial Distinction)
+### 3. Stationarity vs. Independence (Crucial Distinction)
 *   **Stationarity:** The *rules* (statistical properties) don't change over time, but the data points are highly **dependent** on each other (today depends on yesterday).
 *   **Independence:** Data points are completely unrelated (like flipping a coin).
 *   **Goal of TSA:** We model the *dependency* (signal) so that what's left over (residuals) is *independent* (noise).
     *   *Raw Data:* Stationary but Dependent.
     *   *Residuals:* Stationary and Independent (White Noise).
 
-### 3. Time Series Decomposition
+### 4. Time Series Decomposition
 Breaking a series into its constituent parts to understand it better:
 
 ![Time Series Decomposition](images/ts_decomposition_visual.png)
@@ -39,13 +39,13 @@ Breaking a series into its constituent parts to understand it better:
     *   **Seasonality**: Repeating short-term cycle.
     *   **Residue (Noise)**: The random variation left over.
 
-### 2. AR vs MA Models
+### 5. AR vs MA Models
 *   **AR (AutoRegressive):** "Regressing on itself." Current value depends on its own past values. Like momentum.
     *   *Analogy:* If it was hot yesterday, it will likely be hot today.
 *   **MA (Moving Average):** "Regressing on past errors." Current value depends on past forecast shocks/errors. Like a correction mechanism.
     *   *Analogy:* If I made a huge mistake yesterday, I will adjust today to compensate.
 
-### 3. Autocorrelation (ACF & PACF)
+### 6. Autocorrelation (ACF & PACF)
 *   **ACF (Autocorrelation Function):** Correlation between $y_t$ and its lags ($y_{t-1}, y_{t-2}, ...$). Shows direct and indirect effects.
 *   **PACF (Partial Autocorrelation Function):** Direct correlation between $y_t$ and a lag, removing the influence of intermediate lags. Crucial for determining AR terms.
 
@@ -81,7 +81,27 @@ Combines AR, Integration (Differencing), and MA. Notation: **ARIMA(p, d, q)**.
 *   **$d$**: Degree of Differencing (to make stationary).
 *   **$q$**: Moving Average order (Errors).
 
-### 5. Error Metrics (Evaluation)
+### 5. SARIMA (Seasonal ARIMA)
+When seasonality exists (e.g., repeating cycles every 12 months), plain ARIMA struggles. SARIMA adds seasonal parameters.
+
+**Notation:** $ARIMA(p, d, q) \times (P, D, Q)_s$
+*   **$(p, d, q)$**: Non-seasonal orders.
+*   **$(P, D, Q)$**: Seasonal orders (applied to seasonal lags).
+*   **$s$**: Seasonality period (e.g., 12 for monthly, 4 for quarterly).
+
+**Key parameters:**
+*   **$P$**: Seasonal Autoregressive order.
+*   **$D$**: Seasonal Differencing order (e.g., $y_t - y_{t-12}$).
+*   **$D$**: Seasonal Differencing order (e.g., $y_t - y_{t-12}$).
+*   **$Q$**: Seasonal Moving Average order.
+
+### 6. SARIMAX (Exogenous Regressors)
+Extends SARIMA by adding external variables ($X$) that might influence the target.
+*   **$X$**: Exogenous variables (e.g., Temperature, Holiday, Ad Spend).
+*   **Use Case:** When past values of $y$ aren't enough, and external factors drive the trend.
+*   **Usage:** In `statsmodels`, pass the external data to the `exog` parameter.
+
+### 7. Error Metrics (Evaluation)
 *   **MAE (Mean Absolute Error):** Average magnitude of errors.
 
 $$ \text{MAE} = \frac{1}{n} \sum |y_i - \hat{y}_i| $$
@@ -104,6 +124,7 @@ import matplotlib.pyplot as plt
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from sklearn.metrics import mean_squared_error
 ```
@@ -166,7 +187,7 @@ df_diff = df.diff().dropna()
 check_stationarity(df_diff)
 ```
 
-### 4. The Forecasting Problem
+### 3. The Forecasting Problem
 *   **Goal:** Predict future values ($y_{t+1}, y_{t+2}$) based on historical data ($y_t, y_{t-1}$).
 *   **Interpretation & Uncertainty:**
     *   A forecast is never a single number; it's a **probability distribution**.
@@ -175,7 +196,7 @@ check_stationarity(df_diff)
 
 ![Forecasting Uncertainty](images/forecasting_uncertainty.png)
 
-### 5. ARMA Model Selection & Invertibility
+### 4. ARMA Model Selection & Invertibility
 *   **Stationarity:** Required for AR models (roots of characteristic equation outside unit circle).
 *   **Invertibility:** Required for MA models (to express MA as an infinite AR process). Ensures unique model representation.
 *   **Order Selection (Rule of Thumb):**
@@ -183,7 +204,7 @@ check_stationarity(df_diff)
     *   **MA(q):** ACF cuts off at lag $q$, PACF decays gradually.
     *   **ARMA(p,q):** Both decay gradually (feature of mixed models).
 
-### 3. ARIMA Forecasting
+### 5. ARIMA, SARIMA, and SARIMAX Forecasting
 Building a model to predict future values.
 
 ## Forecasting Workflow
@@ -208,6 +229,13 @@ test = df.iloc[-12:]  # Test on last year
 # Build Model (Order: p=1, d=1, q=1 is simpler example)
 # In practice, use ACF/PACF plots to determine p and q
 model = ARIMA(train, order=(1, 1, 1)) 
+
+# For SARIMA (add seasonal_order)
+# model = SARIMAX(train, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
+
+# For SARIMAX (add exog data)
+# model = SARIMAX(train, order=(1, 1, 1), exog=train[['temperature', 'holiday']])
+
 model_fit = model.fit()
 
 # Forecast
@@ -230,7 +258,7 @@ plt.legend()
 plt.show()
 ```
 
-### 4. Diagnosing Models with ACF/PACF
+### 6. Diagnosing Models with ACF/PACF
 Helping to choose the right $p$ and $q$ for ARIMA.
 
 ```python
@@ -242,3 +270,24 @@ plt.show()
 ```
 *   **ACF cuts off after lag q:** Suggests MA(q) process.
 *   **PACF cuts off after lag p:** Suggests AR(p) process.
+
+### 7. Real-World Example: Air Passengers (Trend + Seasonality)
+This classic dataset shows monthly totals of international airline passengers (1949-1960). It clearly demonstrates **Trend** (increasing travel) and **Seasonality** (summer peaks).
+
+```python
+import statsmodels.api as sm
+
+# Load dataset (built-in)
+dta = sm.datasets.get_rdataset("AirPassengers").data
+dta['time'] = pd.date_range(start='1949-01-01', periods=len(dta), freq='MS')
+dta.set_index('time', inplace=True)
+ts = dta['value']
+
+# Plot Decomposition
+res = seasonal_decompose(ts, model='multiplicative')
+res.plot()
+plt.show()
+```
+
+![Air Passengers Decomposition](images/air_passengers_analysis.png)
+*Figure: Decomposition of Air Passengers data showing clear trend and seasonality.*

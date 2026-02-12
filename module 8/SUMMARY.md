@@ -43,9 +43,14 @@ A simple linear model ($y = \theta_0 + \theta_1 x$) produces a straight line. It
 Linear models can fit nonlinear data by transforming features. A "linear model" refers to linearity in parameters ($\theta$), not necessarily features ($x$).
 *   **Polynomial Features:** Generating powers ($x^2, x^3$) and interactions ($x_1 \cdot x_2$) to capture curves.
 
-![Polynomial Regression Fit](images/polynomial_regression_fit.png)
+### 4. Example Dataset: Auto MPG
+A classic regression dataset.
+*   **Goal:** Predict fuel efficiency (MPG) based on vehicle specs like Horsepower, Weight, etc.
+*   **Concept:** The relationship between Horsepower and MPG is not a straight line (diminishing returns). A simple Linear fit (Red dashed line) underfits. A Polynomial fit (Blue solid line) captures the curve accurately.
 
-### 4. Numerical Transformations
+![Auto MPG Polynomial Fit](images/auto_mpg_poly.png)
+
+### 5. Numerical Transformations
 *   **Scaling:** Adjusting range (MinMax) or distribution (StandardScaler).
 *   **Interaction Terms:** Creating new features by multiplying existing ones.
 
